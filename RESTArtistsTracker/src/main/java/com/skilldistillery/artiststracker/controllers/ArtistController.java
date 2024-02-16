@@ -38,7 +38,7 @@ public class ArtistController {
 		}
 		return artist;
 	}
-	
+
 //	@GetMapping(path = "artists/{name}")
 //	public List<Artist> showArtistByName(@PathVariable("name") String name, HttpServletResponse req) {
 //		List<Artist> artists = artistService.getArtistByName(name);
@@ -59,7 +59,7 @@ public class ArtistController {
 
 	@PostMapping(path = "artists")
 	public Artist createPost(@RequestBody Artist artist, HttpServletResponse res, HttpServletRequest req) {
-		artist = artistService.createArtist(artist);
+		artist = artistService.create(artist);
 		try {
 			if (artist != null) {
 				res.setStatus(201);
@@ -78,7 +78,7 @@ public class ArtistController {
 	public Artist updateArtist(@PathVariable("id") Integer id, @RequestBody Artist artist, HttpServletResponse res,
 			HttpServletRequest req) {
 		try {
-			artist = artistService.updateArtist(id, artist);
+			artist = artistService.update(id, artist);
 			if (artist == null) {
 				res.setStatus(404);
 			}
@@ -94,7 +94,7 @@ public class ArtistController {
 	@DeleteMapping(path = "artists/{id}")
 	public void deletePost(@PathVariable("id") Integer id, HttpServletResponse req) {
 		try {
-			if (artistService.deleteArtist(id)) {
+			if (artistService.delete(id)) {
 				req.setStatus(204);
 			} else {
 				req.setStatus(404);
@@ -105,9 +105,10 @@ public class ArtistController {
 		}
 	}
 
-	@GetMapping(path = "artists/search/{keyword}{keyword2}")
-	public List<Artist> show(@PathVariable("keyword") String keyword, @PathVariable("keyword2") String keyword2,  HttpServletResponse req) {
-		List<Artist> posts = artistService.keywordSearch(keyword, keyword2);
+	@GetMapping(path = "artists/search/{keyword}")
+	public List<Artist> show(@PathVariable("keyword") String keyword,
+			HttpServletResponse req) {
+		List<Artist> posts = artistService.keywordSearch(keyword);
 		return posts;
 	}
 

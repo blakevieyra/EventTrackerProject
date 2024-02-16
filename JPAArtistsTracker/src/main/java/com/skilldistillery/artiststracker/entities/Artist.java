@@ -1,12 +1,15 @@
 package com.skilldistillery.artiststracker.entities;
 
+import java.util.List;
 import java.util.Objects;
 
-import jakarta.persistence.Column;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Artist {
@@ -20,8 +23,9 @@ public class Artist {
 
 	private String name;
 
-	@Column(name="title")
-	private String song;
+	@JsonIgnore
+	@OneToMany(mappedBy = "artist")
+	private List<Song> songs;
 
 	public int getId() {
 		return id;
@@ -39,6 +43,13 @@ public class Artist {
 		this.name = name;
 	}
 
+	public List<Song> getSongs() {
+		return songs;
+	}
+
+	public void setSongs(List<Song> songs) {
+		this.songs = songs;
+	}
 
 	@Override
 	public int hashCode() {
@@ -57,17 +68,9 @@ public class Artist {
 		return id == other.id;
 	}
 
-	public String getSong() {
-		return song;
-	}
-
-	public void setSong(String song) {
-		this.song = song;
-	}
-
 	@Override
 	public String toString() {
-		return "Artist [id=" + id + ", name=" + name + ", song=" + song + "]";
+		return "Artist [id=" + id + ", name=" + name + ", songs=" + songs + "]";
 	}
 
 }

@@ -12,14 +12,14 @@ public interface ArtistService {
 
 	List<Artist> getArtistByName(String name);
 
-	List<Artist> getArtistBySong(String name);
+//	List<Artist> getArtistBySong(String name);
 
-	List<Artist> keywordSearch(String keyword, String keyword2);
+	List<Artist> keywordSearch(String keyword);
 	
-	Artist createArtist(Artist artist);
+	Artist create(Artist artist);
 	
-	Artist updateArtist(int id, Artist artist);
+	Artist update(int id, Artist artist);
 	
-	boolean deleteArtist(int id);
+	boolean delete(int id);
 
 }

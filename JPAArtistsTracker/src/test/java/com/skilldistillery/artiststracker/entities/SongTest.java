@@ -2,7 +2,6 @@ package com.skilldistillery.artiststracker.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -14,11 +13,11 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
-class ArtistTest {
+class SongTest {
 	
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Artist artist;
+	private Song song;
 
 	
 	@BeforeAll
@@ -34,27 +33,25 @@ class ArtistTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		artist = em.find(Artist.class, 1);
+		song = em.find(Song.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		artist = null;
+		song = null;
 	}
 
 	@Test
-	void test_Artist_Has_Name() {
-		assertNotNull(artist);
-		assertEquals("Blake Vieyra", artist.getName());
-		
+	void test_Song_Has_Name() {
+		assertNotNull(song);
+		assertEquals("test", song.getName());
 	}
 	
 	@Test
-	void test_Artist_Has_Song() {
-		assertNotNull(artist);
-		assertTrue(artist.getSongs().size() > 0);
-		
+	void test_Song_Has_Artist() {
+		assertNotNull(song);
+		assertEquals("Blake Vieyra", song.getArtist().getName());
 	}
 
 }

@@ -10,7 +10,7 @@ import com.skilldistillery.artiststracker.repositories.ArtistRepository;
 
 @Service
 public class ArtistServiceImpl implements ArtistService {
-	
+
 	@Autowired
 	private ArtistRepository artistRepo;
 
@@ -29,39 +29,39 @@ public class ArtistServiceImpl implements ArtistService {
 		return artistRepo.findByName(name);
 	}
 
+//	@Override
+//	public List<Artist> getArtistBySong(String name) {
+//		return artistRepo.findBySongs(name);
+//	}
+
 	@Override
-	public List<Artist> getArtistBySong(String name) {
-		return artistRepo.findBySong(name);
+	public List<Artist> keywordSearch(String keyword) {
+		keyword = "%" + keyword + "%";
+		return artistRepo.findByNameLike(keyword);
 	}
 
 	@Override
-	public List<Artist> keywordSearch(String keyword, String keyword2) {
-		return artistRepo.findByNameLikeOrSongLike(keyword, keyword2);
-	}
-
-	@Override
-	public Artist createArtist(Artist artist) {
+	public Artist create(Artist artist) {
 		return artistRepo.saveAndFlush(artist);
 	}
-	
+
 	@Override
-	public boolean deleteArtist(int id) {
+	public boolean delete(int id) {
 		boolean deleted = false;
-		if (artistRepo.existsById(id)) {
-			artistRepo.deleteById(id);
+		artistRepo.deleteById(id);
+		if (!artistRepo.existsById(id)) {
 			deleted = true;
 		}
 		return deleted;
 	}
 
 	@Override
-	public Artist updateArtist(int id, Artist artist) {
+	public Artist update(int id, Artist artist) {
 		Artist foundArtist = findArtistById(id);
 		if (foundArtist != null) {
 			foundArtist.setName(artist.getName());
-			foundArtist.setSong(artist.getSong());
 			return artistRepo.saveAndFlush(artist);
-		}		
+		}
 		return artist;
 	}
 }

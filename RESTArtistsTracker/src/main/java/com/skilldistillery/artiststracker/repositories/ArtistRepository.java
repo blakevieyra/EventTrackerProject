@@ -14,12 +14,10 @@ public interface ArtistRepository extends JpaRepository<Artist, Integer> {
 	
 	boolean existsById(int id); 
 	
-	boolean	deleteById(int id);
+	boolean deleteById(int id);
 
 	List<Artist> findByName(String name);
 	
-	List<Artist> findBySong(String song);
-
-	List<Artist> findByNameLikeOrSongLike(String keyword, String keyword2);
+	List<Artist> findByNameLike(String keyword);
 
 }
