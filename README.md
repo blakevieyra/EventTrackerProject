@@ -5,7 +5,7 @@
 
 # Description:
 
-- The JPAArtistsTracker project allows the user to retrieve music artists from a database, apply CRUD operations to the artists in the database, as well as retrieve songs from the individual artists. The user can then apply CRUD operations to the songs as well for the individual artists. The user can keyword search an artist by name as well as a keyword search for songs of the artists, which retrieves a match using the title, genre, or album name of the artist's song.
+- The JPAArtistsTracker project allows the user to retrieve music artists from a database, apply CRUD operations to the artists in the database, as well as retrieve songs from the individual artists. The user can then apply CRUD operations to the songs as well for the individual artists. The user can keyword search an artist by their name or their band as well as a keyword search the songs of the artists. This will retrieve a match using the title, genre, or album name of the artist's song.
   
 - Deployed AWS EC2 Link: http://18.224.81.89:8080/JPAArtistTracker
 
