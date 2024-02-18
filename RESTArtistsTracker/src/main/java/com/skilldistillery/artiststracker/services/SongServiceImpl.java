@@ -38,19 +38,36 @@ public class SongServiceImpl implements SongService {
 		}
 		return null;
 	}
+	
+	@Override
+	public Song update(int artistId, int songId, Song song) {
+		Song foundSong = songRepo.findByArtist_IdAndId(artistId, songId);
+		if (foundSong != null) {
+			foundSong.setName(song.getName());
+			foundSong.setLength(song.getLength());
+			foundSong.setArtist(song.getArtist());
+			foundSong.setGenre(song.getGenre());
+			foundSong.setAlbum(song.getAlbum());
+			return songRepo.saveAndFlush(foundSong);
+		}
+		return foundSong;
+	}
 
 	@Override
-	public boolean deleteSong(int artistId, int songId) {
-		boolean deleted = false;
-		if (songRepo.existsByIdAndArtist_Id(artistId, songId)) {
-			songRepo.deleteById(songId);
-			deleted = true;
+	public void deleteSong(int artistId, int songId) {
+			if (songRepo.existsByIdAndArtist_Id(songId, artistId)) {
+				songRepo.deleteById(songId);
+			}
 		}
-		return deleted;
-	}
 
 	@Override
 	public Song findSong(int artistId, int songId) {
 		return songRepo.findByArtist_IdAndId(artistId, songId);
+	}
+
+	@Override
+	public List<Song> keywordSearch(String keyword) {
+		keyword = "%" + keyword + "%";
+		return songRepo.findByNameLikeOrGenreLikeOrAlbumLike(keyword, keyword, keyword);
 	}
 }

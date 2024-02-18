@@ -20,6 +20,6 @@ public interface ArtistService {
 	
 	Artist update(int id, Artist artist);
 	
-	boolean delete(int id);
+	void delete(int id);
 
 }

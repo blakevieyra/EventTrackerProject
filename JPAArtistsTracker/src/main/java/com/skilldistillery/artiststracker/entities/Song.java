@@ -23,7 +23,7 @@ public class Song {
 	private String name;
 
 	@Column(name = "album_title")
-	private String title;
+	private String album;
 
 	private String genre;
 
@@ -42,12 +42,12 @@ public class Song {
 		this.id = id;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getAlbum() {
+		return album;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setAlbum(String album) {
+		this.album = album;
 	}
 
 	public String getName() {
@@ -101,7 +101,7 @@ public class Song {
 
 	@Override
 	public String toString() {
-		return "Song [id=" + id + ", name=" + name + ", title=" + title + ", genre=" + genre + ", length=" + length
+		return "Song [id=" + id + ", name=" + name + ", album=" + album + ", genre=" + genre + ", length=" + length
 				+ ", artist=" + artist + "]";
 	}
 

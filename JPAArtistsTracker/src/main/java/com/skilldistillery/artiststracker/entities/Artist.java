@@ -22,6 +22,8 @@ public class Artist {
 	private int id;
 
 	private String name;
+	
+	private String image;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "artist")
@@ -50,6 +52,14 @@ public class Artist {
 	public void setSongs(List<Song> songs) {
 		this.songs = songs;
 	}
+	
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
 
 	@Override
 	public int hashCode() {
@@ -72,5 +82,6 @@ public class Artist {
 	public String toString() {
 		return "Artist [id=" + id + ", name=" + name + ", songs=" + songs + "]";
 	}
+
 
 }

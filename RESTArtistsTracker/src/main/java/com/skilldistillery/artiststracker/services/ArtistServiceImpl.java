@@ -46,13 +46,10 @@ public class ArtistServiceImpl implements ArtistService {
 	}
 
 	@Override
-	public boolean delete(int id) {
-		boolean deleted = false;
-		artistRepo.deleteById(id);
-		if (!artistRepo.existsById(id)) {
-			deleted = true;
+	public void delete(int id) {
+		if (artistRepo.existsById(id)) {
+			artistRepo.deleteById(id);
 		}
-		return deleted;
 	}
 
 	@Override
@@ -60,8 +57,8 @@ public class ArtistServiceImpl implements ArtistService {
 		Artist foundArtist = findArtistById(id);
 		if (foundArtist != null) {
 			foundArtist.setName(artist.getName());
-			return artistRepo.saveAndFlush(artist);
+			return artistRepo.saveAndFlush(foundArtist);
 		}
-		return artist;
+		return foundArtist;
 	}
 }

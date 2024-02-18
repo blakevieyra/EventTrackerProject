@@ -31,10 +31,15 @@ public class ArtistController {
 	}
 
 	@GetMapping(path = "artists/{id}")
-	public Artist showArtistById(@PathVariable("id") Integer id, HttpServletResponse req) {
+	public Artist showArtistById(@PathVariable("id") Integer id, HttpServletResponse res) {
 		Artist artist = artistService.findArtistById(id);
-		if (artist == null) {
-			req.setStatus(404);
+		try {
+			if (artist == null) {
+				res.setStatus(404);
+			}
+		} catch (Exception e) {
+			res.setStatus(400);
+			e.printStackTrace();
 		}
 		return artist;
 	}
@@ -92,23 +97,30 @@ public class ArtistController {
 	}
 
 	@DeleteMapping(path = "artists/{id}")
-	public void deletePost(@PathVariable("id") Integer id, HttpServletResponse req) {
+	public void deletePost(@PathVariable("id") Integer id, HttpServletResponse res) {
+		artistService.delete(id);
 		try {
-			if (artistService.delete(id)) {
-				req.setStatus(204);
+			if (artistService.findArtistById(id) == null) {
+				res.setStatus(204);
 			} else {
-				req.setStatus(404);
+				res.setStatus(404);
 			}
 		} catch (Exception e) {
-			req.setStatus(400);
+			res.setStatus(400);
 			e.printStackTrace();
 		}
 	}
 
 	@GetMapping(path = "artists/search/{keyword}")
-	public List<Artist> show(@PathVariable("keyword") String keyword,
-			HttpServletResponse req) {
-		List<Artist> posts = artistService.keywordSearch(keyword);
+	public List<Artist> show(@PathVariable("keyword") String keyword, HttpServletResponse res) {
+		List<Artist> posts = null;
+		try {
+			posts = artistService.keywordSearch(keyword);
+		} catch (Exception e) {
+			res.setStatus(400);
+			e.printStackTrace();
+
+		}
 		return posts;
 	}
 

@@ -14,7 +14,7 @@ public interface ArtistRepository extends JpaRepository<Artist, Integer> {
 	
 	boolean existsById(int id); 
 	
-	boolean deleteById(int id);
+	void deleteById(int id);
 
 	List<Artist> findByName(String name);
 	
