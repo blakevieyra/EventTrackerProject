@@ -29,3 +29,8 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+war {
+  archiveFileName = "${archivesBaseName}.war"
+  destinationDirectory = file("../")     
+}
