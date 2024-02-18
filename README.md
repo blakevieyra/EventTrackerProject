@@ -5,7 +5,7 @@
 
 # Description:
 
-- JPAArtistsTracker project uses allows the user to retrieve music artists from a databases, apply CRUD operations to the artists in the database, as well as retrieve songs from the individual artists. The user can then apply CRUD operations to the songs as well for the individual artists. The user can keyword search an artist by name as well as keyword search for songs of the artists, which retrieves a match using the title, genre, or album name of artist's song.
+- JPAArtistsTracker project uses allows the user to retrieve music artists from a database, apply CRUD operations to the artists in the database, as well as retrieve songs from the individual artists. The user can then apply CRUD operations to the songs as well for the individual artists. The user can keyword search an artist by name as well as a keyword search for songs of the artists, which retrieves a match using the title, genre, or album name of the artist's song.
   
 - Deployed AWS EC2 Link: http://18.224.81.89:8080/JPAArtistTracker
 
@@ -32,8 +32,8 @@ Programming Languages:
 - Version Control: Git 2.32.1 (https://git-scm.com/)
 - Database Management: MySQL (version 5.7.39)
 - Build Tool: Gradle
-- Web Framework: Spring MVC
+- Web Framework: Spring MVC, JPA, Restful API
 
 # Lessons Learned:
 
-- How to use the restful API JPA repositories and properly separate concerns between the services, controllers, and the repos.
+- How to use the Restful API JPA repositories and properly separate concerns between the services, controllers, and the repos.
