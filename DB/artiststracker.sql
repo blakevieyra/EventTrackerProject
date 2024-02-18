@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS `artist` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   `image` VARCHAR(500) NULL DEFAULT 'default',
+  `band` VARCHAR(45) NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `id_UNIQUE` (`id` ASC))
 ENGINE = InnoDB;
@@ -67,8 +68,8 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `artiststrackerdb`;
-INSERT INTO `artist` (`id`, `name`, `image`) VALUES (1, 'Blake Vieyra', 'https://scontent-sjc3-1.xx.fbcdn.net/v/t39.30808-6/222375668_4262200293840400_9078625892677382172_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=9c7eae&_nc_ohc=A1ddm_je_k0AX_FHARL&_nc_ht=scontent-sjc3-1.xx&oh=00_AfDCU3tlr4us_iHryik8Je2MsP7KYDph6SkcGB4KEqydxw&oe=65D69986');
-INSERT INTO `artist` (`id`, `name`, `image`) VALUES (2, 'Ron McDonald', 'https://i.pinimg.com/564x/68/c2/35/68c235704d9e05cbcfc0e115f0580736.jpg');
+INSERT INTO `artist` (`id`, `name`, `image`, `band`) VALUES (1, 'Blake Vieyra', 'https://scontent-sjc3-1.xx.fbcdn.net/v/t39.30808-6/222375668_4262200293840400_9078625892677382172_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=9c7eae&_nc_ohc=A1ddm_je_k0AX_FHARL&_nc_ht=scontent-sjc3-1.xx&oh=00_AfDCU3tlr4us_iHryik8Je2MsP7KYDph6SkcGB4KEqydxw&oe=65D69986', 'Blake\'s Band');
+INSERT INTO `artist` (`id`, `name`, `image`, `band`) VALUES (2, 'Ron McDonald', 'https://i.pinimg.com/564x/68/c2/35/68c235704d9e05cbcfc0e115f0580736.jpg', 'McLovin');
 
 COMMIT;
 

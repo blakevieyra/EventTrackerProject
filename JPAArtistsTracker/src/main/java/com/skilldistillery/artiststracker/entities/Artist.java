@@ -22,7 +22,9 @@ public class Artist {
 	private int id;
 
 	private String name;
-	
+
+	private String band;
+
 	private String image;
 
 	@JsonIgnore
@@ -45,6 +47,14 @@ public class Artist {
 		this.name = name;
 	}
 
+	public String getBand() {
+		return band;
+	}
+
+	public void setBand(String band) {
+		this.band = band;
+	}
+
 	public List<Song> getSongs() {
 		return songs;
 	}
@@ -52,7 +62,7 @@ public class Artist {
 	public void setSongs(List<Song> songs) {
 		this.songs = songs;
 	}
-	
+
 	public String getImage() {
 		return image;
 	}
@@ -80,8 +90,7 @@ public class Artist {
 
 	@Override
 	public String toString() {
-		return "Artist [id=" + id + ", name=" + name + ", songs=" + songs + "]";
+		return "Artist [id=" + id + ", name=" + name + ", band=" + band + ", image=" + image + ", songs=" + songs + "]";
 	}
-
 
 }

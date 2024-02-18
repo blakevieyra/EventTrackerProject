@@ -14,12 +14,11 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
 class SongTest {
-	
+
 	private static EntityManagerFactory emf;
 	private EntityManager em;
 	private Song song;
 
-	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 		emf = Persistence.createEntityManagerFactory("JPAArtistsTracker");
@@ -47,11 +46,23 @@ class SongTest {
 		assertNotNull(song);
 		assertEquals("test", song.getName());
 	}
-	
+
 	@Test
 	void test_Song_Has_Artist() {
 		assertNotNull(song);
 		assertEquals("Blake Vieyra", song.getArtist().getName());
+	}
+
+	@Test
+	void test_Song_Has_Album() {
+		assertNotNull(song);
+		assertEquals("test", song.getAlbum());
+	}
+
+	@Test
+	void test_Song_Has_Genre() {
+		assertNotNull(song);
+		assertEquals("rock", song.getGenre());
 	}
 
 }

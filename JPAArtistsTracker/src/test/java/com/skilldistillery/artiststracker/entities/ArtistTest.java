@@ -50,18 +50,16 @@ class ArtistTest {
 		
 	}
 	
-	
 	@Test
-	void test_Artist_Has_Image() {
+	void test_Artist_Has_Band() {
 		assertNotNull(artist);
-		assertEquals("resources/images/blakevieyra.jpeg", artist.getImage());
+		assertEquals("Blake's Band", artist.getBand());	
 	}
 	
 	@Test
 	void test_Artist_Has_Song() {
 		assertNotNull(artist);
-		assertTrue(artist.getSongs().size() > 0);
-		
+		assertTrue(artist.getSongs().size() > 0);	
 	}
 
 }

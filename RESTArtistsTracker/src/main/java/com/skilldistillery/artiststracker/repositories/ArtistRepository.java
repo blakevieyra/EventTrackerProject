@@ -18,6 +18,6 @@ public interface ArtistRepository extends JpaRepository<Artist, Integer> {
 
 	List<Artist> findByName(String name);
 	
-	List<Artist> findByNameLike(String keyword);
+	List<Artist> findByNameLikeOrBandLike(String keyword1, String keyword2);
 
 }

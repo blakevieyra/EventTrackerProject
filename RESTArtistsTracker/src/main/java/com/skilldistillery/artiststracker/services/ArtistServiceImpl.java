@@ -37,7 +37,7 @@ public class ArtistServiceImpl implements ArtistService {
 	@Override
 	public List<Artist> keywordSearch(String keyword) {
 		keyword = "%" + keyword + "%";
-		return artistRepo.findByNameLike(keyword);
+		return artistRepo.findByNameLikeOrBandLike(keyword, keyword);
 	}
 
 	@Override
