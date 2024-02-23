@@ -5,7 +5,7 @@ import java.util.List;
 import com.skilldistillery.artiststracker.entities.Artist;
 
 public interface ArtistService {
-	
+		
 	List<Artist> index();
 	
 	Artist findArtistById(int id);
@@ -21,5 +21,7 @@ public interface ArtistService {
 	Artist update(int id, Artist artist);
 	
 	void delete(int id);
+
+	<OkHttpClient> void populateArtist();
 
 }

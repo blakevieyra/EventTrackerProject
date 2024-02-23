@@ -5,6 +5,11 @@ plugins {
 	id 'io.spring.dependency-management' version '1.1.4'
 }
 
+war {
+  archiveFileName = "${archivesBaseName}.war"
+  destinationDirectory = file("../")     
+}
+
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
 
@@ -30,7 +35,4 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
-war {
-  archiveFileName = "${archivesBaseName}.war"
-  destinationDirectory = file("../")     
-}
+

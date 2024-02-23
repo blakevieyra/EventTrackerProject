@@ -2,11 +2,14 @@ package com.skilldistillery.artiststracker.services;
 
 import java.util.List;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.artiststracker.entities.Artist;
 import com.skilldistillery.artiststracker.repositories.ArtistRepository;
+
+import jakarta.security.auth.message.callback.PrivateKeyCallback.Request;
 
 @Service
 public class ArtistServiceImpl implements ArtistService {
@@ -60,5 +63,19 @@ public class ArtistServiceImpl implements ArtistService {
 			return artistRepo.saveAndFlush(foundArtist);
 		}
 		return foundArtist;
+	}
+
+	@Override
+	public <OkHttpClient> void populateArtist() {
+//		OkHttpClient client = new OkHttpClient();
+//
+//		Request request = new Request.Builder()
+//			.url("https://deezerdevs-deezer.p.rapidapi.com/infos")
+//			.get()
+//			.addHeader("X-RapidAPI-Key", "c85e2ae41bmshc5dcb4c9dfbd0f3p15e336jsnc09d9a0c8b64")
+//			.addHeader("X-RapidAPI-Host", "deezerdevs-deezer.p.rapidapi.com")
+//			.build();
+//
+//		Response response = client.newCall(request).execute();	
 	}
 }
