@@ -89,6 +89,8 @@ function getArtistById(artistId) {
 			if (xhr.status === 200) {
 				let artist = JSON.parse(xhr.responseText);
 				console.log(artist);
+				let tbody = document.getElementById('songTable');
+				tbody.textContent = '';
 				displayArtists(artist);
 			} else {
 				let doc = document.getElementById('artistsTable');
@@ -306,6 +308,7 @@ function getSongs(artist) {
 }
 
 function displaySongs(artist, songs) {
+	
 	let tbody = document.getElementById('songTable');
 	tbody.textContent = '';
 
@@ -334,7 +337,7 @@ function displaySongs(artist, songs) {
 			delBtn.textContent = "Delete";
 			delBtn.classList.add('btn');
 			delBtn.addEventListener("click", function(e) {
-				deleteSong(artist.id, song);
+				deleteSong(artist, song);
 			});
 			td.appendChild(delBtn);
 			tr.appendChild(td);
@@ -344,19 +347,19 @@ function displaySongs(artist, songs) {
 	} else {
 		let tr = document.createElement('tr');
 		let td = document.createElement('td');
-		//td.textContent = songs.name;
+		td.textContent = songs.name;
 		tr.appendChild(td);
 
 		td = document.createElement('td');
-		//td.textContent = songs.genre;
+		td.textContent = songs.genre;
 		tr.appendChild(td);
 
 		td = document.createElement('td');
-		//td.textContent = songs.album;
+		td.textContent = songs.album;
 		tr.appendChild(td);
 
 		td = document.createElement('td');
-		//td.textContent = songs.length;
+		td.textContent = songs.length;
 		tr.appendChild(td);
 
 		td = document.createElement('td');
@@ -382,6 +385,8 @@ function getArtistByKeyword(keyword) {
 			if (xhr.status === 200) {
 				let artists = JSON.parse(xhr.responseText);
 				console.log(artists);
+				let tbody = document.getElementById('songTable');
+				tbody.textContent = '';
 				displayArtists(artists);
 			} else {
 				let doc = document.getElementById('artistsTable');
@@ -402,6 +407,8 @@ function getSongsByKeyword(keyword) {
 			if (xhr.status === 200) {
 				let songs = JSON.parse(xhr.responseText);
 				console.log(songs);
+				let tbody = document.getElementById('songTable');
+				tbody.textContent = '';
 				displaySongs(songs);
 			} else {
 				let doc = document.getElementById('artistsTable');
@@ -421,6 +428,8 @@ function getSongsByKeyword(keyword) {
 			if (xhr.status === 200) {
 				let songs = JSON.parse(xhr.responseText);
 				console.log(songs);
+				let tbody = document.getElementById('songTable');
+				tbody.textContent = '';
 				displaySearchedSongs(songs);
 			} else {
 				let doc = document.getElementById('artistsTable');
@@ -434,6 +443,9 @@ function getSongsByKeyword(keyword) {
 }
 
 function displaySearchedSongs(songs) {
+	let tbody1 = document.getElementById('artistsTable');
+	tbody1.textContent = '';
+	
 	let tbody = document.getElementById('songTable');
 	tbody.textContent = '';
 
@@ -462,7 +474,7 @@ function displaySearchedSongs(songs) {
 			delBtn.textContent = "Delete";
 			delBtn.classList.add('btn');
 			delBtn.addEventListener("click", function(e) {
-				deleteSong(song.artist.id, song);
+				deleteSong({ id: artistId }, song);
 			});
 			td.appendChild(delBtn);
 			tr.appendChild(td);

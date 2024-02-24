@@ -1,8 +1,8 @@
 h1 {
-	margin-top: 50px; color : white;
+	margin-top: 50px;
+	color: white;
 	padding: auto;
 	text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
-	color: white;
 }
 
 .playButton {
@@ -29,7 +29,17 @@ h1 {
 }
 
 .table-container table {
-	width: 50%;
+	width: 100%;
+	border-collapse: collapse; /* Optional: Collapse table borders */
+
+} 
+
+.table-container th,
+.table-container td {
+    white-space: nowrap;
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: center;
 }
 
 body {
@@ -52,7 +62,7 @@ body {
 	justify-content: center;
 	align-items: center;
 	padding: 30px;
-	color: white;
+ 	color: white;
 	text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
 }
 
@@ -81,6 +91,7 @@ body {
 	background-color: #007bff;
 	border-color: #007bff;
 }
+
 
 .btn-primary:hover {
 	opacity: 0.85;
