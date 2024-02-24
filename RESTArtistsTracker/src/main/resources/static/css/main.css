@@ -6,6 +6,7 @@ h1 {
 }
 
 .playButton {
+	opacity: 0.85;
 	color: white;
 	text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
 }
@@ -22,17 +23,13 @@ h1 {
 }
 
 .table-container {
-	height: 500px;
+	height: 600px;
 	width: auto;
 	overflow-y: auto;
 }
 
 .table-container table {
 	width: 50%;
-}
-
-.table-container th, .table-container td {
-	white-space: nowrap;
 }
 
 body {
@@ -60,6 +57,7 @@ body {
 }
 
 .btn {
+	opacity: 0.85;
 	display: inline-block;
 	font-weight: 400;
 	color: #212529;
@@ -78,12 +76,14 @@ body {
 
 /* Bootstrap styles for .btn class */
 .btn-primary {
+	opacity: 0.85;
 	color: #fff;
 	background-color: #007bff;
 	border-color: #007bff;
 }
 
 .btn-primary:hover {
+	opacity: 0.85;
 	color: #fff;
 	background-color: #0069d9;
 	border-color: #0062cc;

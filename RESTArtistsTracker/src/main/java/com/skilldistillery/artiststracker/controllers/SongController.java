@@ -106,7 +106,7 @@ public class SongController {
 		}
 	}
 
-	@GetMapping(path = "artists/{artistId}/songs/search/{keyword}")
+	@GetMapping(path = "songs/search/{keyword}")
 	public List<Song> findSongsByKeyword(@PathVariable("keyword") String keyword, HttpServletResponse res) {
 		List<Song> songs = null;
 		try {
