@@ -1,60 +1,54 @@
-body {
-	background-image:
-		url("https://media.timeout.com/images/105287595/750/422/image.webphttps://medhttps://media.timeout.com/images/105287595/750/422/image.webpia.timeout.com/images/105287595/750/422/image.webp");
-	background-size: cover;
-	background-position: center;
-	margin: 0;
-	padding: 0;
-	font-family: Arial, sans-serif;
+h1 {
+    color: white;
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
 }
 
-h1 {
-	position: absolute; /* Position the h1 absolutely */
-	top: 40px; /* Adjust top position as needed */
-	left: 50%; /* Center horizontally */
-	transform: translateX(-50%); /* Center horizontally */
-	z-index: 999; /* Ensure the h1 is on top */
-	color: white;
-	text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+.playButton {
+    color: white;
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
 }
 
 .container {
-	opacity: 0.9;
-	height: 100vh;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	color: white;
-	padding: 10px;
-	text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
-	/* Add a subtle text shadow */
+    color: white;
+    padding: 10px;
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
 }
 
 .thumbnail-image {
-	width: 100px;
-	height: auto;
-}
-
-.display-image {
-	width: 200px;
-	height: auto;
+    width: 100px;
+    height: auto;
 }
 
 .table-container {
+    height: 400px; 
+    overflow-y: auto;
+}
+
+.table-container table {
+    width: 100%;
+}
+
+.table-container th,
+.table-container td {
+    white-space: nowrap;
+}
+body {
+    background-image: url('https://media.timeout.com/images/105287595/750/422/image.webp');
+    background-size: cover;
+    background-position: center;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+.container-fluid {
+	opacity: 0.9;
+    min-height: 100vh; 
     display: flex;
-    height: 200px; /* Set the desired height */
-    width: 50%; /* Adjust as needed */
-    overflow: auto; /* Enable scrolling */
-}
-
-#artistsTable {
-    width: 100%; /* Ensure the table takes up the entire width */
-    border-collapse: collapse; /* Optional: Collapse table borders */
-}
-
-#artistsTable th,
-#artistsTable td {
-    padding: 8px;
-    border: 1px solid #ddd;
-    text-align: left;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    color: white;
+    text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
 }
