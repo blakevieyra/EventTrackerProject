@@ -39,9 +39,8 @@
 						<form name="addingArtistForm">
 							<label for="artist"><strong>Add a new artist</strong></label> <input
 								class="form-control" type="text" name="name"
-								placeholder="artist name"> <input
-								class="form-control" type="text" name="band"
-								placeholder="artist band">
+								placeholder="artist name"> <input class="form-control"
+								type="text" name="band" placeholder="artist band">
 							<textarea class="form-control" rows="2" cols="40" name="image"
 								placeholder="artist image"></textarea>
 							<button class="btn btn-primary" name="addArtistbtn">Add
@@ -69,14 +68,15 @@
 					</table>
 					<div id="addSongsDiv">
 						<form name="addingSongForm">
-							<label for="artist"><strong>Add new song for artist by ID</strong></label> <input
-								class="form-control" type="number" name="artistId" id="artistId"
-								placeholder="artist ID"> <input class="form-control"
-								type="text" name="name" placeholder="song name"> <input
-								class="form-control" type="text" name="genre"
-								placeholder="song genre"><textarea class="form-control" rows="2" cols="40" name="album"
-								placeholder="song album"></textarea><input
-								class="form-control" type="number" name="length"
+							<label for="artist"><strong>Add new song for
+									artist by ID</strong></label> <input class="form-control" type="number"
+								name="artistId" id="artistId" placeholder="artist ID"> <input
+								class="form-control" type="text" name="name"
+								placeholder="song name"> <input class="form-control"
+								type="text" name="genre" placeholder="song genre">
+							<textarea class="form-control" rows="2" cols="40" name="album"
+								placeholder="song album"></textarea>
+							<input class="form-control" type="number" name="length"
 								placeholder="song length">
 
 							<button class="btn btn-primary" name="addSongbtn">Add
@@ -89,6 +89,15 @@
 		</div>
 	</main>
 	<div id='searchFields'>
+		<div class="row">
+			<div class="col">
+				<div id="keywordSongSearchDiv">
+					<form id="keywordSongSearchForm">
+						<button class="btn btn-primary" id="getAllArtistsBtn">See All Artists</button><br><br><br>
+					</form>
+				</div>
+			</div>
+		</div>
 		<div class="row">
 			<div class="col">
 				<div id="findArtistDiv">
@@ -115,8 +124,8 @@
 			<div class="col">
 				<div id="keywordSongSearchDiv">
 					<form id="keywordSongSearchForm">
-						<label for="keyword">Search Song by Name, Genre, or Album</label> <input
-							class="form-control" type="text" id="keywordSong"><br>
+						<label for="keyword">Search Song by Name, Genre, or Album</label>
+						<input class="form-control" type="text" id="keywordSong"><br>
 						<button class="btn btn-primary" id="keywordSongBtn">Search</button>
 					</form>
 				</div>

@@ -65,6 +65,13 @@ function init() {
 		console.log(artistId);
 		getArtistById(artistId);
 	});
+	document.getElementById('getAllArtistsBtn').addEventListener('click', function(e) {
+		e.preventDefault();
+		console.log('geting all artists');
+		let tbody = document.getElementById('songTable');
+		tbody.textContent = '';
+		loadAllArtists();
+	});
 	document.addingSongForm.addSongbtn.addEventListener('click', function(e) {
 		e.preventDefault();
 		let song = {
@@ -155,6 +162,13 @@ function displayArtists(artists) {
 			tr.appendChild(td);
 
 			td = document.createElement('td');
+			let updatelBtn = document.createElement('button');
+			updatelBtn.textContent = "Update";
+			updatelBtn.classList.add('btn');
+			updatelBtn.addEventListener("click", function(e) {
+				addArtist(artist);
+			});
+			td.appendChild(updatelBtn);
 			let delBtn = document.createElement('button');
 			delBtn.textContent = "Delete";
 			delBtn.classList.add('btn');
@@ -195,6 +209,13 @@ function displayArtists(artists) {
 		tr.appendChild(td);
 
 		td = document.createElement('td');
+		let updatelBtn = document.createElement('button');
+			updatelBtn.textContent = "Update";
+			updatelBtn.classList.add('btn');
+			updatelBtn.addEventListener("click", function(e) {
+				addArtist(artists);
+			});
+		td.appendChild(updatelBtn);
 		let delBtn = document.createElement('button');
 		delBtn.textContent = "Delete";
 		delBtn.classList.add('btn');
@@ -308,7 +329,7 @@ function getSongs(artist) {
 }
 
 function displaySongs(artist, songs) {
-	
+
 	let tbody = document.getElementById('songTable');
 	tbody.textContent = '';
 
@@ -333,6 +354,13 @@ function displaySongs(artist, songs) {
 			tr.appendChild(td);
 
 			td = document.createElement('td');
+			let updatelBtn = document.createElement('button');
+			updatelBtn.textContent = "Update";
+			updatelBtn.classList.add('btn');
+			updatelBtn.addEventListener("click", function(e) {
+				addSong(artist, song);
+			});
+			td.appendChild(updatelBtn);
 			let delBtn = document.createElement('button');
 			delBtn.textContent = "Delete";
 			delBtn.classList.add('btn');
@@ -363,6 +391,13 @@ function displaySongs(artist, songs) {
 		tr.appendChild(td);
 
 		td = document.createElement('td');
+		let updatelBtn = document.createElement('button');
+		updatelBtn.textContent = "Update";
+		updatelBtn.classList.add('btn');
+		updatelBtn.addEventListener("click", function(e) {
+			addSong(artist, songs);
+		});
+		td.appendChild(updatelBtn);
 		let delBtn = document.createElement('button');
 		delBtn.textContent = "Delete";
 		delBtn.classList.add('btn');
@@ -445,7 +480,7 @@ function getSongsByKeyword(keyword) {
 function displaySearchedSongs(songs) {
 	let tbody1 = document.getElementById('artistsTable');
 	tbody1.textContent = '';
-	
+
 	let tbody = document.getElementById('songTable');
 	tbody.textContent = '';
 
@@ -470,6 +505,13 @@ function displaySearchedSongs(songs) {
 			tr.appendChild(td);
 
 			td = document.createElement('td');
+			let updatelBtn = document.createElement('button');
+			updatelBtn.textContent = "Update";
+			updatelBtn.classList.add('btn');
+			updatelBtn.addEventListener("click", function(e) {
+				addSong({ id: artistId }, song);
+			});
+			td.appendChild(updatelBtn);
 			let delBtn = document.createElement('button');
 			delBtn.textContent = "Delete";
 			delBtn.classList.add('btn');
@@ -478,10 +520,48 @@ function displaySearchedSongs(songs) {
 			});
 			td.appendChild(delBtn);
 			tr.appendChild(td);
-
 			tbody.appendChild(tr);
 		}
 	}
+}
+function updateArtist(artistId, updatedArtist) {
+	let xhr = new XMLHttpRequest();
+	xhr.open('PUT', 'api/artists/' + artistId);
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === XMLHttpRequest.DONE) {
+			if (xhr.status === 200) {
+				loadAllArtists(); 
+			} else {
+				let doc = document.getElementById('artistsTable');
+				let error = document.createElement('h3');
+				error.textContent = "Artist Not Updated: " + xhr.status;
+				doc.appendChild(error);
+			}
+		}
+	};
+	xhr.setRequestHeader("Content-type", "application/json");
+	let updatedArtistJSON = JSON.stringify(updatedArtist);
+	xhr.send(updatedArtistJSON);
+}
+
+function updateSong(artistId, songId, updatedSong) {
+	let xhr = new XMLHttpRequest();
+	xhr.open('PUT', 'api/artists/' + artistId + '/songs/' + songId);
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === XMLHttpRequest.DONE) {
+			if (xhr.status === 200) {
+				getSongs({ id: artistId });
+			} else {
+				let doc = document.getElementById('songTable');
+				let error = document.createElement('h3');
+				error.textContent = "Song Not Updated: " + xhr.status;
+				doc.appendChild(error);
+			}
+		}
+	};
+	xhr.setRequestHeader("Content-type", "application/json");
+	let updatedSongJSON = JSON.stringify(updatedSong);
+	xhr.send(updatedSongJSON);
 }
 
 
