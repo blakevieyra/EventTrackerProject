@@ -12,17 +12,21 @@
 <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
+	<h1 class="text-center mb-4">The Record Store</h1>
+	<div class="row">
+		<div class="col">
+			<button id="playButton" class="btn btn-primary mb-4 d-block mx-auto">Play
+				JukeBox - Click for Next Song</button>
+		</div>
+	</div>
 	<main class="container-fluid">
-		<h1 class="text-center mb-4">The Record Store</h1>
-		<button id="playButton" class="btn btn-primary mb-4 d-block mx-auto">Play
-			JukeBox</button>
-
 		<div class="row">
 			<div class="col">
 				<div id="artistData" class="table-container">
 					<table class="table table-hover">
 						<thead class="table-dark">
 							<tr>
+								<th>ID</th>
 								<th>Artist</th>
 								<th>Name</th>
 								<th>Band</th>
@@ -56,10 +60,11 @@
 					<table class="table table-hover">
 						<thead class="table-dark">
 							<tr>
-								<th>Song Name</th>
+								<th>Track Name</th>
 								<th>Genre</th>
 								<th>Album</th>
 								<th>Length</th>
+								<th>Edit</th>
 							</tr>
 						</thead>
 						<tbody id="songTable"></tbody>
@@ -67,14 +72,15 @@
 					<div id="addSongsDiv">
 						<form name="addingSongForm">
 							<label for="artist">Add song for selected artist</label> <input
-								class="form-control" type="text" name="name"
-								placeholder="song name"><br> <input
-								class="form-control" type="text" name="genre"
+								class="form-control" type="number" name="artistId" id="artistId"
+								placeholder="artist ID"> <input class="form-control"
+								type="text" name="name" placeholder="song name"><br>
+							<input class="form-control" type="text" name="genre"
 								placeholder="song genre"><br> <input
 								class="form-control" type="text" name="album"
 								placeholder="song album"><br> <input
 								class="form-control" type="number" name="length"
-								placeholder="song length"><br> <br>
+								placeholder="song length"><br>
 
 							<button class="btn btn-primary" name="addSongbtn">Add
 								Song</button>
@@ -84,8 +90,31 @@
 				</div>
 			</div>
 		</div>
-		<div id="editSongs"></div>
 	</main>
+	<div id='searchFields'>
+		<div class="row">
+			<div class="col">
+				<div id="findArtistDiv">
+					<form id="findArtistForm">
+						<label for="findArtist">Search Artist by ID</label> <input
+							class="form-control" type="number" id="artistId"><br>
+						<button class="btn btn-primary" id="artistBtn">Search</button>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<div id="keywordSearchDiv">
+					<form id="keywordSearchForm">
+						<label for="keyword">Search Artist by Name or Band</label> <input
+							class="form-control" type="text" id="keyword"><br>
+						<button class="btn btn-primary" id="keywordBtn">Search</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"

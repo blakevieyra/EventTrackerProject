@@ -1,5 +1,4 @@
 window.addEventListener("load", function(e) {
-	e.preventDefault();
 	init();
 });
 
@@ -45,8 +44,60 @@ function init() {
 		};
 		addArtist(artist);
 	});
+	document.getElementById('keywordBtn').addEventListener('click', function(e) {
+		e.preventDefault();
+		console.log('searching artists');
+		let keyword = document.getElementById('keyword').value;
+		console.log(keyword);
+		getArtistByKeyword(keyword);
+	});
+	document.getElementById('artistBtn').addEventListener('click', function(e) {
+		e.preventDefault();
+		console.log('searching for artist');
+		let artistId = document.getElementById('artistId').value;
+		console.log(artistId);
+		if (!isNaN(artistId) && artistId > 0) {
+			getArtistById(artistId);
+		}
+	});
+	document.addingSongForm.addSongbtn.addEventListener('click', function(e) {
+		e.preventDefault();
+		let song = {
+			name: addingSongForm.name.value,
+			genre: addingSongForm.genre.value,
+			album: addingSongForm.album.value,
+			length: addingSongForm.length.value,
+		};
+		let artistId = document.getElementById('artistId').value;
+		console.log('adding songs' + artistId);
+		addSong(artistId, song);
+
+	});
 	loadAllArtists();
 };
+
+function getArtistById(artistId) {
+	if (!artistId || isNaN(artistId)) {
+		throw new Error("Invalid artist Id.")
+	}
+	let xhr = new XMLHttpRequest();
+	xhr.open('GET', "api/artists/" + artistId);
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === XMLHttpRequest.DONE) {
+			if (xhr.status === 200) {
+				let artist = JSON.parse(xhr.responseText);
+				console.log(artist);
+				displayArtists(artist);
+			} else {
+				let doc = document.getElementById('artistsTable');
+				let error = document.createElement('h3');
+				error.textContent = "Artist not found: " + xhr.status;
+				doc.appendChild(error);
+			}
+		}
+	};
+	xhr.send();
+}
 
 function loadAllArtists() {
 	let xhr = new XMLHttpRequest();
@@ -57,8 +108,8 @@ function loadAllArtists() {
 				let artists = JSON.parse(xhr.responseText)
 				displayArtists(artists);
 			} else {
-				let doc = document.getElementById('artistData');
-				let error = document.createElement('h1');
+				let doc = document.getElementById('artistTable');
+				let error = document.createElement('h3');
 				error.textContext = "Artists not found: " + xhr.status;
 				doc.appendChild(error);
 			}
@@ -68,15 +119,22 @@ function loadAllArtists() {
 }
 
 function displayArtists(artists) {
-	if (artists && Array.isArray(artists) && artists.length > 0) {
+	if (artists.length > 0) {
 		let tbody = document.getElementById('artistsTable');
 		tbody.textContent = '';
 
 
 		for (let artist of artists) {
+
 			let tr = document.createElement('tr');
 			tbody.appendChild(tr);
+
 			let td = document.createElement('td');
+			td.setAttribute('artistId', '' + artist.id);
+			td.textContent = artist.id;
+			tr.appendChild(td);
+
+			td = document.createElement('td');
 			let img = document.createElement('img');
 			img.classList.add('thumbnail-image');
 			img.src = artist.image;
@@ -106,8 +164,48 @@ function displayArtists(artists) {
 				getSongs(artist)
 			});
 		}
+	} else {
+		let tbody = document.getElementById('artistsTable');
+		tbody.textContent = '';
+		let tr = document.createElement('tr');
+		tbody.appendChild(tr);
+
+		let td = document.createElement('td');
+		td.textContent = artists.id;
+		tr.appendChild(td);
+
+		td = document.createElement('td');
+		let img = document.createElement('img');
+		img.classList.add('thumbnail-image');
+		img.src = artists.image;
+		img.alt = "Artist Image";
+		td.appendChild(img);
+		tr.appendChild(td);
+
+		td = document.createElement('td');
+		td.textContent = artists.name;
+		tr.appendChild(td);
+
+		td = document.createElement('td');
+		td.textContent = artists.band;
+		tr.appendChild(td);
+
+		td = document.createElement('td');
+		let delBtn = document.createElement('button');
+		delBtn.textContent = "Delete";
+		delBtn.classList.add('btn');
+		delBtn.addEventListener("click", function(e) {
+			deleteArtist(artists);
+		});
+		td.appendChild(delBtn);
+		tr.appendChild(td);
+
+		tr.addEventListener('click', function(e) {
+			getSongs(artists)
+		});
 	}
 }
+
 function deleteArtist(artist) {
 	let xhr = new XMLHttpRequest();
 	xhr.open('DELETE', 'api/artists/' + artist.id);
@@ -116,8 +214,8 @@ function deleteArtist(artist) {
 			if (xhr.status === 204) {
 				loadAllArtists();
 			} else {
-				let doc = document.getElementById('addArtistsDiv');
-				let error = document.createElement('h1');
+				let doc = document.getElementById('artistsTable');
+				let error = document.createElement('h3');
 				error.textContent = "Artist Not Deleted: " + xhr.status;
 				doc.appendChild(error);
 			}
@@ -126,15 +224,15 @@ function deleteArtist(artist) {
 	xhr.send();
 }
 
-function deleteSong(song) {
+function deleteSong(artist, song) {
 	let xhr = new XMLHttpRequest();
-	xhr.open('DELETE', 'api/artists/' + document.targe + "/songs/" + song.id);
+	xhr.open('DELETE', 'api/artists/' + artist.id + "/songs/" + song.id);
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === XMLHttpRequest.DONE) {
 			if (xhr.status === 204) {
 				getSongs(artist)
 			} else {
-				let doc = document.getElementById('addArtistsDiv');
+				let doc = document.getElementById('songTable');
 				let error = document.createElement('h1');
 				error.textContent = "Song Not Deleted: " + xhr.status;
 				doc.appendChild(error);
@@ -152,8 +250,8 @@ function addArtist(artist) {
 			if (xhr.status === 201) {
 				loadAllArtists();
 			} else {
-				let doc = document.getElementById('addArtistsDiv');
-				let error = document.createElement('h1');
+				let doc = document.getElementById('artistsTable');
+				let error = document.createElement('h3');
 				error.textContent = "Artist Not Created: " + xhr.status;
 				doc.appendChild(error);
 			}
@@ -164,17 +262,18 @@ function addArtist(artist) {
 	xhr.send(newArtistJSON);
 }
 
-function addSong(artist, song) {
+function addSong(artistId, song) {
+	console.log(artistId, song);
 	let xhr = new XMLHttpRequest();
-	xhr.open('POST', 'api/artists/' + artist.id + "/songs");
+	xhr.open('POST', 'api/artists/' + artistId + '/songs');
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === XMLHttpRequest.DONE) {
 			if (xhr.status === 201) {
-				getSongs(artist);
+				getSongs({ id: artistId });
 			} else {
-				let doc = document.getElementById('addArtistsDiv');
-				let error = document.createElement('h1');
-				error.textContent = "Artist Not Created: " + xhr.status;
+				let doc = document.getElementById('songTable');
+				let error = document.createElement('h3');
+				error.textContent = "Song Not Created: " + xhr.status;
 				doc.appendChild(error);
 			}
 		}
@@ -194,8 +293,8 @@ function getSongs(artist) {
 				console.log(songs);
 				displaySongs(artist, songs);
 			} else {
-				let doc = document.getElementById('songData');
-				let error = document.createElement('h1');
+				let doc = document.getElementById('songTable');
+				let error = document.createElement('h3');
 				error.textContent = "No songs found " + xhr.status;
 				doc.appendChild(error);
 			}
@@ -205,8 +304,7 @@ function getSongs(artist) {
 }
 
 function displaySongs(artist, songs) {
-	if (songs && Array.isArray(songs) && songs.length > 0) {
-
+	if (songs.length > 0) {
 		let tbody = document.getElementById('songTable');
 		tbody.textContent = '';
 
@@ -224,43 +322,70 @@ function displaySongs(artist, songs) {
 			td = document.createElement('td');
 			td.textContent = song.length;
 			tr.appendChild(td);
+
 			td = document.createElement('td');
-			let delBtn = document.createElement("button")
+			let delBtn = document.createElement('button');
 			delBtn.textContent = "Delete";
 			delBtn.classList.add('btn');
 			delBtn.addEventListener("click", function(e) {
 				deleteSong(artist, song);
 			});
 			td.appendChild(delBtn);
+			tr.appendChild(td);
 			tbody.appendChild(tr);
 		}
-		let returnButton = document.createElement('button');
-		returnButton.textContent = "Go Back";
-		returnButton.classList.add('btn');
-		returnButton.addEventListener('click', function(evt) {
-			loadAllArtists();
-		});
-		tbody.appendChild(returnButton);
-		document.addingSongForm.addSongbtn.addEventListener('click', function(e) {
-			e.preventDefault();
-			console.log('adding songs');
-			let song = {
-				name: addingSongForm.name.value,
-				genre: addingSongForm.genre.value,
-				album: addingSongForm.album.value,
-				length: addingSongForm.length.value,
-			};
-			addSong(artist, song);
-		});
+	} else {
+		let tbody = document.getElementById('songTable');
+		tbody.textContent = ''; {
+			tr = document.createElement('tr');
+			let td = document.createElement('td');
+			td.textContent = songs.name;
+			tr.appendChild(td);
+			td = document.createElement('td');
+			td.textContent = songs.genre;
+			tr.appendChild(td);
+			td = document.createElement('td');
+			td.textContent = songs.album;
+			tr.appendChild(td);
+			td = document.createElement('td');
+			td.textContent = songs.length;
+			tr.appendChild(td);
 
+			td = document.createElement('td');
+			let delBtn = document.createElement('button');
+			delBtn.textContent = "Delete";
+			delBtn.classList.add('btn');
+			delBtn.addEventListener("click", function(e) {
+				deleteSong(artist, songs);
+			});
+			td.appendChild(delBtn);
+			tr.appendChild(td);
+			tbody.appendChild(tr);
+		}
 	}
 }
-//song: {
-//name: addingArtistForm.name.value
-//name: addingArtistForm.name.value
-//album: addingArtistForm.album.value
-//length: addingArtistForm.length.value
-//}
+
+function getArtistByKeyword(keyword) {
+	let xhr = new XMLHttpRequest();
+	xhr.open('GET', 'api/artists/search/' + keyword);
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === XMLHttpRequest.DONE) {
+			if (xhr.status === 200) {
+				let artists = JSON.parse(xhr.responseText);
+				console.log(artists);
+				displayArtists(artists);
+			} else {
+				let doc = document.getElementById('artistsTable');
+				let error = document.createElement('h3');
+				error.textContent = "Artists not found: " + xhr.status;
+				doc.appendChild(error);
+			}
+		}
+	};
+	xhr.send();
+}
+
+
 
 
 
