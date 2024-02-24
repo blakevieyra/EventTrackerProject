@@ -44,6 +44,18 @@ function init() {
 		};
 		addArtist(artist);
 	});
+	document.updateArtistForm.updateArtistbtn.addEventListener('click', function(e) {
+		e.preventDefault();
+		console.log('update artists');
+		let artistId = document.getElementById('artistId').value;
+		let updatedArtist = {
+			id: document.updateArtistForm.artistId.value,
+			name: document.updateArtistForm.name.value,
+			band: document.updateArtistForm.band.value,
+			image: document.updateArtistForm.image.value,
+		};
+		updateArtist(artistId, updatedArtist);
+	});
 	document.getElementById('keywordBtn').addEventListener('click', function(e) {
 		e.preventDefault();
 		console.log('searching artists');
@@ -84,6 +96,19 @@ function init() {
 		console.log('adding songs' + artistId);
 		addSong(artistId, song);
 
+	});
+	document.updateSongForm.updateSongbtn.addEventListener('click', function(e) {
+		e.preventDefault();
+		console.log('update songs');
+		let artistId = document.getElementById('artistId').value;
+		let songId = document.getElementById('songId').value;
+		let updatedSong = {
+			id: document.updateArtistForm.artistId.value,
+			name: document.updateArtistForm.name.value,
+			band: document.updateArtistForm.band.value,
+			image: document.updateArtistForm.image.value,
+		};
+		updateSong(artistId, songId, updatedSong);
 	});
 	loadAllArtists();
 };
@@ -162,13 +187,6 @@ function displayArtists(artists) {
 			tr.appendChild(td);
 
 			td = document.createElement('td');
-			let updatelBtn = document.createElement('button');
-			updatelBtn.textContent = "Update";
-			updatelBtn.classList.add('btn');
-			updatelBtn.addEventListener("click", function(e) {
-				addArtist(artist);
-			});
-			td.appendChild(updatelBtn);
 			let delBtn = document.createElement('button');
 			delBtn.textContent = "Delete";
 			delBtn.classList.add('btn');
@@ -209,13 +227,6 @@ function displayArtists(artists) {
 		tr.appendChild(td);
 
 		td = document.createElement('td');
-		let updatelBtn = document.createElement('button');
-			updatelBtn.textContent = "Update";
-			updatelBtn.classList.add('btn');
-			updatelBtn.addEventListener("click", function(e) {
-				addArtist(artists);
-			});
-		td.appendChild(updatelBtn);
 		let delBtn = document.createElement('button');
 		delBtn.textContent = "Delete";
 		delBtn.classList.add('btn');
@@ -338,6 +349,11 @@ function displaySongs(artist, songs) {
 			let tr = document.createElement('tr');
 
 			let td = document.createElement('td');
+			td.setAttribute('songId', '' + song.id);
+			td.textContent = song.id;
+			tr.appendChild(td);
+
+			td = document.createElement('td');
 			td.textContent = song.album;
 			tr.appendChild(td);
 
@@ -374,7 +390,13 @@ function displaySongs(artist, songs) {
 		}
 	} else {
 		let tr = document.createElement('tr');
+
 		let td = document.createElement('td');
+		td.setAttribute('songId', '' + songs.id);
+		td.textContent = songs.id;
+		tr.appendChild(td);
+
+		td = document.createElement('td');
 		td.textContent = songs.name;
 		tr.appendChild(td);
 
@@ -489,6 +511,11 @@ function displaySearchedSongs(songs) {
 			let tr = document.createElement('tr');
 
 			let td = document.createElement('td');
+			td.setAttribute('songId', '' + song.id);
+			td.textContent = song.id;
+			tr.appendChild(td);
+
+			td = document.createElement('td');
 			td.textContent = song.album;
 			tr.appendChild(td);
 
@@ -530,7 +557,7 @@ function updateArtist(artistId, updatedArtist) {
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === XMLHttpRequest.DONE) {
 			if (xhr.status === 200) {
-				loadAllArtists(); 
+				loadAllArtists();
 			} else {
 				let doc = document.getElementById('artistsTable');
 				let error = document.createElement('h3');
