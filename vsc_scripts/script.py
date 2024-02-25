@@ -1,4 +1,5 @@
 import song_tuples as songs
+import parser as parse
 
 artist_id_map = {
     "2Pac": 1,
@@ -669,24 +670,27 @@ artist_id_map = {
     "ZZ Top": 666
 }
 
-songs_instance = songs.Songs()
-sorted_songs = songs_instance.get_songs()
-song_data = songs_instance.songs_data()
+
+songs_instance = songs.SongGenerator()
 
 sql_template = "INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES ({id}, '{name}', '{length}', '{year}', '{genre}', '{album}', {artist_id});"
 
 
 song_id = 1
 
-for song in sorted_songs:
-    name, year, album, length, genre, artist = song  
+for song in songs_instance.get_songs():
+    artist, name, year, length, genre, album = song  
+    if isinstance(genre, str) == False:
+        genre = ""
+    if isinstance(album, str) == False:
+        album = ""
     for k, v in artist_id_map.items():
         if artist.lower() == k.lower():
             artist_id = v
-            sql_statement = sql_template.format(id=song_id, name=name, length=length, year=year, genre=genre, album=album, artist_id=artist_id)
+            sql_statement = sql_template.format(id=song_id, name=name, year=year, length=length, genre=genre, album=album,artist_id=artist_id)
             print(sql_statement)
             song_id += 1
-            break  # Exit the loop once a match is found
+            break  
     else:
         continue
 print('***********************************************************************************************')
@@ -695,6 +699,8 @@ sql_template2 = "INSERT INTO `artist` (`id`, `name`, `image`) VALUES ({id}, '{na
 for name, artist_id in artist_id_map.items():
     image = "image_url_" + name.replace(" ", "_").replace(",", "_").replace(".", "_").replace("'", "_").lower()
     sql_statement = sql_template2.format(id=artist_id, name=name, image=image)
-    print(sql_statement)
+    #print(sql_statement)
 
-print(song_data)
+#print(song_data)
+print('***********************************************************************************************')
+
