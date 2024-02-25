@@ -70,4 +70,9 @@ public class SongServiceImpl implements SongService {
 		keyword = "%" + keyword + "%";
 		return songRepo.findByNameLikeOrGenreLikeOrAlbumLike(keyword, keyword, keyword);
 	}
+
+	@Override
+	public List<Song> findAllSongs() {
+		return songRepo.findAll();
+	}
 }

@@ -9,6 +9,8 @@ import com.skilldistillery.artiststracker.entities.Song;
 
 public interface SongRepository extends JpaRepository<Song, Integer> {
 
+	List<Song> findAll();
+	
 	Song findByArtist_IdAndId(int artistId, int songId);
 	
 	List<Song> findByArtist_Id(int artistId);

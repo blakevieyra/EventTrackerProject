@@ -7,6 +7,8 @@ import com.skilldistillery.artiststracker.entities.Song;
 
 public interface SongService {
 	
+	List<Song> findAllSongs();
+	
 	Song findSong(int artistId, int songId);
 	
 	Song createSong(int artistId, Song song);

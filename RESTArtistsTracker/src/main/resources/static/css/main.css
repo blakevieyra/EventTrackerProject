@@ -6,7 +6,7 @@ h1 {
 }
 
 .playButton {
-	opacity: 0.8;
+	opacity: 0.85;
 	color: white;
 	text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
 }
@@ -23,24 +23,20 @@ h1 {
 }
 
 .table-container {
-    height: 300px;
-    max-width: 500px;
-	overflow-x: auto; 
-    overflow-y: auto; 
+	margin-left: 75px;
+	height: 400px;
+	max-width: 700px;
+	overflow-x: auto;
+	overflow-y: auto;
+	text-align: center;
 }
 
 .table-container table {
-    min-width: 50%; 
-    max-width: 500px;
-    border-collapse: collapse; 
-}
-
-.table-container th,
-.table-container td {
-    white-space: nowrap;
-    padding: 8px;
-    border: 1px solid #ddd;
-    text-align: center;
+	min-width: 50%;
+ 	max-width: 700px;
+	overflow-x: auto;
+	overflow-y: auto;
+	text-align: center;
 }
 
 body {
@@ -57,18 +53,18 @@ body {
 
 .container-fluid {
 	opacity: 0.8;
-	min-height: 50vh;
+	min-height: 70vh;
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
 	padding: 30px;
- 	color: white;
+	color: white;
 	text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
 }
 
 .btn {
-	opacity: 0.8;
+	opacity: 0.85;
 	display: inline-block;
 	font-weight: 400;
 	color: #212529;
@@ -87,15 +83,14 @@ body {
 
 /* Bootstrap styles for .btn class */
 .btn-primary {
-	opacity: 0.8;
+	opacity: 0.85;
 	color: #fff;
 	background-color: #007bff;
 	border-color: #007bff;
 }
 
-
 .btn-primary:hover {
-	opacity: 0.8;
+	opacity: 0.85;
 	color: #fff;
 	background-color: #0069d9;
 	border-color: #0062cc;

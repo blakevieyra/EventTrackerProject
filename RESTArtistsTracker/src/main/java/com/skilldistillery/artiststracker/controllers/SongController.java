@@ -118,4 +118,16 @@ public class SongController {
 		}
 		return songs;
 	}
+	@GetMapping(path = "songs")
+	public List<Song> getAllSongs(HttpServletResponse res) {
+		List<Song> songs = null;
+		try {
+			songs = songService.findAllSongs();
+		} catch (Exception e) {
+			res.setStatus(400);
+			e.printStackTrace();
+
+		}
+		return songs;
+	}
 }
