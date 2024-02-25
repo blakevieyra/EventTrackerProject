@@ -6,7 +6,7 @@ h1 {
 }
 
 .playButton {
-	opacity: 0.85;
+	opacity: 0.8;
 	color: white;
 	text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
 }
@@ -23,14 +23,14 @@ h1 {
 }
 
 .table-container {
-	height: 600px;
+	height: 400px;
 	width: auto;
 	overflow-y: auto;
 }
 
 .table-container table {
 	width: 100%;
-	border-collapse: collapse; /* Optional: Collapse table borders */
+	border-collapse: collapse; 
 
 } 
 
@@ -44,7 +44,7 @@ h1 {
 
 body {
 	background-image:
-		url('https://media.timeout.com/images/105287595/750/422/image.webp');
+		url('https://static-cse.canva.com/blob/1277133/claybanksfEVaiLwWvlUunsplash.c290b6ea.avif');
 	background-size: cover;
 	background-position: center;
 	margin: 0;
@@ -55,7 +55,7 @@ body {
 }
 
 .container-fluid {
-	opacity: 0.85;
+	opacity: 0.8;
 	min-height: 50vh;
 	display: flex;
 	flex-direction: row;
@@ -67,7 +67,7 @@ body {
 }
 
 .btn {
-	opacity: 0.85;
+	opacity: 0.8;
 	display: inline-block;
 	font-weight: 400;
 	color: #212529;
@@ -86,7 +86,7 @@ body {
 
 /* Bootstrap styles for .btn class */
 .btn-primary {
-	opacity: 0.85;
+	opacity: 0.8;
 	color: #fff;
 	background-color: #007bff;
 	border-color: #007bff;
@@ -94,14 +94,14 @@ body {
 
 
 .btn-primary:hover {
-	opacity: 0.85;
+	opacity: 0.8;
 	color: #fff;
 	background-color: #0069d9;
 	border-color: #0062cc;
 }
 
 #searchFields {
-	opacity: 0.85;
+	opacity: 0.8;
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
