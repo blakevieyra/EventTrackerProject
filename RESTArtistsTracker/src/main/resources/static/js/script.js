@@ -3,7 +3,8 @@ window.addEventListener("load", function(e) {
 });
 
 function init() {
-	var audioSources = ['music/06 Ramble On.m4a',
+	var audioSources = [
+		'music/06 Ramble On.m4a',
 		'music/01 Hells Bells.m4a',
 		'music/02 Meant to Live.m4a',
 		'music/13 Titanium (feat. Sia).m4a',
@@ -14,25 +15,49 @@ function init() {
 		'music/03 If You Could Only See.m4a',
 		'music/01 The A Team.m4a',
 		'music/02 Dont Take the Girl.m4a',
-		'music/02 Carrying Your Love With Me.m4a'];
+		'music/02 Carrying Your Love With Me.m4a'
+	];
 	var index = 0;
 
 	var audio = document.createElement('audio');
 	audio.src = audioSources[index];
 	audio.controls = true;
 	audio.volume = 0.3;
-
 	document.body.appendChild(audio);
+
+	function updateSongDisplay() {
+		var songName = audioSources[index].split('/').pop().split('.').shift();
+		document.getElementById('songDisplay').innerText = "Now Playing: " + songName;
+	}
 
 	document.getElementById('playButton').addEventListener('click', function() {
 		if (audio.paused) {
 			audio.play();
 		} else {
 			audio.pause();
-			index = (index + 1) % audioSources.length;
-			audio.src = audioSources[index];
-			audio.play();
 		}
+		updateSongDisplay();
+	});
+
+	document.getElementById('nextButton').addEventListener('click', function() {
+		index = (index + 1) % audioSources.length;
+		audio.src = audioSources[index];
+		audio.play();
+		updateSongDisplay();
+	});
+
+	audio.addEventListener('ended', function() {
+		index = (index + 1) % audioSources.length;
+		audio.src = audioSources[index];
+		audio.play();
+		updateSongDisplay();
+	});
+
+	audio.addEventListener('ended', function() {
+		index = (index + 1) % audioSources.length;
+		audio.src = audioSources[index];
+		audio.play();
+		updateSongDisplay();
 	});
 	document.addingArtistForm.addArtistbtn.addEventListener('click', function(e) {
 		e.preventDefault();
@@ -82,17 +107,20 @@ function init() {
 		console.log('geting all artists');
 		let tbody = document.getElementById('songTable');
 		tbody.textContent = '';
+		tbody = document.getElementById('artistsTable');
+		tbody.textContent = '';
 		loadAllArtists();
-	});
-	document.getElementById('findAllSongsBtn').addEventListener('click', function(e) {
-		e.preventDefault();
-		console.log('geting all songs');
-		let tbody = document.getElementById('artistsTable');
-		tbody.textContent = '';
-		tbody = document.getElementById('songTable');
-		tbody.textContent = '';
 		getAllSongs();
 	});
+	//document.getElementById('getAllArtistsBtn').addEventListener('click', function(e) {
+		//e.preventDefault();
+		//console.log('geting all songs');
+		//tbody = document.getElementById('artistsTable');
+		//tbody.textContent = '';
+		//tbody = document.getElementById('songTable');
+		//tbody.textContent = '';
+		
+	//});
 	document.addingSongForm.addSongbtn.addEventListener('click', function(e) {
 		e.preventDefault();
 		let artistId = document.addingSongForm.artistId.value;
@@ -136,6 +164,28 @@ function getArtistById(artistId) {
 				let tbody = document.getElementById('songTable');
 				//tbody.textContent = '';
 				displayArtists(artist);
+			} else {
+				let doc = document.getElementById('artistsTable');
+				let error = document.createElement('h3');
+				error.textContent = "Artist not found: " + xhr.status;
+				doc.appendChild(error);
+			}
+		}
+	};
+	xhr.send();
+}
+
+function getSongById(artistId, songId) {
+	let xhr = new XMLHttpRequest();
+	xhr.open('GET', "api/artists/" + artistId + "/songs/" + songId);
+	xhr.onreadystatechange = function() {
+		if (xhr.readyState === XMLHttpRequest.DONE) {
+			if (xhr.status === 200) {
+				let artist = JSON.parse(xhr.responseText);
+				console.log(artist);
+				let tbody = document.getElementById('songTable');
+				//tbody.textContent = '';
+				displaySongs(songId);
 			} else {
 				let doc = document.getElementById('artistsTable');
 				let error = document.createElement('h3');
@@ -214,7 +264,13 @@ function displayArtists(artists) {
 			tr.appendChild(td);
 
 			td = document.createElement('td');
-
+			let updateBtn = document.createElement('button');
+			updateBtn.textContent = "Update";
+			updateBtn.classList.add('btn');
+			updateBtn.addEventListener("click", function(e) {
+				let container = document.getElementById('artistsData');
+				getArtistById(artist.id)
+			});
 			let delBtn = document.createElement('button');
 			delBtn.textContent = "Delete";
 			delBtn.classList.add('btn');
@@ -224,8 +280,8 @@ function displayArtists(artists) {
 			td.appendChild(delBtn);
 			tr.appendChild(td);
 
-
 			tr.addEventListener('click', function(e) {
+				getArtistById(artist.id)
 				getSongs(artist)
 			});
 			tbody.appendChild(tr);
@@ -252,6 +308,14 @@ function displayArtists(artists) {
 		tr.appendChild(td);
 
 		td = document.createElement('td');
+		let updateBtn = document.createElement('button');
+		updateBtn.textContent = "Update";
+		updateBtn.classList.add('btn');
+		updateBtn.addEventListener("click", function(e) {
+			let container = document.getElementById('artistsData');
+			getArtistById(artists.id)
+		});
+		td.appendChild(updateBtn);
 		let delBtn = document.createElement('button');
 		delBtn.textContent = "Delete";
 		delBtn.classList.add('btn');
@@ -275,7 +339,8 @@ function deleteArtist(artist) {
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === XMLHttpRequest.DONE) {
 			if (xhr.status === 204) {
-				displayArtists(artist);
+				loadAllArtists();
+				//getAllSongs();
 			} else {
 				let doc = document.getElementById('artistsTable');
 				let error = document.createElement('h3');
@@ -396,9 +461,9 @@ function displaySongs(artist, songs) {
 			td.textContent = song.genre;
 			tr.appendChild(td);
 
-			td = document.createElement('td');
-			td.textContent = song.length;
-			tr.appendChild(td);
+			//td = document.createElement('td');
+			//td.textContent = song.length;
+			//tr.appendChild(td);
 
 			td = document.createElement('td');
 			let updateBtn = document.createElement('button');
@@ -406,7 +471,7 @@ function displaySongs(artist, songs) {
 			updateBtn.classList.add('btn');
 			updateBtn.addEventListener("click", function(e) {
 				let container = document.getElementById('songData');
-				container.scrollTop = container.scrollHeight;
+				getSongById(song.artist.id, song.id);
 			});
 			td.appendChild(updateBtn);
 			let delBtn = document.createElement('button');
@@ -420,11 +485,64 @@ function displaySongs(artist, songs) {
 
 			tr.addEventListener('click', function(e) {
 				getArtistById(artist.id);
+				getSongById(artist.id, song.id);
 			});
 			tbody.appendChild(tr);
 		}
+	} else {
+		let tr = document.createElement('tr');
+
+		let td = document.createElement('td');
+		td.setAttribute('songId', '' + songs.id);
+		td.textContent = songs.id;
+		tr.appendChild(td);
+
+		td = document.createElement('td');
+		td.textContent = songs.name;
+		tr.appendChild(td);
+
+		td = document.createElement('td');
+		td.textContent = songs.album;
+		tr.appendChild(td);
+
+		td = document.createElement('td');
+		td.textContent = songs.year;
+		tr.appendChild(td);
+
+		td = document.createElement('td');
+		td.textContent = songs.genre;
+		tr.appendChild(td);
+
+		//td = document.createElement('td');
+		//td.textContent = song.length;
+		//tr.appendChild(td);
+
+		td = document.createElement('td');
+		let updateBtn = document.createElement('button');
+		updateBtn.textContent = "Update";
+		updateBtn.classList.add('btn');
+		updateBtn.addEventListener("click", function(e) {
+			let container = document.getElementById('songData');
+			getSongById(songs.artist.id, songs.id);
+		});
+		td.appendChild(updateBtn);
+		let delBtn = document.createElement('button');
+		delBtn.textContent = "Delete";
+		delBtn.classList.add('btn');
+		delBtn.addEventListener("click", function(e) {
+			deleteSong(artist, songs);
+		});
+		td.appendChild(delBtn);
+		tr.appendChild(td);
+
+		tr.addEventListener('click', function(e) {
+			getArtistById(artist.id);
+			getSongById(artist.id, songs.id);
+		});
+		tbody.appendChild(tr);
 	}
 }
+
 
 
 function displayAllSongs(songs) {
@@ -457,9 +575,9 @@ function displayAllSongs(songs) {
 			td.textContent = song.genre;
 			tr.appendChild(td);
 
-			td = document.createElement('td');
-			td.textContent = song.length;
-			tr.appendChild(td);
+			//td = document.createElement('td');
+			//td.textContent = song.length;
+			//tr.appendChild(td);
 
 			td = document.createElement('td');
 			let updateBtn = document.createElement('button');
@@ -481,6 +599,7 @@ function displayAllSongs(songs) {
 
 			tr.addEventListener('click', function(e) {
 				getArtistById(song.artist.id);
+				getSongById(song.artist.id, song.id);
 			});
 			tbody.appendChild(tr);
 		}
@@ -565,9 +684,9 @@ function displaySearchedSongs(songs) {
 			td.textContent = song.genre;
 			tr.appendChild(td);
 
-			td = document.createElement('td');
-			td.textContent = song.length;
-			tr.appendChild(td);
+			//td = document.createElement('td');
+			//td.textContent = song.length;
+			//tr.appendChild(td);
 
 			td = document.createElement('td');
 			let updateBtn = document.createElement('button');
@@ -575,7 +694,8 @@ function displaySearchedSongs(songs) {
 			updateBtn.classList.add('btn');
 			updateBtn.addEventListener("click", function(e) {
 				let container = document.getElementById('songData');
-				container.scrollTop = container.scrollHeight;
+				getSongById(song.artist.id, song.id)
+
 			});
 			td.appendChild(updateBtn);
 			let delBtn = document.createElement('button');
@@ -587,7 +707,8 @@ function displaySearchedSongs(songs) {
 			td.appendChild(delBtn);
 			tr.appendChild(td);
 			tr.addEventListener('click', function(e) {
-				getArtistById(song.artist.id);
+				getSongById(song.artist.id, song.id)
+				getArtistById(artist.id);
 			});
 			tbody.appendChild(tr);
 		}

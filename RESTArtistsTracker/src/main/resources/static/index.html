@@ -23,7 +23,7 @@
 				<div id="keywordSongSearchDiv">
 					<form id="keywordSongSearchForm">
 						<button class="btn btn-primary" id="getAllArtistsBtn">See
-							All Artists</button>
+							All Artists and Songs</button>
 					</form>
 				</div>
 			</div>
@@ -64,7 +64,7 @@
 				</div>
 			</div>
 		</div>
-
+		<!-- 
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<div class="row">
 			<div class="col">
@@ -75,8 +75,8 @@
 					</form>
 				</div>
 			</div>
-		</div>
-	</div>
+		</div><!--  -->
+	</div> 
 	<main class="container-fluid">
 		<div class="row">
 			<div class="col">
@@ -91,19 +91,6 @@
 						</thead>
 						<tbody id="artistsTable"></tbody>
 					</table>
-					<div id="addArtistsDiv">
-						<form name="addingArtistForm">
-							<label for="artist"><strong>Add a new artist</strong></label><input
-								class="form-control" type="text" name="name"
-								placeholder="artist name"> <input class="form-control"
-								type="text" name="band" placeholder="artist band">
-							<textarea class="form-control" rows="2" cols="40" name="image"
-								placeholder="artist image"></textarea>
-							<button class="btn btn-primary" name="addArtistbtn">Add
-								Artist</button>
-						</form>
-					</div>
-					<br>
 					<div id="updateArtistsDiv">
 						<form name="updateArtistForm">
 							<label for="artist"><strong>Update artist</strong></label> <input
@@ -119,6 +106,19 @@
 
 						</form>
 					</div>
+					<div id="addArtistsDiv">
+						<form name="addingArtistForm">
+							<label for="artist"><strong>Add a new artist</strong></label><input
+								class="form-control" type="text" name="name"
+								placeholder="artist name"> <input class="form-control"
+								type="text" name="band" placeholder="artist band">
+							<textarea class="form-control" rows="2" cols="40" name="image"
+								placeholder="artist image"></textarea>
+							<button class="btn btn-primary" name="addArtistbtn">Add
+								Artist</button>
+						</form>
+					</div>
+					<br>
 				</div>
 			</div>
 		</div>
@@ -133,32 +133,12 @@
 							<th>Album</th>
 							<th>Release Year</th>
 							<th>Genre</th>
-							<th>Length</th>
 							<th>Edit</th>
 						</tr>
 					</thead>
 					<tbody id="songTable"></tbody>
 				</table>
-				<div id="addSongsDiv">
-					<form name="addingSongForm">
-						<label for="artist"><strong>Add new song for
-								artist by ID</strong></label> <input class="form-control" type="number"
-							name="artistId" id="artistId" placeholder="artist ID"> <input
-							class="form-control" type="text" name="name"
-							placeholder="song name"> <input class="form-control"
-							type="number" name="releaseYear" id="releaseYear"
-							placeholder="release year"><input class="form-control"
-							type="text" name="genre" placeholder="song genre">
-						<textarea class="form-control" rows="2" cols="40" name="album"
-							placeholder="song album"></textarea>
-						<input class="form-control" type="number" name="length"
-							placeholder="song length">
 
-						<button class="btn btn-primary" name="addSongbtn">Add
-							Song</button>
-					</form>
-				</div>
-				<br> <br>
 				<div id="updateSongDiv">
 					<form name="updateSongForm">
 						<label for="artist"><strong>Update song</strong></label> <input
@@ -178,6 +158,26 @@
 							Song</button>
 					</form>
 				</div>
+				<br> <br>
+				<div id="addSongsDiv">
+					<form name="addingSongForm">
+						<label for="artist"><strong>Add new song for
+								artist by ID</strong></label> <input class="form-control" type="number"
+							name="artistId" id="artistId" placeholder="artist ID"> <input
+							class="form-control" type="text" name="name"
+							placeholder="song name"> <input class="form-control"
+							type="number" name="releaseYear" id="releaseYear"
+							placeholder="release year"><input class="form-control"
+							type="text" name="genre" placeholder="song genre">
+						<textarea class="form-control" rows="2" cols="40" name="album"
+							placeholder="song album"></textarea>
+						<input class="form-control" type="number" name="length"
+							placeholder="song length">
+
+						<button class="btn btn-primary" name="addSongbtn">Add
+							Song</button>
+					</form>
+				</div>
 			</div>
 		</div>
 	</main>
@@ -185,10 +185,13 @@
 	<br>
 	<div class="row">
 		<div class="col">
-			<button id="playButton" class="btn btn-primary mb-4 d-block mx-auto">Play
-				JukeBox - Click for Next Song</button>
+			<button id="playButton" class="btn btn-primary mb-4 d-block mx-auto">Play/Pause
+				JukeBox</button>
+			<button id="nextButton" class="btn btn-primary mb-4 d-block mx-auto">Next
+				Song</button>
 		</div>
 	</div>
+	<div id="songDisplay"></div>
 	<br>
 	<br>
 

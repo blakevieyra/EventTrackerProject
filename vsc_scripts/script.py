@@ -670,6 +670,7 @@ artist_id_map = {
     "ZZ Top": 666
 }
 
+print('***********************************************************************************************')
 
 songs_instance = songs.SongGenerator()
 
@@ -680,6 +681,11 @@ song_id = 1
 
 for song in songs_instance.get_songs():
     artist, name, year, length, genre, album = song  
+
+    if isinstance(year, str):
+        name, year = year, name
+    if "'" in name:
+        name = name.replace("'", "")
     if isinstance(genre, str) == False:
         genre = ""
     if isinstance(album, str) == False:

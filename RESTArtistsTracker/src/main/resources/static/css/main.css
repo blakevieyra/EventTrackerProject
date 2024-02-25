@@ -24,7 +24,7 @@ h1 {
 
 .table-container {
 	margin-left: 75px;
-	height: 400px;
+	height: 350px;
 	max-width: 700px;
 	overflow-x: auto;
 	overflow-y: auto;
@@ -64,7 +64,7 @@ body {
 }
 
 .btn {
-	opacity: 0.85;
+	opacity: 0.9;
 	display: inline-block;
 	font-weight: 400;
 	color: #212529;
@@ -83,14 +83,14 @@ body {
 
 /* Bootstrap styles for .btn class */
 .btn-primary {
-	opacity: 0.85;
+	opacity: 0.9;
 	color: #fff;
 	background-color: #007bff;
 	border-color: #007bff;
 }
 
 .btn-primary:hover {
-	opacity: 0.85;
+	opacity: 0.9;
 	color: #fff;
 	background-color: #0069d9;
 	border-color: #0062cc;
