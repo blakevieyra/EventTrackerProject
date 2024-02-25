@@ -107,7 +107,7 @@ function init() {
 			genre: document.updateSongForm.genre.value,
 			album: document.updateSongForm.album.value,
 			length: document.updateSongForm.length.value,
-			artist: {id: artistId}
+			artist: { id: artistId }
 		};
 		console.log('update songs', artistId, songId, updatedSong);
 		updateSong(artistId, songId, updatedSong);
@@ -184,18 +184,7 @@ function displayArtists(artists) {
 			tr.appendChild(td);
 
 			td = document.createElement('td');
-			td.textContent = artist.band;
-			tr.appendChild(td);
 
-			td = document.createElement('td');
-			let updateBtn = document.createElement('button');
-			updateBtn.textContent = "Update";
-			updateBtn.classList.add('btn');
-			updateBtn.addEventListener("click", function(e) {
-				let container = document.getElementById('artistsData');
-				container.scrollTop = container.scrollHeight;
-			});
-			td.appendChild(updateBtn);
 			let delBtn = document.createElement('button');
 			delBtn.textContent = "Delete";
 			delBtn.classList.add('btn');
@@ -233,18 +222,6 @@ function displayArtists(artists) {
 		tr.appendChild(td);
 
 		td = document.createElement('td');
-		td.textContent = artists.band;
-		tr.appendChild(td);
-
-		td = document.createElement('td');
-		let updateBtn = document.createElement('button');
-		updateBtn.textContent = "Update";
-		updateBtn.classList.add('btn');
-		updateBtn.addEventListener("click", function(e) {
-			let container = document.getElementById('artistsData');
-			container.scrollTop = container.scrollHeight;
-		});
-		td.appendChild(updateBtn);
 		let delBtn = document.createElement('button');
 		delBtn.textContent = "Delete";
 		delBtn.classList.add('btn');
@@ -382,6 +359,10 @@ function displaySongs(artist, songs) {
 			tr.appendChild(td);
 
 			td = document.createElement('td');
+			td.textContent = song.year;
+			tr.appendChild(td);
+
+			td = document.createElement('td');
 			td.textContent = song.genre;
 			tr.appendChild(td);
 
@@ -421,6 +402,10 @@ function displaySongs(artist, songs) {
 
 		td = document.createElement('td');
 		td.textContent = songs.name;
+		tr.appendChild(td);
+
+		td = document.createElement('td');
+		td.textContent = songs.year;
 		tr.appendChild(td);
 
 		td = document.createElement('td');
@@ -546,6 +531,10 @@ function displaySearchedSongs(songs) {
 
 			td = document.createElement('td');
 			td.textContent = song.name;
+			tr.appendChild(td);
+			
+			td = document.createElement('td');
+			td.textContent = song.year;
 			tr.appendChild(td);
 
 			td = document.createElement('td');

@@ -37,10 +37,11 @@ DROP TABLE IF EXISTS `song` ;
 
 CREATE TABLE IF NOT EXISTS `song` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
+  `name` VARCHAR(100) NOT NULL,
   `song_length` DOUBLE NULL,
+  `release_year` INT NULL,
   `genre` VARCHAR(45) NULL,
-  `album_title` VARCHAR(45) NULL,
+  `album_title` VARCHAR(100) NULL,
   `artist_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_song_artist_idx` (`artist_id` ASC),
@@ -68,611 +69,670 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `artiststrackerdb`;
-INSERT INTO `artist` (`id`, `name`, `image`)
-VALUES 
-(1, '10cc', 'image_url_10cc'),
-(2, '2Pac', 'image_url_2pac'),
-(3, '50 Cent', 'image_url_50cent'),
-(4, 'A', 'image_url_a'),
-(5, 'A Thousand Horses', 'image_url_thousand_horses'),
-(6, 'ABBA', 'image_url_abba'),
-(7, 'ABC', 'image_url_abc'),
-(8, 'Aerosmith', 'image_url_aerosmith'),
-(9, 'Agnetha Fältskog', 'image_url_agnetha_faltskog'),
-(10, 'Alan Jackson', 'image_url_alan_jackson'),
-(11, 'Albert King', 'image_url_albert_king'),
-(12, 'Alice Cooper', 'image_url_alice_cooper'),
-(13, 'Alison Krauss', 'image_url_alison_krauss'),
-(14, 'The All-American Rejects', 'image_url_all_american_rejects'),
-(15, 'The Allman Brothers Band', 'image_url_allman_brothers_band'),
-(16, 'Amy Winehouse', 'image_url_amy_winehouse'),
-(17, 'Andre Rieu', 'image_url_andre_rieu'),
-(18, 'Andrea Bocelli', 'image_url_andrea_bocelli'),
-(19, 'Andrew W.K.', 'image_url_andrew_wk'),
-(20, 'Anthrax', 'image_url_anthrax'),
-(21, 'Antonio Carlos Jobim', 'image_url_antonio_carlos_jobim'),
-(22, 'Apache Indian', 'image_url_apache_indian'),
-(23, 'Arcade Fire', 'image_url_arcade_fire'),
-(24, 'Ariana Grande', 'image_url_ariana_grande'),
-(25, 'Arrested Development', 'image_url_arrested_development'),
-(26, 'Ashley Campbell', 'image_url_ashley_campbell'),
-(27, 'Astrud Gilberto', 'image_url_astrud_gilberto'),
-(28, 'Aswad', 'image_url_aswad'),
-(29, 'Atlanta Rhythm Section', 'image_url_atlanta_rhythm_section'),
-(30, 'Audioslave', 'image_url_audioslave'),
-(31, 'B.B. King', 'image_url_bb_king'),
-(32, 'Badfinger', 'image_url_badfinger'),
-(33, 'The Band', 'image_url_the_band'),
-(34, 'Barclay James Harvest', 'image_url_barclay_james_harvest'),
-(35, 'Barry White', 'image_url_barry_white'),
-(36, 'The Beach Boys', 'image_url_beach_boys'),
-(37, 'Beastie Boys', 'image_url_beastie_boys'),
-(38, 'The Beatles', 'image_url_beatles'),
-(39, 'Beck', 'image_url_beck'),
-(40, 'Bee Gees', 'image_url_bee_gees'),
-(41, 'Belinda Carlisle', 'image_url_belinda_carlisle'),
-(42, 'Ben Harper', 'image_url_ben_harper'),
-(43, 'Ben Howard', 'image_url_ben_howard'),
-(44, 'Benny Andersson', 'image_url_benny_andersson'),
-(45, 'Big Country', 'image_url_big_country'),
-(46, 'Big Star', 'image_url_big_star'),
-(47, 'Bill Evans', 'image_url_bill_evans'),
-(48, 'Billie Eilish', 'image_url_billie_eilish'),
-(49, 'Billie Holiday', 'image_url_billie_holiday'),
-(50, 'Billy Currington', 'image_url_billy_currington'),
-(51, 'Billy Fury', 'image_url_billy_fury'),
-(52, 'Billy Preston', 'image_url_billy_preston'),
-(53, 'Björk', 'image_url_bjork'),
-(54, 'Black Eyed Peas', 'image_url_black_eyed_peas'),
-(55, 'Black Sabbath', 'image_url_black_sabbath'),
-(56, 'Black Uhuru', 'image_url_black_uhuru'),
-(57, 'Blind Faith', 'image_url_blind_faith'),
-(58, 'Blink-182', 'image_url_blink_182'),
-(59, 'Blondie', 'image_url_blondie'),
-(60, 'Blue Cheer', 'image_url_blue_cheer'),
-(61, 'Bo Diddley', 'image_url_bo_diddley'),
-(62, 'Bob Dylan', 'image_url_bob_dylan'),
-(63, 'Bob Marley', 'image_url_bob_marley'),
-(64, 'Bob Seger', 'image_url_bob_seger'),
-(65, 'Bon Jovi', 'image_url_bon_jovi'),
-(66, 'Bonnie Raitt', 'image_url_bonnie_raitt'),
-(67, 'Booker T', 'image_url_booker_t'),
-(68, 'Boyz II Men', 'image_url_boyz_ii_men'),
-(69, 'Brantley Gilbert', 'image_url_brantley_gilbert'),
-(70, 'Brenda Holloway', 'image_url_brenda_holloway'),
-(71, 'Brian Eno', 'image_url_brian_eno'),
-(72, 'The Brothers Johnson', 'image_url_brothers_johnson'),
-(73, 'Bruce Springsteen', 'image_url_bruce_springsteen'),
-(74, 'Bryan Adams', 'image_url_bryan_adams'),
-(75, 'Bryan Ferry', 'image_url_bryan_ferry'),
-(76, 'Buddy Guy', 'image_url_buddy_guy'),
-(77, 'Buddy Holly', 'image_url_buddy_holly'),
-(78, 'Burning Spear', 'image_url_burning_spear'),
-(79, 'Burt Bacharach', 'image_url_burt_bacharach'),
-(80, 'The Cadillac Three', 'image_url_cadillac_three'),
-(81, 'Camel', 'image_url_camel'),
-(82, 'Canned Heat', 'image_url_canned_heat'),
-(83, 'Captain Beefheart', 'image_url_captain_beefheart'),
-(84, 'Caravan', 'image_url_caravan'),
-(85, 'Carpenters', 'image_url_carpenters'),
-(86, 'Carrie Underwood', 'image_url_carrie_underwood'),
-(87, 'Cat Stevens', 'image_url_cat_stevens'),
-(88, 'Charlie Parker', 'image_url_charlie_parker'),
-(89, 'Cheap Trick', 'image_url_cheap_trick'),
-(90, 'The Chemical Brothers', 'image_url_chemical_brothers'),
-(91, 'Cher', 'image_url_cher'),
-(92, 'Chris Cornell', 'image_url_chris_cornell'),
-(93, 'Chris Stapleton', 'image_url_chris_stapleton'),
-(94, 'Chuck Berry', 'image_url_chuck_berry'),
-(95, 'Cinderella', 'image_url_cinderella'),
-(96, 'The Clash', 'image_url_clash'),
-(97, 'Climax Blues Band', 'image_url_climax_blues_band'),
-(98, 'Coleman Hawkins', 'image_url_coleman_hawkins'),
-(99, 'Commodores', 'image_url_commodores'),
-(100, 'Common', 'image_url_common'),
-(101, 'The Common Linnets', 'image_url_common_linnets'),
-(102, 'Corinne Bailey Rae', 'image_url_corinne_bailey_rae'),
-(103, 'Count Basie', 'image_url_count_basie'),
-(104, 'Counting Crows', 'image_url_counting_crows'),
-(105, 'Craig Armstrong', 'image_url_craig_armstrong'),
-(106, 'The Cranberries', 'image_url_cranberries'),
-(107, 'Cream', 'image_url_cream'),
-(108, 'Creedence Clearwater Revival', 'image_url_creedence_clearwater_revival'),
-(109, 'Crowded House', 'image_url_crowded_house'),
-(110, 'Culture Club', 'image_url_culture_club'),
-(111, 'The Cure', 'image_url_cure'),
-(112, 'Cutting Crew', 'image_url_cutting_crew'),
-(113, 'D’Angelo', 'image_url_d_angelo'),
-(114, 'DMX', 'image_url_dmx'),
-(115, 'The Damned', 'image_url_damned'),
-(116, 'Daniel Hope', 'image_url_daniel_hope'),
-(117, 'Danny Wilson & Gary Clark', 'image_url_danny_wilson_gary_clark'),
-(118, 'David Bowie', 'image_url_david_bowie'),
-(119, 'Dean Martin', 'image_url_dean_martin'),
-(120, 'Debarge', 'image_url_debarge'),
-(121, 'Deep Purple', 'image_url_deep_purple'),
-(122, 'Def Leppard', 'image_url_def_leppard'),
-(123, 'Demi Lovato', 'image_url_demi_lovato'),
-(124, 'Demis Roussos', 'image_url_demis_roussos'),
-(125, 'Derek And The Dominos', 'image_url_derek_and_the_dominos'),
-(126, 'Desmond Dekker', 'image_url_desmond_dekker'),
-(127, 'Diana Krall', 'image_url_diana_krall'),
-(128, 'Diana Ross', 'image_url_diana_ross'),
-(129, 'Diana Ross & The Supremes', 'image_url_diana_ross_supremes'),
-(130, 'Dierks Bentley', 'image_url_dierks_bentley'),
-(131, 'Dinah Washington', 'image_url_dinah_washington'),
-(132, 'Dio', 'image_url_dio'),
-(133, 'Dire Straits', 'image_url_dire_straits'),
-(134, 'Disclosure', 'image_url_disclosure'),
-(135, 'Don Henley', 'image_url_don_henley'),
-(136, 'Donna Summer', 'image_url_donna_summer'),
-(137, 'The Doors', 'image_url_doors'),
-(138, 'Dr Dre', 'image_url_dr_dre'),
-(139, 'Drake', 'image_url_drake'),
-(140, 'Duke Ellington', 'image_url_duke_ellington'),
-(141, 'Dusty Springfield', 'image_url_dusty_springfield'),
-(142, 'EELS', 'image_url_eels'),
-(143, 'EPMD', 'image_url_epmd'),
-(144, 'Eagles', 'image_url_eagles'),
-(145, 'Eagles Of Death Metal', 'image_url_eagles_of_death_metal'),
-(146, 'Eazy-E', 'image_url_eazy_e'),
-(147, 'Eddie Cochran', 'image_url_eddie_cochran'),
-(148, 'Elbow', 'image_url_elbow'),
-(149, 'Ella Fitzgerald', 'image_url_ella_fitzgerald'),
-(150, 'Elliott Smith', 'image_url_elliott_smith'),
-(151, 'Elton John', 'image_url_elton_john'),
-(152, 'Elvis Costello', 'image_url_elvis_costello'),
-(153, 'Elvis Presley', 'image_url_elvis_presley'),
-(154, 'Emeli Sandé', 'image_url_emeli_sande'),
-(155, 'Eminem', 'image_url_eminem'),
-(156, 'Enigma', 'image_url_enigma'),
-(157, 'Eric B. & Rakim', 'image_url_eric_b_rakim'),
-(158, 'Eric Church', 'image_url_eric_church'),
-(159, 'Eric Clapton', 'image_url_eric_clapton'),
-(160, 'Etta James', 'image_url_etta_james'),
-(161, 'Evanescence', 'image_url_evanescence'),
-(162, 'Eve', 'image_url_eve'),
-(163, 'Extreme', 'image_url_extreme'),
-(164, 'Fairport Convention', 'image_url_fairport_convention'),
-(165, 'Fats Domino', 'image_url_fats_domino'),
-(166, 'Faust', 'image_url_faust'),
-(167, 'Fergie', 'image_url_fergie'),
-(168, 'Fleetwood Mac', 'image_url_fleetwood_mac'),
-(169, 'Florence + The Machine', 'image_url_florence_and_the_machine'),
-(170, 'The Flying Burrito Brothers', 'image_url_flying_burrito_brothers'),
-(171, 'Foo Fighters', 'image_url_foo_fighters'),
-(172, 'Four Tops', 'image_url_four_tops'),
-(173, 'Foxy Brown', 'image_url_foxy_brown'),
-(174, 'Frank Sinatra', 'image_url_frank_sinatra'),
-(175, 'Frank Zappa', 'image_url_frank_zappa'),
-(176, 'Frankie Goes To Hollywood', 'image_url_frankie_goes_to_hollywood'),
-(177, 'Freddie Mercury', 'image_url_freddie_mercury'),
-(178, 'Free', 'image_url_free'),
-(179, 'Frida Lyngstad', 'image_url_frida_lyngstad'),
-(180, 'The Game', 'image_url_the_game'),
-(181, 'Gang Starr', 'image_url_gang_starr'),
-(182, 'Gary Moore', 'image_url_gary_moore'),
-(183, 'Gene Krupa', 'image_url_gene_krupa'),
-(184, 'Gene Vincent', 'image_url_gene_vincent'),
-(185, 'Genesis', 'image_url_genesis'),
-(186, 'Gentle Giant', 'image_url_gentle_giant'),
-(187, 'George Benson', 'image_url_george_benson'),
-(188, 'George Harrison', 'image_url_george_harrison'),
-(189, 'George Michael', 'image_url_george_michael'),
-(190, 'George Strait', 'image_url_george_strait'),
-(191, 'George Thorogood', 'image_url_george_thorogood'),
-(192, 'Georgie Fame', 'image_url_georgie_fame'),
-(193, 'Ghostface Killah', 'image_url_ghostface_killah'),
-(194, 'Ginger Baker', 'image_url_ginger_baker'),
-(195, 'Glass Animals', 'image_url_glass_animals'),
-(196, 'Glen Campbell', 'image_url_glen_campbell'),
-(197, 'The Go-Go’s', 'image_url_the_go_gos'),
-(198, 'Gong', 'image_url_gong'),
-(199, 'Grace Jones', 'image_url_grace_jones'),
-(200, 'Graham Parker', 'image_url_graham_parker'),
-(201, 'Grand Funk Railroad', 'image_url_grand_funk_railroad'),
-(202, 'Gregory Isaacs', 'image_url_gregory_isaacs'),
-(203, 'Gregory Porter', 'image_url_gregory_porter'),
-(204, 'Guns N’ Roses', 'image_url_guns_n_roses'),
-(205, 'Gwen Stefani', 'image_url_gwen_stefani'),
-(206, 'Halsey', 'image_url_halsey'),
-(207, 'Hank Williams', 'image_url_hank_williams'),
-(208, 'Heart', 'image_url_heart'),
-(209, 'Heaven 17', 'image_url_heaven_17'),
-(210, 'Helmet', 'image_url_helmet'),
-(211, 'Herbie Hancock', 'image_url_herbie_hancock'),
-(212, 'Hoobastank', 'image_url_hoobastank'),
-(213, 'Howlin Wolf', 'image_url_howlin_wolf'),
-(214, 'Hoyt Axton', 'image_url_hoyt_axton'),
-(215, 'Huey Lewis & The News', 'image_url_huey_lewis_and_the_news'),
-(216, 'The Human League', 'image_url_human_league'),
-(217, 'Humble Pie', 'image_url_humble_pie'),
-(218, 'INXS', 'image_url_inxs'),
-(219, 'Ice Cube', 'image_url_ice_cube'),
-(220, 'Iggy Pop', 'image_url_iggy_pop'),
-(221, 'Imagine Dragons', 'image_url_imagine_dragons'),
-(222, 'Iron Maiden', 'image_url_iron_maiden'),
-(223, 'Isaac Hayes', 'image_url_isaac_hayes'),
-(224, 'The Isley Brothers', 'image_url_isley_brothers'),
-(225, 'It Bites', 'image_url_it_bites'),
-(226, 'J.J. Cale', 'image_url_jj_cale'),
-(227, 'Jack Bruce', 'image_url_jack_bruce'),
-(228, 'Jack Johnson', 'image_url_jack_johnson'),
-(229, 'Jackson 5', 'image_url_jackson_5'),
-(230, 'Jacques Brel', 'image_url_jacques_brel'),
-(231, 'Jadakiss', 'image_url_jadakiss'),
-(232, 'The Jam', 'image_url_jam'),
-(233, 'James', 'image_url_james'),
-(234, 'James Bay', 'image_url_james_bay'),
-(235, 'James Blake', 'image_url_james_blake'),
-(236, 'James Brown', 'image_url_james_brown'),
-(237, 'James Morrison', 'image_url_james_morrison'),
-(238, 'James Taylor', 'image_url_james_taylor'),
-(239, 'Jane’s Addiction', 'image_url_janes_addiction'),
-(240, 'Janet Jackson', 'image_url_janet_jackson'),
-(241, 'Japan & David Sylvian', 'image_url_japan_david_sylvian'),
-(242, 'Jay-Z', 'image_url_jay_z'),
-(243, 'Jeezy', 'image_url_jeezy'),
-(244, 'Jeru the Damaja', 'image_url_jeru_the_damaja'),
-(245, 'Jessie J', 'image_url_jessie_j'),
-(246, 'Jimi Hendrix', 'image_url_jimi_hendrix'),
-(247, 'Jimmy Buffett', 'image_url_jimmy_buffett'),
-(248, 'Jimmy Cliff', 'image_url_jimmy_cliff'),
-(249, 'Jimmy Eat World', 'image_url_jimmy_eat_world'),
-(250, 'Jimmy Ruffin', 'image_url_jimmy_ruffin'),
-(251, 'Jimmy Smith', 'image_url_jimmy_smith'),
-(252, 'Joan Armatrading', 'image_url_joan_armatrading'),
-(253, 'Joan Baez', 'image_url_joan_baez'),
-(254, 'Joe Cocker', 'image_url_joe_cocker'),
-(255, 'Joe Jackson', 'image_url_joe_jackson'),
-(256, 'Joe Sample', 'image_url_joe_sample'),
-(257, 'Joe Walsh / The James Gang', 'image_url_joe_walsh_james_gang'),
-(258, 'John Coltrane', 'image_url_john_coltrane'),
-(259, 'John Fogerty', 'image_url_john_fogerty'),
-(260, 'John Lee Hooker', 'image_url_john_lee_hooker'),
-(261, 'John Lennon', 'image_url_john_lennon'),
-(262, 'John Martyn', 'image_url_john_martyn'),
-(263, 'John Mayall', 'image_url_john_mayall'),
-(264, 'John Mellencamp', 'image_url_john_mellencamp'),
-(265, 'John Williams', 'image_url_john_williams'),
-(266, 'Johnny Cash', 'image_url_johnny_cash'),
-(267, 'Johnny Gill', 'image_url_johnny_gill'),
-(268, 'Joni Mitchell', 'image_url_joni_mitchell'),
-(269, 'Jonny Lang', 'image_url_jonny_lang'),
-(270, 'Joss Stone', 'image_url_joss_stone'),
-(271, 'Jr. Walker & The All Stars', 'image_url_jr_walker_all_stars'),
-(272, 'Julie London', 'image_url_julie_london'),
-(273, 'Jurassic 5', 'image_url_jurassic_5'),
-(274, 'Justin Bieber', 'image_url_justin_bieber'),
-(275, 'Kacey Musgraves', 'image_url_kacey_musgraves'),
-(276, 'Kaiser Chiefs', 'image_url_kaiser_chiefs'),
-(277, 'Kate Bush', 'image_url_kate_bush'),
-(278, 'Katy Perry', 'image_url_katy_perry'),
-(279, 'Keane', 'image_url_keane'),
-(280, 'Keith Jarrett', 'image_url_keith_jarrett'),
-(281, 'Keith Richards', 'image_url_keith_richards'),
-(282, 'Keith Urban', 'image_url_keith_urban'),
-(283, 'Kendrick Lamar', 'image_url_kendrick_lamar'),
-(284, 'Kenny Burrell', 'image_url_kenny_burrell'),
-(285, 'Kevin Coyne', 'image_url_kevin_coyne'),
-(286, 'The Killers', 'image_url_killers'),
-(287, 'Killing Joke', 'image_url_killing_joke'),
-(288, 'Kim Carnes', 'image_url_kim_carnes'),
-(289, 'The Kinks', 'image_url_kinks'),
-(290, 'Kip Moore', 'image_url_kip_moore'),
-(291, 'Kiss', 'image_url_kiss'),
-(292, 'The Kooks', 'image_url_kooks'),
-(293, 'Kool And The Gang', 'image_url_kool_and_the_gang'),
-(294, 'LL Cool J', 'image_url_ll_cool_j'),
-(295, 'Lady A', 'image_url_lady_a'),
-(296, 'Lady GaGa', 'image_url_lady_gaga'),
-(297, 'Lana Del Rey', 'image_url_lana_del_rey'),
-(298, 'Laura Marling', 'image_url_laura_marling'),
-(299, 'Led Zeppelin', 'image_url_led_zeppelin'),
-(300, 'Lee ‘Scratch’ Perry', 'image_url_lee_scratch_perry'),
-(301, 'Lenny Kravitz', 'image_url_lenny_kravitz'),
-(302, 'Leon Russell', 'image_url_leon_russell'),
-(303, 'Lester Young', 'image_url_lester_young'),
-(304, 'Level 42', 'image_url_level_42'),
-(305, 'The Libertines', 'image_url_libertines'),
-(306, 'Lightnin’ Hopkins', 'image_url_lightnin_hopkins'),
-(307, 'Lil Wayne', 'image_url_lil_wayne'),
-(308, 'Linton Kwesi Johnson', 'image_url_linton_kwesi_johnson'),
-(309, 'Lionel Richie', 'image_url_lionel_richie'),
-(310, 'Little Big Town', 'image_url_little_big_town'),
-(311, 'Little Richard', 'image_url_little_richard'),
-(312, 'Little Steven', 'image_url_little_steven'),
-(313, 'Lloyd Cole', 'image_url_lloyd_cole'),
-(314, 'Lorde', 'image_url_lorde'),
-(315, 'Louis Armstrong', 'image_url_louis_armstrong'),
-(316, 'Lucinda Williams', 'image_url_lucinda_williams'),
-(317, 'Ludacris', 'image_url_ludacris'),
-(318, 'Ludovico Einaudi', 'image_url_ludovico_einaudi'),
-(319, 'Luke Bryan', 'image_url_luke_bryan'),
-(320, 'Lulu', 'image_url_lulu'),
-(321, 'The Lumineers', 'image_url_lumineers'),
-(322, 'Lynyrd Skynyrd', 'image_url_lynyrd_skynyrd'),
-(323, 'Maddie & Tae', 'image_url_maddie_and_tae'),
-(324, 'Madonna', 'image_url_madonna'),
-(325, 'Magazine', 'image_url_magazine'),
-(326, 'The Mamas & The Papas', 'image_url_mamas_and_papas'),
-(327, 'Marc Almond', 'image_url_marc_almond'),
-(328, 'Marilyn Manson', 'image_url_marilyn_manson'),
-(329, 'Mark Knopfler', 'image_url_mark_knopfler'),
-(330, 'Maroon 5', 'image_url_maroon_5'),
-(331, 'Martha Reeves & The Vandellas', 'image_url_martha_reeves_vandellas'),
-(332, 'The Marvelettes', 'image_url_marvelettes'),
-(333, 'Marvin Gaye', 'image_url_marvin_gaye'),
-(334, 'Mary Hopkin', 'image_url_mary_hopkin'),
-(335, 'Mary J. Blige', 'image_url_mary_j_blige'),
-(336, 'Mary Wells', 'image_url_mary_wells'),
-(337, 'Massive Attack', 'image_url_massive_attack'),
-(338, 'Master P', 'image_url_master_p'),
-(339, 'The Mavericks', 'image_url_mavericks'),
-(340, 'Maxi Priest', 'image_url_maxi_priest'),
-(341, 'McCoy Tyner', 'image_url_mccoy_tyner'),
-(342, 'Meat Loaf', 'image_url_meat_loaf'),
-(343, 'Megadeth', 'image_url_megadeth'),
-(344, 'Melody Gardot', 'image_url_melody_gardot'),
-(345, 'Metallica', 'image_url_metallica'),
-(346, 'Method Man', 'image_url_method_man'),
-(347, 'Michael Jackson', 'image_url_michael_jackson'),
-(348, 'Michael Kiwanuka', 'image_url_michael_kiwanuka'),
-(349, 'Michael Nyman', 'image_url_michael_nyman'),
-(350, 'Mike & the Mechanics', 'image_url_mike_and_the_mechanics'),
-(351, 'Mike Oldfield', 'image_url_mike_oldfield'),
-(352, 'Miles Davis', 'image_url_miles_davis'),
-(353, 'Minnie Riperton', 'image_url_minnie_riperton'),
-(354, 'The Moody Blues', 'image_url_moody_blues'),
-(355, 'Morrissey', 'image_url_morrissey'),
-(356, 'Motörhead', 'image_url_motorhead'),
-(357, 'Muddy Waters', 'image_url_muddy_waters'),
-(358, 'Mumford & Sons', 'image_url_mumford_and_sons'),
-(359, 'Mötley Crüe', 'image_url_motley_crue'),
-(360, 'N.W.A', 'image_url_nwa'),
-(361, 'Nanci Griffith', 'image_url_nanci_griffith'),
-(362, 'Nas', 'image_url_nas'),
-(363, 'Nat King Cole', 'image_url_nat_king_cole'),
-(364, 'Nazareth', 'image_url_nazareth'),
-(365, 'Ne-Yo', 'image_url_ne_yo'),
-(366, 'Neil Diamond', 'image_url_neil_diamond'),
-(367, 'Neil Young', 'image_url_neil_young'),
-(368, 'Nelly', 'image_url_nelly'),
-(369, 'Neneh Cherry', 'image_url_neneh_cherry'),
-(370, 'New Edition', 'image_url_new_edition'),
-(371, 'New York Dolls', 'image_url_new_york_dolls'),
-(372, 'Nick Drake', 'image_url_nick_drake'),
-(373, 'Nicki Minaj', 'image_url_nicki_minaj'),
-(374, 'Nik Kershaw', 'image_url_nik_kershaw'),
-(375, 'Nina Simone', 'image_url_nina_simone'),
-(376, 'Nine Inch Nails', 'image_url_nine_inch_nails'),
-(377, 'Nirvana', 'image_url_nirvana'),
-(378, 'The Nitty Gritty Dirt Band', 'image_url_nitty_gritty_dirt_band'),
-(379, 'No Doubt', 'image_url_no_doubt'),
-(380, 'Norah Jones', 'image_url_norah_jones'),
-(381, 'OMD', 'image_url_omd'),
-(382, 'Ocean Colour Scene', 'image_url_ocean_colour_scene'),
-(383, 'OneRepublic', 'image_url_onerepublic'),
-(384, 'Onyx', 'image_url_onyx'),
-(385, 'Oscar Peterson', 'image_url_oscar_peterson'),
-(386, 'Otis Redding', 'image_url_otis_redding'),
-(387, 'The Ozark Mountain Daredevils', 'image_url_ozark_mountain_daredevils'),
-(388, 'PJ Harvey', 'image_url_pj_harvey'),
-(389, 'Papa Roach', 'image_url_papa_roach'),
-(390, 'Pat Benatar', 'image_url_pat_benatar'),
-(391, 'Pato Banton', 'image_url_pato_banton'),
-(392, 'Patsy Cline', 'image_url_patsy_cline'),
-(393, 'Patty Griffin', 'image_url_patty_griffin'),
-(394, 'Paul McCartney and Wings', 'image_url_paul_mccartney_and_wings'),
-(395, 'Paul Simon', 'image_url_paul_simon'),
-(396, 'Paul Weller', 'image_url_paul_weller'),
-(397, 'Peaches & Herb', 'image_url_peaches_and_herb'),
-(398, 'Pearl Jam', 'image_url_pearl_jam'),
-(399, 'Peggy Lee', 'image_url_peggy_lee'),
-(400, 'Pete Townshend', 'image_url_pete_townshend'),
-(401, 'Peter Frampton', 'image_url_peter_frampton'),
-(402, 'Phil Collins', 'image_url_phil_collins'),
-(403, 'Phil Manzanera', 'image_url_phil_manzanera'),
-(404, 'PiL (Public Image Ltd)', 'image_url_public_image_ltd'),
-(405, 'Pink Floyd', 'image_url_pink_floyd'),
-(406, 'Placebo', 'image_url_placebo'),
-(407, 'Poco', 'image_url_poco'),
-(408, 'Poison', 'image_url_poison'),
-(409, 'The Police', 'image_url_police'),
-(410, 'Portishead', 'image_url_portishead'),
-(411, 'Prince', 'image_url_prince'),
-(412, 'Public Enemy', 'image_url_public_enemy'),
-(413, 'Pulp', 'image_url_pulp'),
-(414, 'Queen', 'image_url_queen'),
-(415, 'Queens Of The Stone Age', 'image_url_queens_of_the_stone_age'),
-(416, 'Quicksilver Messenger Service', 'image_url_quicksilver_messenger_service'),
-(417, 'Quincy Jones', 'image_url_quincy_jones'),
-(418, 'R.E.M.', 'image_url_rem'),
-(419, 'Rainbow', 'image_url_rainbow'),
-(420, 'Rammstein', 'image_url_rammstein'),
-(421, 'Ray Charles', 'image_url_ray_charles'),
-(422, 'Reba McEntire', 'image_url_reba_mcentire'),
-(423, 'Red Hot Chili Peppers', 'image_url_red_hot_chili_peppers'),
-(424, 'Redman', 'image_url_redman'),
-(425, 'Richie Havens', 'image_url_richie_havens'),
-(426, 'Rick James', 'image_url_rick_james'),
-(427, 'Rick Nelson', 'image_url_rick_nelson'),
-(428, 'Rick Ross', 'image_url_rick_ross'),
-(429, 'Rick Wakeman', 'image_url_rick_wakeman'),
-(430, 'The Righteous Brothers', 'image_url_righteous_brothers'),
-(431, 'Rihanna', 'image_url_rihanna'),
-(432, 'Ringo Starr', 'image_url_ringo_starr'),
-(433, 'Rise Against', 'image_url_rise_against'),
-(434, 'Rob Zombie', 'image_url_rob_zombie'),
-(435, 'Robbie Williams', 'image_url_robbie_williams'),
-(436, 'Robert Cray', 'image_url_robert_cray'),
-(437, 'Robert Glasper', 'image_url_robert_glasper'),
-(438, 'Robert Palmer', 'image_url_robert_palmer'),
-(439, 'Robert Plant', 'image_url_robert_plant'),
-(440, 'Rod Stewart', 'image_url_rod_stewart'),
-(441, 'Roger Daltrey', 'image_url_roger_daltrey'),
-(442, 'The Rolling Stones', 'image_url_rolling_stones'),
-(443, 'Ronnie Lane', 'image_url_ronnie_lane'),
-(444, 'Ronnie Wood', 'image_url_ronnie_wood'),
-(445, 'Rory Gallagher', 'image_url_rory_gallagher'),
-(446, 'The Roots', 'image_url_roots'),
-(447, 'Rosanne Cash', 'image_url_rosanne_cash'),
-(448, 'Roxy Music', 'image_url_roxy_music'),
-(449, 'Roy Orbison', 'image_url_roy_orbison'),
-(450, 'Ruff Ryders', 'image_url_ruff_ryders'),
-(451, 'Rufus Wainwright', 'image_url_rufus_wainwright'),
-(452, 'Rush', 'image_url_rush'),
-(453, 'The Ruts', 'image_url_ruts'),
-(454, 'Saint Etienne', 'image_url_saint_etienne'),
-(455, 'Salt-n-Pepa', 'image_url_salt_n_pepa'),
-(456, 'Sam Cooke', 'image_url_sam_cooke'),
-(457, 'Sam Hunt', 'image_url_sam_hunt'),
-(458, 'Sam Smith', 'image_url_sam_smith'),
-(459, 'Sammy Hagar', 'image_url_sammy_hagar'),
-(460, 'Sandy Denny', 'image_url_sandy_denny'),
-(461, 'Schiller', 'image_url_schiller'),
-(462, 'Scorpions', 'image_url_scorpions'),
-(463, 'Scott Walker', 'image_url_scott_walker'),
-(464, 'Secret Garden', 'image_url_secret_garden'),
-(465, 'Selena Gomez', 'image_url_selena_gomez'),
-(466, 'Sensational Alex Harvey Band', 'image_url_sensational_alex_harvey_band'),
-(467, 'Serge Gainsbourg', 'image_url_serge_gainsbourg'),
-(468, 'Sergio Mendes', 'image_url_sergio_mendes'),
-(469, 'Sex Pistols', 'image_url_sex_pistols'),
-(470, 'Shaggy', 'image_url_shaggy'),
-(471, 'Sham 69', 'image_url_sham_69'),
-(472, 'Shania Twain', 'image_url_shania_twain'),
-(473, 'Sheryl Crow', 'image_url_sheryl_crow'),
-(474, 'Simple Minds', 'image_url_simple_minds'),
-(475, 'Siouxsie & The Banshees', 'image_url_siouxsie_and_the_banshees'),
-(476, 'Slayer', 'image_url_slayer'),
-(477, 'Slick Rick', 'image_url_slick_rick'),
-(478, 'Sly & Robbie', 'image_url_sly_and_robbie'),
-(479, 'Small Faces', 'image_url_small_faces'),
-(480, 'The Smashing Pumpkins', 'image_url_smashing_pumpkins'),
-(481, 'Smokey Robinson', 'image_url_smokey_robinson'),
-(482, 'Smokey Robinson & The Miracles', 'image_url_smokey_robinson_miracles'),
-(483, 'Snoop Dogg', 'image_url_snoop_dogg'),
-(484, 'Snow Patrol', 'image_url_snow_patrol'),
-(485, 'Soft Cell', 'image_url_soft_cell'),
-(486, 'Sonic Youth', 'image_url_sonic_youth'),
-(487, 'Sonny Boy Williamson', 'image_url_sonny_boy_williamson'),
-(488, 'Soul II Soul', 'image_url_soul_ii_soul'),
-(489, 'Soundgarden', 'image_url_soundgarden'),
-(490, 'Spandau Ballet', 'image_url_spandau_ballet'),
-(491, 'Sparks', 'image_url_sparks'),
-(492, 'Spice Girls', 'image_url_spice_girls'),
-(493, 'Stan Getz', 'image_url_stan_getz'),
-(494, 'Stan Kenton', 'image_url_stan_kenton'),
-(495, 'Stanley Clarke', 'image_url_stanley_clarke'),
-(496, 'Status Quo', 'image_url_status_quo'),
-(497, 'Stealers Wheel', 'image_url_stealers_wheel'),
-(498, 'Steam', 'image_url_steam'),
-(499, 'Steel Pulse', 'image_url_steel_pulse'),
-(500, 'Steve Earle', 'image_url_steve_earle'),
-(501, 'Steve Hackett', 'image_url_steve_hackett'),
-(502, 'Steve Harley & Cockney Rebel', 'image_url_steve_harley_cockney_rebel'),
-(503, 'Steve Hillage', 'image_url_steve_hillage'),
-(504, 'Steve Miller Band', 'image_url_steve_miller_band'),
-(505, 'Steve Winwood', 'image_url_steve_winwood'),
-(506, 'Stevie Nicks', 'image_url_stevie_nicks'),
-(507, 'Stevie Ray Vaughan', 'image_url_stevie_ray_vaughan'),
-(508, 'Stevie Wonder', 'image_url_stevie_wonder'),
-(509, 'Sting', 'image_url_sting'),
-(510, 'Stone Roses', 'image_url_stone_roses'),
-(511, 'The Stone Roses', 'image_url_stone_roses'),
-(512, 'Stray Cats', 'image_url_stray_cats'),
-(513, 'Styx', 'image_url_styx'),
-(514, 'Sufjan Stevens', 'image_url_sufjan_stevens'),
-(515, 'The Sugarcubes', 'image_url_sugarcubes'),
-(516, 'Supertramp', 'image_url_supertramp'),
-(517, 'The Supremes', 'image_url_supremes'),
-(518, 'Suzanne Vega', 'image_url_suzanne_vega'),
-(519, 'Swans', 'image_url_swans'),
-(520, 'The Sweet', 'image_url_sweet'),
-(521, 'Swing Out Sister', 'image_url_swing_out_sister'),
-(522, 'Syd Barrett', 'image_url_syd_barrett'),
-(523, 'System Of A Down', 'image_url_system_of_a_down'),
-(524, 'T. Rex', 'image_url_t_rex'),
-(525, 'TLC', 'image_url_tlc'),
-(526, 'TV On The Radio', 'image_url_tv_on_the_radio'),
-(527, 'Talking Heads', 'image_url_talking_heads'),
-(528, 'Tammy Wynette', 'image_url_tammy_wynette'),
-(529, 'Tangerine Dream', 'image_url_tangerine_dream'),
-(530, 'Taylor Swift', 'image_url_taylor_swift'),
-(531, 'Tears For Fears', 'image_url_tears_for_fears'),
-(532, 'Ted Nugent', 'image_url_ted_nugent'),
-(533, 'The Temptations', 'image_url_temptations'),
-(534, 'Terence Trent D’Arby', 'image_url_terence_trent_darby'),
-(535, 'The The', 'image_url_the_the'),
-(536, 'Thelonious Monk', 'image_url_thelonious_monk'),
-(537, 'They Might Be Giants', 'image_url_they_might_be_giants'),
-(538, 'Thin Lizzy', 'image_url_thin_lizzy'),
-(539, 'Thomas Dolby', 'image_url_thomas_dolby'),
-(540, 'Tim Buckley', 'image_url_tim_buckley'),
-(541, 'Tim Hardin', 'image_url_tim_hardin'),
-(542, 'Timbaland', 'image_url_timbaland'),
-(543, 'Tina Turner', 'image_url_tina_turner'),
-(544, 'Tito Puente', 'image_url_tito_puente'),
-(545, 'Toad the Wet Sprocket', 'image_url_toad_the_wet_sprocket'),
-(546, 'Tom Jones', 'image_url_tom_jones'),
-(547, 'Tom Petty', 'image_url_tom_petty'),
-(548, 'Tom Waits', 'image_url_tom_waits'),
-(549, 'Tommy James & The Shondells', 'image_url_tommy_james_shondells'),
-(550, 'Toni Braxton', 'image_url_toni_braxton'),
-(551, 'Tori Amos', 'image_url_tori_amos'),
-(552, 'Toto', 'image_url_toto'),
-(553, 'The Troggs', 'image_url_troggs'),
-(554, 'U2', 'image_url_u2'),
-(555, 'UB40', 'image_url_ub40'),
-(556, 'Ultravox', 'image_url_ultravox'),
-(557, 'Underworld', 'image_url_underworld'),
-(558, 'The Undertones', 'image_url_undertones'),
-(559, 'Unkle', 'image_url_unkle'),
-(560, 'Uriah Heep', 'image_url_uriah_heep'),
-(561, 'Usher', 'image_url_usher'),
-(562, 'Van Halen', 'image_url_van_halen'),
-(563, 'Van Morrison', 'image_url_van_morrison'),
-(564, 'Vanessa Williams', 'image_url_vanessa_williams'),
-(565, 'Vangelis', 'image_url_vangelis'),
-(566, 'The Vapors', 'image_url_vapors'),
-(567, 'The Velvet Underground', 'image_url_velvet_underground'),
-(568, 'The Ventures', 'image_url_ventures'),
-(569, 'Vera Lynn', 'image_url_vera_lynn'),
-(570, 'Vic Chesnutt', 'image_url_vic_chesnutt'),
-(571, 'Vince Guaraldi', 'image_url_vince_guaraldi'),
-(572, 'Violent Femmes', 'image_url_violent_femmes'),
-(573, 'Visage', 'image_url_visage'),
-(574, 'Wang Chung', 'image_url_wang_chung'),
-(575, 'Warpaint', 'image_url_warpaint'),
-(576, 'Warren Zevon', 'image_url_warren_zevon'),
-(577, 'The Waterboys', 'image_url_waterboys'),
-(578, 'The Watson Twins', 'image_url_watson_twins'),
-(579, 'The Weeknd', 'image_url_weeknd'),
-(580, 'Ween', 'image_url_ween'),
-(581, 'Weezer', 'image_url_weezer'),
-(582, 'Wendy Carlos', 'image_url_wendy_carlos'),
-(583, 'Wet Wet Wet', 'image_url_wet_wet_wet'),
-(584, 'The White Stripes', 'image_url_white_stripes'),
-(585, 'Whitney Houston', 'image_url_whitney_houston'),
-(586, 'The Who', 'image_url_who'),
-(587, 'Wilco', 'image_url_wilco'),
-(588, 'Willie Nelson', 'image_url_willie_nelson'),
-(589, 'Wilson Pickett', 'image_url_wilson_pickett'),
-(590, 'Wings', 'image_url_wings'),
-(591, 'The Wombats', 'image_url_wombats'),
-(592, 'The Wurzels', 'image_url_wurzels'),
-(593, 'X', 'image_url_x'),
-(594, 'XTC', 'image_url_xtc'),
-(595, 'The xx', 'image_url_xx'),
-(596, 'Yazoo', 'image_url_yazoo'),
-(597, 'Yes', 'image_url_yes'),
-(598, 'Yo La Tengo', 'image_url_yo_la_tengo'),
-(599, 'Yoko Ono', 'image_url_yoko_ono'),
-(600, 'The Youngbloods', 'image_url_youngbloods'),
-(601, 'The Young Rascals', 'image_url_young_rascals'),
-(602, 'The Zombies', 'image_url_zombies'),
-(603, 'ZZ Top', 'image_url_zz_top');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (1, '2Pac', 'image_url_2pac');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (2, 'A', 'image_url_a');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (3, 'Adele', 'image_url_adele');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (4, 'Aerosmith', 'image_url_aerosmith');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (5, 'Alabama Shakes', 'image_url_alabama_shakes');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (6, 'Alan Jackson', 'image_url_alan_jackson');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (7, 'Albert King', 'image_url_albert_king');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (8, 'Alice Cooper', 'image_url_alice_cooper');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (9, 'Alison Krauss', 'image_url_alison_krauss');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (10, 'Amy Winehouse', 'image_url_amy_winehouse');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (11, 'Andre Rieu', 'image_url_andre_rieu');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (12, 'Andrea Bocelli', 'image_url_andrea_bocelli');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (13, 'Andrew W.K.', 'image_url_andrew_w_k_');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (14, 'Anthrax', 'image_url_anthrax');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (15, 'Antonio Carlos Jobim', 'image_url_antonio_carlos_jobim');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (16, 'Apache Indian', 'image_url_apache_indian');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (17, 'Arcade Fire', 'image_url_arcade_fire');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (18, 'Arctic Monkeys', 'image_url_arctic_monkeys');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (19, 'Ariana Grande', 'image_url_ariana_grande');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (20, 'Arrested Development', 'image_url_arrested_development');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (21, 'Ashley Campbell', 'image_url_ashley_campbell');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (22, 'Aswad', 'image_url_aswad');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (23, 'Atlanta Rhythm Section', 'image_url_atlanta_rhythm_section');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (24, 'Audioslave', 'image_url_audioslave');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (25, 'Avril Lavigne', 'image_url_avril_lavigne');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (26, 'B.B. King', 'image_url_b_b__king');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (27, 'Backstreet Boys', 'image_url_backstreet_boys');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (28, 'Badfinger', 'image_url_badfinger');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (29, 'Barclay James Harvest', 'image_url_barclay_james_harvest');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (30, 'Barry White', 'image_url_barry_white');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (31, 'The Beach Boys', 'image_url_the_beach_boys');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (32, 'The Beatles', 'image_url_the_beatles');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (33, 'Beck', 'image_url_beck');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (34, 'Bee Gees', 'image_url_bee_gees');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (35, 'Belinda Carlisle', 'image_url_belinda_carlisle');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (36, 'Ben Harper', 'image_url_ben_harper');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (37, 'Ben Howard', 'image_url_ben_howard');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (38, 'Benny Andersson', 'image_url_benny_andersson');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (39, 'Beyoncé', 'image_url_beyoncé');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (40, 'Big Country', 'image_url_big_country');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (41, 'Big Star', 'image_url_big_star');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (42, 'Bill Evans', 'image_url_bill_evans');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (43, 'Billie Eilish', 'image_url_billie_eilish');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (44, 'Billie Holiday', 'image_url_billie_holiday');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (45, 'Billy Currington', 'image_url_billy_currington');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (46, 'Billy Fury', 'image_url_billy_fury');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (47, 'Billy Preston', 'image_url_billy_preston');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (48, 'Björk', 'image_url_björk');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (49, 'Black Eyed Peas', 'image_url_black_eyed_peas');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (50, 'Black Sabbath', 'image_url_black_sabbath');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (51, 'Black Uhuru', 'image_url_black_uhuru');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (52, 'Blind Faith', 'image_url_blind_faith');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (53, 'Blink-182', 'image_url_blink-182');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (54, 'Blondie', 'image_url_blondie');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (55, 'Blue Cheer', 'image_url_blue_cheer');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (56, 'Bo Diddley', 'image_url_bo_diddley');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (57, 'Bob Dylan', 'image_url_bob_dylan');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (58, 'Bob Marley', 'image_url_bob_marley');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (59, 'Bob Seger', 'image_url_bob_seger');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (60, 'Bon Jovi', 'image_url_bon_jovi');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (61, 'Bonnie Raitt', 'image_url_bonnie_raitt');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (62, 'Booker T', 'image_url_booker_t');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (63, 'Boyz II Men', 'image_url_boyz_ii_men');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (64, 'Brantley Gilbert', 'image_url_brantley_gilbert');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (65, 'Brenda Holloway', 'image_url_brenda_holloway');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (66, 'Brian Eno', 'image_url_brian_eno');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (67, 'The Brothers Johnson', 'image_url_the_brothers_johnson');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (68, 'Bruce Springsteen', 'image_url_bruce_springsteen');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (69, 'Bruno Mars', 'image_url_bruno_mars');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (70, 'Bryan Adams', 'image_url_bryan_adams');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (71, 'Bryan Ferry', 'image_url_bryan_ferry');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (72, 'Buddy Guy', 'image_url_buddy_guy');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (73, 'Buddy Holly', 'image_url_buddy_holly');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (74, 'Burning Spear', 'image_url_burning_spear');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (75, 'Burt Bacharach', 'image_url_burt_bacharach');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (76, 'The Cadillac Three', 'image_url_the_cadillac_three');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (77, 'Camel', 'image_url_camel');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (78, 'Canned Heat', 'image_url_canned_heat');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (79, 'Captain Beefheart', 'image_url_captain_beefheart');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (80, 'Caravan', 'image_url_caravan');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (81, 'Carpenters', 'image_url_carpenters');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (82, 'Carrie Underwood', 'image_url_carrie_underwood');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (83, 'Cat Stevens', 'image_url_cat_stevens');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (84, 'Cher', 'image_url_cher');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (85, 'Chic', 'image_url_chic');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (86, 'Chicago', 'image_url_chicago');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (87, 'Chicane', 'image_url_chicane');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (88, 'Chris Brown', 'image_url_chris_brown');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (89, 'Chris Cornell', 'image_url_chris_cornell');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (90, 'Chris Stapleton', 'image_url_chris_stapleton');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (91, 'Chuck Berry', 'image_url_chuck_berry');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (92, 'Cinderella', 'image_url_cinderella');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (93, 'The Clash', 'image_url_the_clash');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (94, 'Climax Blues Band', 'image_url_climax_blues_band');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (95, 'Coleman Hawkins', 'image_url_coleman_hawkins');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (96, 'Commodores', 'image_url_commodores');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (97, 'Common', 'image_url_common');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (98, 'The Common Linnets', 'image_url_the_common_linnets');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (99, 'Corinne Bailey Rae', 'image_url_corinne_bailey_rae');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (100, 'Count Basie', 'image_url_count_basie');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (101, 'Counting Crows', 'image_url_counting_crows');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (102, 'Craig Armstrong', 'image_url_craig_armstrong');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (103, 'The Cranberries', 'image_url_the_cranberries');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (104, 'Cream', 'image_url_cream');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (105, 'Creedence Clearwater Revival', 'image_url_creedence_clearwater_revival');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (106, 'Crowded House', 'image_url_crowded_house');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (107, 'Culture Club', 'image_url_culture_club');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (108, 'The Cure', 'image_url_the_cure');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (109, 'Cutting Crew', 'image_url_cutting_crew');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (110, 'Cyndi Lauper', 'image_url_cyndi_lauper');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (111, 'D Angelo', 'image_url_d_angelo');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (112, 'DMX', 'image_url_dmx');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (113, 'Daft Punk', 'image_url_daft_punk');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (114, 'The Damned', 'image_url_the_damned');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (115, 'Daniel Hope', 'image_url_daniel_hope');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (116, 'Danny Wilson & Gary Clark', 'image_url_danny_wilson_&_gary_clark');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (117, 'David Bowie', 'image_url_david_bowie');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (118, 'Dean Martin', 'image_url_dean_martin');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (119, 'Debarge', 'image_url_debarge');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (120, 'Deep Purple', 'image_url_deep_purple');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (121, 'Def Leppard', 'image_url_def_leppard');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (122, 'Demi Lovato', 'image_url_demi_lovato');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (123, 'Demis Roussos', 'image_url_demis_roussos');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (124, 'Derek And The Dominos', 'image_url_derek_and_the_dominos');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (125, 'Desmond Dekker', 'image_url_desmond_dekker');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (126, 'Diana Krall', 'image_url_diana_krall');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (127, 'Diana Ross', 'image_url_diana_ross');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (128, 'Diana Ross & The Supremes', 'image_url_diana_ross_&_the_supremes');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (129, 'Dierks Bentley', 'image_url_dierks_bentley');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (130, 'Dinah Washington', 'image_url_dinah_washington');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (131, 'Dio', 'image_url_dio');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (132, 'Dire Straits', 'image_url_dire_straits');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (133, 'Disclosure', 'image_url_disclosure');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (134, 'Dolly Parton', 'image_url_dolly_parton');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (135, 'Don Henley', 'image_url_don_henley');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (136, 'Donna Summer', 'image_url_donna_summer');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (137, 'The Doors', 'image_url_the_doors');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (138, 'Dr Dre', 'image_url_dr_dre');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (139, 'Drake', 'image_url_drake');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (140, 'Duke Ellington', 'image_url_duke_ellington');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (141, 'Duran Duran', 'image_url_duran_duran');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (142, 'Dusty Springfield', 'image_url_dusty_springfield');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (143, 'EELS', 'image_url_eels');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (144, 'EPMD', 'image_url_epmd');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (145, 'Eagles', 'image_url_eagles');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (146, 'Eagles Of Death Metal', 'image_url_eagles_of_death_metal');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (147, 'Eazy-E', 'image_url_eazy-e');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (148, 'Ed Sheeran', 'image_url_ed_sheeran');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (149, 'Eddie Cochran', 'image_url_eddie_cochran');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (150, 'Edith Piaf', 'image_url_edith_piaf');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (151, 'Elbow', 'image_url_elbow');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (152, 'Ella Fitzgerald', 'image_url_ella_fitzgerald');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (153, 'Ellie Goulding', 'image_url_ellie_goulding');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (154, 'Elliott Smith', 'image_url_elliott_smith');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (155, 'Elton John', 'image_url_elton_john');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (156, 'Elvis Costello', 'image_url_elvis_costello');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (157, 'Elvis Presley', 'image_url_elvis_presley');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (158, 'Emeli Sandé', 'image_url_emeli_sandé');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (159, 'Eminem', 'image_url_eminem');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (160, 'Enigma', 'image_url_enigma');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (161, 'Ennio Morricone', 'image_url_ennio_morricone');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (162, 'Enya', 'image_url_enya');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (163, 'Eric B. & Rakim', 'image_url_eric_b__&_rakim');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (164, 'Eric Church', 'image_url_eric_church');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (165, 'Eric Clapton', 'image_url_eric_clapton');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (166, 'Ernest Tubb', 'image_url_ernest_tubb');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (167, 'Eurythmics', 'image_url_eurythmics');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (168, 'Eva Cassidy', 'image_url_eva_cassidy');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (169, 'Evanescence', 'image_url_evanescence');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (170, 'Everly Brothers', 'image_url_everly_brothers');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (171, 'Everything Everything', 'image_url_everything_everything');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (172, 'The Faces', 'image_url_the_faces');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (173, 'Fairport Convention', 'image_url_fairport_convention');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (174, 'Faith Evans', 'image_url_faith_evans');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (175, 'Faith Hill', 'image_url_faith_hill');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (176, 'Faith No More', 'image_url_faith_no_more');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (177, 'Fall Out Boy', 'image_url_fall_out_boy');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (178, 'Fatboy Slim', 'image_url_fatboy_slim');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (179, 'Fats Domino', 'image_url_fats_domino');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (180, 'Feist', 'image_url_feist');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (181, 'Fela Kuti', 'image_url_fela_kuti');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (182, 'Fergie', 'image_url_fergie');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (183, 'Fiona Apple', 'image_url_fiona_apple');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (184, 'Fleetwood Mac', 'image_url_fleetwood_mac');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (185, 'Foo Fighters', 'image_url_foo_fighters');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (186, 'Foreigner', 'image_url_foreigner');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (187, 'Four Tops', 'image_url_four_tops');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (188, 'The Four Seasons', 'image_url_the_four_seasons');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (189, 'The Four Tops', 'image_url_the_four_tops');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (190, 'Frank Ocean', 'image_url_frank_ocean');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (191, 'Frank Sinatra', 'image_url_frank_sinatra');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (192, 'Frank Turner', 'image_url_frank_turner');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (193, 'Franz Ferdinand', 'image_url_franz_ferdinand');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (194, 'Freddie Hubbard', 'image_url_freddie_hubbard');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (195, 'Free', 'image_url_free');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (196, 'Fugees', 'image_url_fugees');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (197, 'Fun.', 'image_url_fun_');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (198, 'Future Islands', 'image_url_future_islands');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (199, 'The Game', 'image_url_the_game');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (200, 'Gang Starr', 'image_url_gang_starr');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (201, 'Garbage', 'image_url_garbage');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (202, 'Gareth Gates', 'image_url_gareth_gates');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (203, 'Gary Moore', 'image_url_gary_moore');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (204, 'Gary Numan', 'image_url_gary_numan');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (205, 'Genesis', 'image_url_genesis');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (206, 'George Benson', 'image_url_george_benson');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (207, 'George Harrison', 'image_url_george_harrison');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (208, 'George Michael', 'image_url_george_michael');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (209, 'George Strait', 'image_url_george_strait');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (210, 'Gerry Rafferty', 'image_url_gerry_rafferty');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (211, 'Gibson Brothers', 'image_url_gibson_brothers');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (212, 'Gil Scott-Heron', 'image_url_gil_scott-heron');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (213, 'Glen Campbell', 'image_url_glen_campbell');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (214, 'Glen Hansard & Marketa Irglova', 'image_url_glen_hansard_&_marketa_irglova');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (215, 'Glenn Miller', 'image_url_glenn_miller');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (216, 'Gloria Gaynor', 'image_url_gloria_gaynor');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (217, 'Gnarls Barkley', 'image_url_gnarls_barkley');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (218, 'Godsmack', 'image_url_godsmack');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (219, 'Gordon Lightfoot', 'image_url_gordon_lightfoot');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (220, 'Grace Jones', 'image_url_grace_jones');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (221, 'Grace VanderWaal', 'image_url_grace_vanderwaal');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (222, 'Grandmaster Flash & The Furious Five', 'image_url_grandmaster_flash_&_the_furious_five');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (223, 'The Grateful Dead', 'image_url_the_grateful_dead');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (224, 'Green Day', 'image_url_green_day');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (225, 'Gregory Isaacs', 'image_url_gregory_isaacs');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (226, 'The Guess Who', 'image_url_the_guess_who');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (227, 'Guns N Roses', 'image_url_guns_n_roses');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (228, 'Guru', 'image_url_guru');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (229, 'Gwen Stefani', 'image_url_gwen_stefani');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (230, 'HIM', 'image_url_him');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (231, 'Halsey', 'image_url_halsey');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (232, 'Hank Williams', 'image_url_hank_williams');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (233, 'Hank Williams Jr', 'image_url_hank_williams_jr');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (234, 'Hank Williams, Jr.', 'image_url_hank_williams__jr_');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (235, 'Hans Zimmer', 'image_url_hans_zimmer');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (236, 'Hanson', 'image_url_hanson');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (237, 'Harry Nilsson', 'image_url_harry_nilsson');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (238, 'Harry Styles', 'image_url_harry_styles');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (239, 'Heart', 'image_url_heart');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (240, 'Heaven 17', 'image_url_heaven_17');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (241, 'The Heavy', 'image_url_the_heavy');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (242, 'Herbie Hancock', 'image_url_herbie_hancock');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (243, 'Holly Valance', 'image_url_holly_valance');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (244, 'The Hollies', 'image_url_the_hollies');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (245, 'Hootie & The Blowfish', 'image_url_hootie_&_the_blowfish');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (246, 'Howlin Wolf', 'image_url_howlin_wolf');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (247, 'Hozier', 'image_url_hozier');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (248, 'Huey Lewis & The News', 'image_url_huey_lewis_&_the_news');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (249, 'Hugh Laurie', 'image_url_hugh_laurie');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (250, 'Human League', 'image_url_human_league');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (251, 'Humble Pie', 'image_url_humble_pie');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (252, 'Ice Cube', 'image_url_ice_cube');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (253, 'Iggy Pop', 'image_url_iggy_pop');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (254, 'Imagine Dragons', 'image_url_imagine_dragons');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (255, 'Incubus', 'image_url_incubus');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (256, 'Indigo Girls', 'image_url_indigo_girls');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (257, 'INXS', 'image_url_inxs');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (258, 'Iron Maiden', 'image_url_iron_maiden');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (259, 'Isaac Hayes', 'image_url_isaac_hayes');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (260, 'J Dilla', 'image_url_j_dilla');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (261, 'JJ Cale', 'image_url_jj_cale');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (262, 'Jack Johnson', 'image_url_jack_johnson');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (263, 'Jack White', 'image_url_jack_white');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (264, 'Jackson Browne', 'image_url_jackson_browne');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (265, 'Jacques Brel', 'image_url_jacques_brel');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (266, 'James Blunt', 'image_url_james_blunt');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (267, 'James Brown', 'image_url_james_brown');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (268, 'James Taylor', 'image_url_james_taylor');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (269, 'Janet Jackson', 'image_url_janet_jackson');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (270, 'Janis Joplin', 'image_url_janis_joplin');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (271, 'Jason Aldean', 'image_url_jason_aldean');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (272, 'Jason Derulo', 'image_url_jason_derulo');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (273, 'Jay Z', 'image_url_jay_z');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (274, 'Jeff Beck', 'image_url_jeff_beck');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (275, 'Jeff Buckley', 'image_url_jeff_buckley');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (276, 'Jeff Lynne', 'image_url_jeff_lynne');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (277, 'Jeff Wayne', 'image_url_jeff_wayne');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (278, 'Jennifer Lopez', 'image_url_jennifer_lopez');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (279, 'Jerry Garcia', 'image_url_jerry_garcia');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (280, 'Jerry Lee Lewis', 'image_url_jerry_lee_lewis');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (281, 'Jethro Tull', 'image_url_jethro_tull');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (282, 'Jimi Hendrix', 'image_url_jimi_hendrix');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (283, 'Jimmy Cliff', 'image_url_jimmy_cliff');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (284, 'Jimmy Eat World', 'image_url_jimmy_eat_world');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (285, 'Jimmy Smith', 'image_url_jimmy_smith');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (286, 'Joan Baez', 'image_url_joan_baez');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (287, 'Joe Bonamassa', 'image_url_joe_bonamassa');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (288, 'Joe Cocker', 'image_url_joe_cocker');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (289, 'Joe Satriani', 'image_url_joe_satriani');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (290, 'Joe Walsh', 'image_url_joe_walsh');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (291, 'John Coltrane', 'image_url_john_coltrane');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (292, 'John Denver', 'image_url_john_denver');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (293, 'John Fahey', 'image_url_john_fahey');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (294, 'John Lee Hooker', 'image_url_john_lee_hooker');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (295, 'John Legend', 'image_url_john_legend');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (296, 'John Lennon', 'image_url_john_lennon');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (297, 'John Martyn', 'image_url_john_martyn');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (298, 'John Mayer', 'image_url_john_mayer');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (299, 'John Mellencamp', 'image_url_john_mellencamp');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (300, 'John Williams', 'image_url_john_williams');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (301, 'Johnny Cash', 'image_url_johnny_cash');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (302, 'Johnny Hallyday', 'image_url_johnny_hallyday');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (303, 'Johnny Mathis', 'image_url_johnny_mathis');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (304, 'Jonas Brothers', 'image_url_jonas_brothers');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (305, 'Joni Mitchell', 'image_url_joni_mitchell');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (306, 'Jools Holland', 'image_url_jools_holland');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (307, 'Journey', 'image_url_journey');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (308, 'Joy Division', 'image_url_joy_division');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (309, 'Juice WRLD', 'image_url_juice_wrld');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (310, 'Julio Iglesias', 'image_url_julio_iglesias');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (311, 'Justin Bieber', 'image_url_justin_bieber');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (312, 'Justin Timberlake', 'image_url_justin_timberlake');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (313, 'Kaiser Chiefs', 'image_url_kaiser_chiefs');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (314, 'Kanye West', 'image_url_kanye_west');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (315, 'Karen Carpenter', 'image_url_karen_carpenter');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (316, 'Kasabian', 'image_url_kasabian');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (317, 'Kate Bush', 'image_url_kate_bush');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (318, 'Katy Perry', 'image_url_katy_perry');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (319, 'Keith Jarrett', 'image_url_keith_jarrett');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (320, 'Keith Richards', 'image_url_keith_richards');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (321, 'Keith Urban', 'image_url_keith_urban');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (322, 'Kenny G', 'image_url_kenny_g');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (323, 'Kenny Rogers', 'image_url_kenny_rogers');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (324, 'Kenny Wayne Shepherd', 'image_url_kenny_wayne_shepherd');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (325, 'The Killers', 'image_url_the_killers');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (326, 'Kings Of Leon', 'image_url_kings_of_leon');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (327, 'Kiss', 'image_url_kiss');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (328, 'The Kinks', 'image_url_the_kinks');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (329, 'Kool & The Gang', 'image_url_kool_&_the_gang');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (330, 'Kris Kristofferson', 'image_url_kris_kristofferson');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (331, 'Kylie Minogue', 'image_url_kylie_minogue');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (332, 'LL Cool J', 'image_url_ll_cool_j');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (333, 'Lady Gaga', 'image_url_lady_gaga');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (334, 'Lana Del Rey', 'image_url_lana_del_rey');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (335, 'Lauryn Hill', 'image_url_lauryn_hill');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (336, 'LeAnn Rimes', 'image_url_leann_rimes');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (337, 'Led Zeppelin', 'image_url_led_zeppelin');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (338, 'Lee Scratch Perry', 'image_url_lee_scratch_perry');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (339, 'Lenny Kravitz', 'image_url_lenny_kravitz');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (340, 'Leo Sayer', 'image_url_leo_sayer');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (341, 'Leon Bridges', 'image_url_leon_bridges');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (342, 'Leon Russell', 'image_url_leon_russell');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (343, 'Leonard Cohen', 'image_url_leonard_cohen');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (344, 'Les Paul', 'image_url_les_paul');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (345, 'Liam Gallagher', 'image_url_liam_gallagher');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (346, 'Lil Nas X', 'image_url_lil_nas_x');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (347, 'Lil Wayne', 'image_url_lil_wayne');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (348, 'Lil Uzi Vert', 'image_url_lil_uzi_vert');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (349, 'Lil Peep', 'image_url_lil_peep');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (350, 'Linda Ronstadt', 'image_url_linda_ronstadt');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (351, 'Linkin Park', 'image_url_linkin_park');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (352, 'Lionel Richie', 'image_url_lionel_richie');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (353, 'Little Big Town', 'image_url_little_big_town');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (354, 'Little Richard', 'image_url_little_richard');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (355, 'The Living End', 'image_url_the_living_end');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (356, 'Lizzo', 'image_url_lizzo');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (357, 'Lorde', 'image_url_lorde');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (358, 'Los Lobos', 'image_url_los_lobos');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (359, 'Louis Armstrong', 'image_url_louis_armstrong');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (360, 'Louis Jordan', 'image_url_louis_jordan');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (361, 'Luis Miguel', 'image_url_luis_miguel');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (362, 'Luther Vandross', 'image_url_luther_vandross');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (363, 'Lykke Li', 'image_url_lykke_li');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (364, 'M83', 'image_url_m83');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (365, 'MC5', 'image_url_mc5');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (393, 'MGMT', 'image_url_mgmt');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (367, 'Machine Gun Kelly', 'image_url_machine_gun_kelly');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (368, 'Madonna', 'image_url_madonna');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (369, 'Maggie Rogers', 'image_url_maggie_rogers');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (370, 'Mahalia Jackson', 'image_url_mahalia_jackson');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (371, 'Mamas & The Papas', 'image_url_mamas_&_the_papas');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (372, 'The Mamas & The Papas', 'image_url_the_mamas_&_the_papas');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (373, 'Mandy Moore', 'image_url_mandy_moore');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (374, 'Manic Street Preachers', 'image_url_manic_street_preachers');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (375, 'Marc Bolan & T-Rex', 'image_url_marc_bolan_&_t-rex');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (376, 'Mariah Carey', 'image_url_mariah_carey');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (377, 'Marianne Faithfull', 'image_url_marianne_faithfull');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (378, 'Mark Knopfler', 'image_url_mark_knopfler');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (379, 'Mark Ronson', 'image_url_mark_ronson');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (380, 'Maroon 5', 'image_url_maroon_5');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (381, 'Martha & The Vandellas', 'image_url_martha_&_the_vandellas');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (382, 'Martha Reeves & The Vandellas', 'image_url_martha_reeves_&_the_vandellas');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (383, 'Martha Reeves and The Vandellas', 'image_url_martha_reeves_and_the_vandellas');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (384, 'Marvin Gaye', 'image_url_marvin_gaye');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (385, 'Mary J. Blige', 'image_url_mary_j__blige');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (386, 'Massive Attack', 'image_url_massive_attack');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (387, 'Matt Monro', 'image_url_matt_monro');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (388, 'Meat Loaf', 'image_url_meat_loaf');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (389, 'Megadeth', 'image_url_megadeth');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (390, 'Meghan Trainor', 'image_url_meghan_trainor');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (391, 'Mel Torme', 'image_url_mel_torme');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (392, 'Metallica', 'image_url_metallica');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (394, 'Michael Bolton', 'image_url_michael_bolton');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (395, 'Michael Buble', 'image_url_michael_buble');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (396, 'Michael Jackson', 'image_url_michael_jackson');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (397, 'Migos', 'image_url_migos');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (398, 'Mike Oldfield', 'image_url_mike_oldfield');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (399, 'Mike Posner', 'image_url_mike_posner');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (400, 'Miley Cyrus', 'image_url_miley_cyrus');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (401, 'Missy Elliott', 'image_url_missy_elliott');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (402, 'Mitch Miller', 'image_url_mitch_miller');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (403, 'Mitchell', 'image_url_mitchell');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (404, 'The Moody Blues', 'image_url_the_moody_blues');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (405, 'Morrissey', 'image_url_morrissey');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (406, 'Motley Crue', 'image_url_motley_crue');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (407, 'Motorhead', 'image_url_motorhead');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (408, 'Mott The Hoople', 'image_url_mott_the_hoople');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (409, 'Muddy Waters', 'image_url_muddy_waters');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (410, 'Mumford & Sons', 'image_url_mumford_&_sons');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (411, 'Muse', 'image_url_muse');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (412, 'My Chemical Romance', 'image_url_my_chemical_romance');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (413, 'N.W.A', 'image_url_n_w_a');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (414, 'Nancy Sinatra', 'image_url_nancy_sinatra');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (415, 'Natalie Cole', 'image_url_natalie_cole');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (416, 'Natasha Bedingfield', 'image_url_natasha_bedingfield');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (417, 'Nat King Cole', 'image_url_nat_king_cole');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (418, 'Neil Diamond', 'image_url_neil_diamond');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (419, 'Neil Young', 'image_url_neil_young');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (420, 'Nelly', 'image_url_nelly');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (421, 'Nelly Furtado', 'image_url_nelly_furtado');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (422, 'New Kids On The Block', 'image_url_new_kids_on_the_block');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (423, 'New Order', 'image_url_new_order');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (424, 'Nick Cave & The Bad Seeds', 'image_url_nick_cave_&_the_bad_seeds');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (425, 'Nick Drake', 'image_url_nick_drake');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (426, 'Nickelback', 'image_url_nickelback');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (427, 'Nicki Minaj', 'image_url_nicki_minaj');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (428, 'Nina Simone', 'image_url_nina_simone');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (429, 'Nirvana', 'image_url_nirvana');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (430, 'Noah Cyrus', 'image_url_noah_cyrus');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (431, 'Noel Gallagher', 'image_url_noel_gallagher');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (432, 'Norah Jones', 'image_url_norah_jones');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (433, 'The Notorious B.I.G.', 'image_url_the_notorious_b_i_g_');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (434, 'Oasis', 'image_url_oasis');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (435, 'The Offspring', 'image_url_the_offspring');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (436, 'Ol Dirty Bastard', 'image_url_ol__dirty_bastard');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (437, 'Olivia Newton-John', 'image_url_olivia_newton-john');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (438, 'One Direction', 'image_url_one_direction');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (439, 'The Orb', 'image_url_the_orb');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (440, 'Orbital', 'image_url_orbital');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (441, 'Orchestral Manoeuvres In The Dark', 'image_url_orchestral_manoeuvres_in_the_dark');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (442, 'Otis Redding', 'image_url_otis_redding');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (443, 'OutKast', 'image_url_outkast');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (444, 'Ozzy Osbourne', 'image_url_ozzy_osbourne');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (445, 'Panic! At The Disco', 'image_url_panic!_at_the_disco');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (446, 'Papa Roach', 'image_url_papa_roach');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (447, 'Paramore', 'image_url_paramore');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (448, 'Patsy Cline', 'image_url_patsy_cline');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (449, 'Patti Smith', 'image_url_patti_smith');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (450, 'Paul McCartney', 'image_url_paul_mccartney');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (451, 'Paul Simon', 'image_url_paul_simon');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (452, 'Paul Weller', 'image_url_paul_weller');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (453, 'Pearl Jam', 'image_url_pearl_jam');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (454, 'Peggy Lee', 'image_url_peggy_lee');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (455, 'Pendulum', 'image_url_pendulum');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (456, 'Perry Como', 'image_url_perry_como');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (457, 'Pet Shop Boys', 'image_url_pet_shop_boys');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (458, 'Pete Doherty', 'image_url_pete_doherty');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (459, 'Pete Seeger', 'image_url_pete_seeger');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (460, 'Peter Frampton', 'image_url_peter_frampton');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (461, 'Peter Gabriel', 'image_url_peter_gabriel');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (462, 'Peter Green', 'image_url_peter_green');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (463, 'Peter Tosh', 'image_url_peter_tosh');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (464, 'Phil Collins', 'image_url_phil_collins');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (465, 'Phil Spector', 'image_url_phil_spector');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (466, 'Phil Woods', 'image_url_phil_woods');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (467, 'Pink', 'image_url_pink');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (468, 'Pink Floyd', 'image_url_pink_floyd');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (469, 'Pixies', 'image_url_pixies');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (470, 'PJ Harvey', 'image_url_pj_harvey');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (471, 'The Pogues', 'image_url_the_pogues');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (472, 'Portishead', 'image_url_portishead');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (473, 'The Pretenders', 'image_url_the_pretenders');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (474, 'Primal Scream', 'image_url_primal_scream');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (475, 'Prince', 'image_url_prince');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (476, 'Procol Harum', 'image_url_procol_harum');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (477, 'Pulp', 'image_url_pulp');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (478, 'The Pussycat Dolls', 'image_url_the_pussycat_dolls');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (479, 'Queen', 'image_url_queen');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (480, 'Queens Of The Stone Age', 'image_url_queens_of_the_stone_age');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (481, 'Queensrÿche', 'image_url_queensrÿche');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (482, 'Quincy Jones', 'image_url_quincy_jones');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (483, 'Quincy Jones & His Orchestra', 'image_url_quincy_jones_&_his_orchestra');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (484, 'R.E.M.', 'image_url_r_e_m_');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (485, 'R. Kelly', 'image_url_r__kelly');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (486, 'Rage Against The Machine', 'image_url_rage_against_the_machine');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (487, 'The Ramones', 'image_url_the_ramones');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (488, 'Ray Charles', 'image_url_ray_charles');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (489, 'Ray Conniff', 'image_url_ray_conniff');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (490, 'Ray Parker Jr.', 'image_url_ray_parker_jr_');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (491, 'Ray Price', 'image_url_ray_price');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (492, 'Ray Stevens', 'image_url_ray_stevens');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (493, 'Reba McEntire', 'image_url_reba_mcentire');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (494, 'Rebecca Black', 'image_url_rebecca_black');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (495, 'Red Hot Chili Peppers', 'image_url_red_hot_chili_peppers');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (496, 'Redbone', 'image_url_redbone');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (497, 'Regina Spektor', 'image_url_regina_spektor');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (498, 'Rihanna', 'image_url_rihanna');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (499, 'Ritchie Valens', 'image_url_ritchie_valens');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (500, 'Rival Sons', 'image_url_rival_sons');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (501, 'Rob Zombie', 'image_url_rob_zombie');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (502, 'Robbie Williams', 'image_url_robbie_williams');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (503, 'Robert Cray', 'image_url_robert_cray');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (504, 'Robert Johnson', 'image_url_robert_johnson');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (505, 'Rod Stewart', 'image_url_rod_stewart');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (506, 'Roger Miller', 'image_url_roger_miller');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (507, 'Roger Waters', 'image_url_roger_waters');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (508, 'The Rolling Stones', 'image_url_the_rolling_stones');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (509, 'Roxy Music', 'image_url_roxy_music');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (510, 'Roy Orbison', 'image_url_roy_orbison');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (511, 'Run D.M.C.', 'image_url_run-d_m_c_');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (512, 'Rush', 'image_url_rush');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (513, 'Ry Cooder', 'image_url_ry_cooder');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (514, 'Ryan Adams', 'image_url_ryan_adams');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (515, 'S Club 7', 'image_url_s_club_7');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (516, 'Sade', 'image_url_sade');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (517, 'Sam Cooke', 'image_url_sam_cooke');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (518, 'Sam Smith', 'image_url_sam_smith');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (519, 'Santana', 'image_url_santana');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (520, 'Sarah Brightman', 'image_url_sarah_brightman');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (521, 'Sarah McLachlan', 'image_url_sarah_mclachlan');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (522, 'Savage Garden', 'image_url_savage_garden');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (523, 'Scott Walker', 'image_url_scott_walker');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (524, 'Scouting For Girls', 'image_url_scouting_for_girls');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (525, 'Seal', 'image_url_seal');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (526, 'The Shangri-Las', 'image_url_the_shangri-las');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (527, 'Shania Twain', 'image_url_shania_twain');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (528, 'Shawn Mendes', 'image_url_shawn_mendes');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (529, 'Sheryl Crow', 'image_url_sheryl_crow');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (530, 'Sia', 'image_url_sia');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (531, 'Sigur Ros', 'image_url_sigur_ros');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (532, 'Simon & Garfunkel', 'image_url_simon_&_garfunkel');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (533, 'Simple Minds', 'image_url_simple_minds');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (534, 'Simple Plan', 'image_url_simple_plan');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (535, 'Simply Red', 'image_url_simply_red');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (536, 'Sinéad O Connor', 'image_url_sinéad_o_connor');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (537, 'Sister Sledge', 'image_url_sister_sledge');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (538, 'The Sisters Of Mercy', 'image_url_the_sisters_of_mercy');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (539, 'Sixpence None The Richer', 'image_url_sixpence_none_the_richer');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (540, 'Skepta', 'image_url_skepta');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (541, 'Skrillex', 'image_url_skrillex');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (542, 'Slade', 'image_url_slade');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (543, 'Slash', 'image_url_slash');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (544, 'Sleater-Kinney', 'image_url_sleater-kinney');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (545, 'Slipknot', 'image_url_slipknot');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (546, 'Sly & The Family Stone', 'image_url_sly_&_the_family_stone');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (547, 'Small Faces', 'image_url_small_faces');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (548, 'The Smiths', 'image_url_the_smiths');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (549, 'Smokie', 'image_url_smokie');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (550, 'Snoop Dogg', 'image_url_snoop_dogg');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (551, 'Snow Patrol', 'image_url_snow_patrol');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (552, 'Solange', 'image_url_solange');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (553, 'Solomon Burke', 'image_url_solomon_burke');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (554, 'The Specials', 'image_url_the_specials');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (555, 'The Spencer Davis Group', 'image_url_the_spencer_davis_group');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (556, 'Spice Girls', 'image_url_spice_girls');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (557, 'St. Vincent', 'image_url_st__vincent');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (558, 'Staind', 'image_url_staind');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (559, 'Stan Getz', 'image_url_stan_getz');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (560, 'Stan Getz & João Gilberto', 'image_url_stan_getz_&_joão_gilberto');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (561, 'Stan Kenton', 'image_url_stan_kenton');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (562, 'Stanley Clarke', 'image_url_stanley_clarke');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (563, 'Stevie Nicks', 'image_url_stevie_nicks');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (564, 'Stevie Ray Vaughan', 'image_url_stevie_ray_vaughan');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (565, 'Stevie Wonder', 'image_url_stevie_wonder');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (566, 'Sting', 'image_url_sting');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (567, 'The Stone Roses', 'image_url_the_stone_roses');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (568, 'The Stooges', 'image_url_the_stooges');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (569, 'Stormzy', 'image_url_stormzy');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (570, 'The Stranglers', 'image_url_the_stranglers');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (571, 'The Streets', 'image_url_the_streets');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (572, 'Suede', 'image_url_suede');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (573, 'The Supremes', 'image_url_the_supremes');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (574, 'The Supremes & The Temptations', 'image_url_the_supremes_&_the_temptations');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (575, 'The Supremes, The Four Tops', 'image_url_the_supremes__the_four_tops');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (576, 'Supergrass', 'image_url_supergrass');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (577, 'Suzanne Vega', 'image_url_suzanne_vega');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (578, 'The Sweet', 'image_url_the_sweet');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (579, 'System Of A Down', 'image_url_system_of_a_down');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (580, 'T. Rex', 'image_url_t__rex');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (601, 'TLC', 'image_url_tlc');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (582, 'Taj Mahal', 'image_url_taj_mahal');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (583, 'Talking Heads', 'image_url_talking_heads');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (584, 'Tame Impala', 'image_url_tame_impala');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (585, 'Taylor Swift', 'image_url_taylor_swift');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (586, 'Tears For Fears', 'image_url_tears_for_fears');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (587, 'Teddy Pendergrass', 'image_url_teddy_pendergrass');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (588, 'The Temptations', 'image_url_the_temptations');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (589, 'The Temptations & The Supremes', 'image_url_the_temptations_&_the_supremes');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (590, 'The Temptations & Four Tops', 'image_url_the_temptations_&_four_tops');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (591, 'Ten Years After', 'image_url_ten_years_after');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (592, 'The The', 'image_url_the_the');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (593, 'Thelonious Monk', 'image_url_thelonious_monk');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (594, 'Thelonious Monk Quintet', 'image_url_thelonious_monk_quintet');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (595, 'Thin Lizzy', 'image_url_thin_lizzy');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (596, 'Third Eye Blind', 'image_url_third_eye_blind');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (597, 'Thomas Newman', 'image_url_thomas_newman');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (598, 'Three Dog Night', 'image_url_three_dog_night');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (599, 'Tim McGraw', 'image_url_tim_mcgraw');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (600, 'Tina Turner', 'image_url_tina_turner');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (602, 'Tom Petty', 'image_url_tom_petty');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (603, 'Tom Petty And The Heartbreakers', 'image_url_tom_petty_and_the_heartbreakers');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (604, 'Tom Waits', 'image_url_tom_waits');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (605, 'Toni Braxton', 'image_url_toni_braxton');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (606, 'Tool', 'image_url_tool');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (607, 'Tori Amos', 'image_url_tori_amos');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (608, 'The Tornados', 'image_url_the_tornados');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (609, 'Toto', 'image_url_toto');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (610, 'Tracy Chapman', 'image_url_tracy_chapman');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (611, 'Travis', 'image_url_travis');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (612, 'The Triffids', 'image_url_the_triffids');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (613, 'Trisha Yearwood', 'image_url_trisha_yearwood');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (614, 'Troye Sivan', 'image_url_troye_sivan');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (615, 'Twisted Sister', 'image_url_twisted_sister');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (616, 'Tyga', 'image_url_tyga');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (617, 'U2', 'image_url_u2');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (618, 'UB40', 'image_url_ub40');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (619, 'UFO', 'image_url_ufo');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (620, 'Usher', 'image_url_usher');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (621, 'The Vaccines', 'image_url_the_vaccines');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (622, 'Van Halen', 'image_url_van_halen');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (623, 'Van Morrison', 'image_url_van_morrison');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (624, 'Vangelis', 'image_url_vangelis');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (625, 'Vanity Fair', 'image_url_vanity_fair');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (626, 'Various Artists', 'image_url_various_artists');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (627, 'The Velvet Underground', 'image_url_the_velvet_underground');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (628, 'The Verve', 'image_url_the_verve');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (629, 'The Very Best', 'image_url_the_very_best');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (630, 'Vince Guaraldi Trio', 'image_url_vince_guaraldi_trio');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (631, 'Vince Staples', 'image_url_vince_staples');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (632, 'Vince Taylor', 'image_url_vince_taylor');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (633, 'Vinnie Paz', 'image_url_vinnie_paz');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (634, 'Violent Femmes', 'image_url_violent_femmes');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (635, 'Vitamin String Quartet', 'image_url_vitamin_string_quartet');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (636, 'Vivian Green', 'image_url_vivian_green');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (637, 'Wailing Souls', 'image_url_wailing_souls');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (638, 'Waka Flocka Flame', 'image_url_waka_flocka_flame');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (639, 'Wale', 'image_url_wale');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (640, 'Walk The Moon', 'image_url_walk_the_moon');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (641, 'The Walker Brothers', 'image_url_the_walker_brothers');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (642, 'Walter Trout', 'image_url_walter_trout');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (643, 'The Wanted', 'image_url_the_wanted');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (644, 'Warpaint', 'image_url_warpaint');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (645, 'Warren Zevon', 'image_url_warren_zevon');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (646, 'The Waterboys', 'image_url_the_waterboys');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (647, 'We Are Scientists', 'image_url_we_are_scientists');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (648, 'The Weeknd', 'image_url_the_weeknd');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (649, 'The White Stripes', 'image_url_the_white_stripes');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (650, 'The Who', 'image_url_the_who');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (651, 'The Wombats', 'image_url_the_wombats');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (652, 'The xx', 'image_url_the_xx');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (653, 'Wiz Khalifa', 'image_url_wiz_khalifa');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (654, 'Wu-Tang Clan', 'image_url_wu-tang_clan');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (655, 'XTC', 'image_url_xtc');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (656, 'Xzibit', 'image_url_xzibit');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (657, 'Yes', 'image_url_yes');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (658, 'Yo La Tengo', 'image_url_yo_la_tengo');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (659, 'Yoko Ono', 'image_url_yoko_ono');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (660, 'Young Fathers', 'image_url_young_fathers');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (661, 'The Young Rascals', 'image_url_the_young_rascals');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (662, 'Youth Lagoon', 'image_url_youth_lagoon');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (663, 'Yung Lean', 'image_url_yung_lean');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (664, 'Yusuf / Cat Stevens', 'image_url_yusuf_/_cat_stevens');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (665, 'Zac Brown Band', 'image_url_zac_brown_band');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (666, 'ZZ Top', 'image_url_zz_top');
 COMMIT;
 
 
@@ -681,11 +741,104 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `artiststrackerdb`;
-INSERT INTO `song` (`id`, `name`, `song_length`, `genre`, `album_title`, `artist_id`) VALUES (1, 'S.O.S.', 3.22, 'Disco', 'Arrival', 6),
-(2, 'Mamma Mia', 3.32, 'Pop', 'ABBA', 6),
-(3, 'Waterloo', 2.42, 'Pop', 'Waterloo', 6),
-(4, 'I Do, I Do, I Do, I Do, I Do', 3.17, 'Pop', 'ABBA', 6),
-(5, 'Dancing Queen', 3.51, 'Disco', 'Arrival', 6);
-
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (1, 'Straight From The Heart', '3.3', '1983', 'Rock', 'Cuts Like a Knife', 70);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (2, 'Summer Of 69', '3.35', '1984', 'Rock', 'Reckless', 70);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (3, 'Desire', '3.41', '2002', 'Alternative Rock', 'Demolition', 514);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (4, 'Two', '2.39', '2007', 'Alternative Rock', 'Easy Tiger', 514);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (5, 'New York, New York', '3.46', '2001', 'Alternative Rock', 'Gold', 514);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (6, 'Magick', '2.17', '2008', 'Alternative Rock', 'Cardinology', 514);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (7, 'Rolling in the Deep', '3.48', '2011', 'Pop', '21', 3);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (8, 'Hello', '4.55', '2015', 'Pop', '25', 3);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (9, 'Lovesong', '5.16', '2011', 'Pop', '21', 3);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (10, 'Dream On', '4.28', '1973', 'Hard Rock', 'Aerosmith', 4);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (11, 'Janies Got a Gun', '5.33', '1989', 'Hard Rock', 'Pump', 4);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (12, 'Walk This Way', '3.4', '1975', 'Hard Rock', 'Toys in the Attic', 4);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (13, 'Pink', '3.55', '1997', 'Rock', 'Nine Lives', 4);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (14, 'Dude (Looks Like a Lady)', '4.23', '1987', 'Rock', 'Permanent Vacation', 4);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (15, 'Sweet Emotion', '4.34', '1975', 'Rock', 'Toys in the Attic', 4);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (16, 'The Other Side', '4.06', '1989', 'Rock', 'Pump', 4);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (17, 'Rag Doll', '4.25', '1987', 'Rock', 'Permanent Vacation', 4);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (18, 'What It Takes', '5.11', '1989', 'Rock', 'Pump', 4);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (19, 'Remember (Walking in the Sand)', '4.05', '1979', 'Rock', 'Night in the Ruts', 4);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (20, 'Last Child', '3.27', '1976', 'Rock', 'Rocks', 4);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (21, 'Same Old Song and Dance', '3.53', '1974', 'Rock', 'Get Your Wings', 4);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (22, 'Crazy', '5.17', '1993', 'Rock', 'Get a Grip', 4);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (23, 'Back in the Saddle', '4.4', '1976', 'Rock', 'Rocks', 4);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (24, 'Seasons of Wither', '5.38', '1974', 'Rock', 'Get Your Wings', 4);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (25, 'Livin on the Edge', '6.07', '1993', 'Rock', 'Get a Grip', 4);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (26, 'Cryin', '5.09', '1993', 'Rock', 'Get a Grip', 4);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (27, 'Tear in Your Hand', '4.38', '1992', 'Alternative Rock', 'Little Earthquakes', 607);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (28, 'Cornflake Girl', '5.06', '1994', 'Alternative Rock', 'Under the Pink', 607);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (29, 'Raspberry Swirl', '3.58', '1998', 'Alternative Rock', 'From the Choirgirl Hotel', 607);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (30, 'Marianne', '4.07', '1996', 'Alternative Rock', 'Boys for Pele', 607);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (31, 'Winter', '5.4', '1992', 'Alternative Rock', 'Little Earthquakes', 607);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (32, 'Precious Things', '4.26', '1992', 'Alternative Rock', 'Little Earthquakes', 607);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (33, 'A Sorta Fairytale', '5.28', '2002', 'Alternative Rock', 'Scarlets Walk', 607);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (34, 'Spark', '4.13', '1998', 'Alternative Rock', 'From the Choirgirl Hotel', 607);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (35, 'Horses', '4.46', '1996', 'Alternative Rock', 'Boys for Pele', 607);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (36, 'Silent All These Years', '4.1', '1992', 'Alternative Rock', 'Little Earthquakes', 607);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (37, 'Angels', '4.25', '2003', 'Alternative Rock', 'Tales of a Librarian', 607);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (38, 'Pretty Good Year', '3.25', '1994', 'Alternative Rock', 'Under the Pink', 607);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (39, 'Caught A Lite Sneeze', '4.24', '1996', 'Alternative Rock', 'Boys for Pele', 607);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (40, 'God', '3.58', '1994', 'Alternative Rock', 'Under the Pink', 607);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (41, 'Sleep To Dream', '3.11', '1996', 'Alternative Rock', 'Tidal Wave', 183);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (42, 'Criminal', '5.76', '1996', 'Alternative Rock', 'Tidal Wave', 183);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (43, 'Shadowboxer', '8.0', '1996', 'Alternative Rock', 'Tidal Wave', 183);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (44, 'Never Is A Promise', '2.65', '1996', 'Alternative Rock', 'Tidal Wave', 183);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (45, 'Pale September', '3.01', '1996', 'Alternative Rock', 'Tidal Wave', 183);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (46, 'Carrion', '6.42', '1996', 'Alternative Rock', 'Tidal Wave', 183);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (47, 'I Want You (Live for Decades Rock Live!)', '7.27', '2006', 'Alternative Rock', 'Across the Universe', 183);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (48, 'Across the Universe', '7.24', '1998', 'Alternative Rock', 'I Want You', 183);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (49, 'Paper Bag', '4.54', '1999', 'Alternative Rock', 'Paper Bag', 183);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (50, 'Sullen Girl', '4.77', '1996', 'Alternative Rock', 'Sullen Girl', 183);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (51, 'A Mistake', '6.18', '1999', 'Alternative Rock', 'A Mistake', 183);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (52, 'Get Gone', '6.25', '1999', 'Alternative Rock', 'Get Gone', 183);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (53, 'Get Him Back', '6.5', '2005', 'Alternative Rock', 'Get Him Back', 183);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (54, 'Love Ridden', '6.63', '1999', 'Alternative Rock', 'Love Ridden', 183);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (55, 'Please Please Please', '6.05', '2005', 'Alternative Rock', 'Please Please Please', 183);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (56, 'The Child Is Gone', '6.89', '1996', 'Alternative Rock', 'The Child Is Gone', 183);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (57, 'O Sailor', '7.34', '2005', 'Alternative Rock', 'O Sailor', 183);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (58, 'I Know', '7.84', '1999', 'Alternative Rock', 'I Know', 183);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (59, 'The First Taste', '7.85', '1996', 'Alternative Rock', 'The First Taste', 183);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (60, 'Window', '7.91', '2005', 'Alternative Rock', 'Window', 183);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (61, 'Neighborhood #1 (Tunnels)', '4.01', '2004', 'Indie Rock', 'Funeral', 17);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (62, 'Rebellion (Lies)', '4.29', '2004', 'Indie Rock', 'Funeral', 17);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (63, 'Haiti', '3.31', '2004', 'Indie Rock', 'Funeral', 17);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (64, 'Sprawl II (Mountains Beyond Mountains)', '4.31', '2010', 'Indie Rock', 'The Suburbs', 17);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (65, 'Everything Now', '7.5', '2017', 'Indie Rock', 'Everything Now', 17);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (66, 'Keep the Car Running', '4.38', '2007', 'Indie Rock', 'Neon Bible', 17);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (67, 'We Used to Wait', '3.41', '2010', 'Indie Rock', 'The Suburbs', 17);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (68, 'The Suburbs', '6.29', '2010', 'Indie Rock', 'The Suburbs', 17);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (69, 'Reflektor', '3.39', '2013', 'Indie Rock', 'Reflektor', 17);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (70, 'Neighborhood #2 (Laika)', '5.08', '2004', 'Indie Rock', 'Funeral', 17);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (71, 'No Cars Go', '5.48', '2007', 'Indie Rock', 'Neon Bible', 17);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (72, 'Intervention', '4.86', '2006', 'Indie Rock', 'Neon Bible', 17);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (73, 'Creature Comfort', '6.54', '2017', 'Indie Rock', 'Everything Now', 17);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (74, 'The Well and the Lighthouse', '7.01', '2007', 'Indie Rock', 'Neon Bible', 17);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (75, 'Wake Up', '4.68', '2004', 'Indie Rock', 'Funeral', 17);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (76, 'Ready to Start', '5.09', '2010', 'Indie Rock', 'The Suburbs', 17);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (77, 'Neighborhood #3 (Power Out)', '6.52', '2004', 'Indie Rock', 'Funeral', 17);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (78, 'My Body Is A Cage', '6.46', '2007', 'Indie Rock', 'Neon Bible', 17);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (79, 'Afterlife', '6.8', '2013', 'Indie Rock', 'Reflektor', 17);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (80, 'Abrahams Daughter', '6.92', '2012', 'Indie Rock', 'The Hunger Games: Songs from District 12 and Beyond', 17);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (81, 'Electric Blue', '7.19', '2017', 'Indie Rock', 'Everything Now', 17);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (82, 'Whyd You Only Call Me When Youre High?', '4.93', '2013', 'Indie Rock', 'AM', 18);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (83, 'Dont Sit Down cause Ive Moved Your Chair', '5.71', '2011', 'Indie Rock', 'Suck It and See', 18);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (84, 'Youre So Dark', '5.76', '2013', 'Indie Rock', 'AM', 18);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (85, 'No. 1 Party Anthem', '5.938', '2013', 'Indie Rock', 'AM', 18);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (86, 'Red Light Indicates Doors Are Secure', '5.961', '2006', 'Indie Rock', 'Whatever People Say I Am, Thats What Im Not', 18);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (87, 'Piledriver Waltz', '7.366', '2011', 'Indie Rock', 'Suck It and See', 18);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (88, 'Shes Thunderstorms', '7.438', '2011', 'Indie Rock', 'Suck It and See', 18);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (89, 'Thats Where Youre Wrong', '7.459', '2011', 'Indie Rock', 'Suck It and See', 18);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (90, 'Black Treacle', '7.746', '2011', 'Indie Rock', 'Suck It and See', 18);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (91, 'I Bet You Look Good On The Dancefloor', '7.963', '2005', 'Indie Rock', 'Whatever People Say I Am, Thats What Im Not', 18);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (92, 'So Into You', '6.99', '1977', 'Southern Rock', 'A Rock and Roll Alternative', 23);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (93, 'Champagne Jam', '8.16', '1978', 'Southern Rock', 'Champagne Jam', 23);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (94, 'Spooky', '7.71', '1979', 'Southern Rock', 'Underdog', 23);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (95, 'Doraville', '6.3', '1974', 'Southern Rock', 'Third Annual Pipe Dream', 23);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (96, 'Imaginary Lover', '5.62', '1978', 'Southern Rock', 'Champagne Jam', 23);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (97, 'Doesnt Remind Me', '4.94', '2005', 'Alternative Rock', 'Out of Exile', 24);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (98, 'Be Yourself', '4.212', '2005', 'Alternative Rock', 'Out of Exile', 24);
+INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (99, 'Like a Stone', '4.289', '2002', 'Alternative Rock', 'Audioslave', 24);
 COMMIT;
 

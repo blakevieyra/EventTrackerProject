@@ -30,6 +30,9 @@ public class Song {
 	@Column(name = "song_length")
 	private double length;
 
+	@Column(name = "release_year")
+	private int year;
+
 	@ManyToOne
 	@JoinColumn(name = "artist_id")
 	private Artist artist;
@@ -82,6 +85,14 @@ public class Song {
 		this.artist = artist;
 	}
 
+	public int getYear() {
+		return year;
+	}
+
+	public void setYear(int year) {
+		this.year = year;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -102,7 +113,6 @@ public class Song {
 	@Override
 	public String toString() {
 		return "Song [id=" + id + ", name=" + name + ", album=" + album + ", genre=" + genre + ", length=" + length
-				+ ", artist=" + artist + "]";
+				+ ", year=" + year + ", artist=" + artist + "]";
 	}
-
 }

@@ -23,16 +23,17 @@ h1 {
 }
 
 .table-container {
-	height: 400px;
-	width: auto;
-	overflow-y: auto;
+    height: 300px;
+    max-width: 500px;
+	overflow-x: auto; 
+    overflow-y: auto; 
 }
 
 .table-container table {
-	width: 100%;
-	border-collapse: collapse; 
-
-} 
+    min-width: 50%; 
+    max-width: 500px;
+    border-collapse: collapse; 
+}
 
 .table-container th,
 .table-container td {
