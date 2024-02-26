@@ -35,11 +35,10 @@
 Programming Languages:
 - Java 8 (version 1.8.0_391)
 - Python 3.11
-- Visual Code Studio
-- IDEs: Spring Tool Suite (STS) (https://spring.io/tools)
+- IDEs: Spring Tool Suite (STS) (https://spring.io/tools), Visual Code Studio Version: 1.86.2
 - Version Control: Git 2.32.1 (https://git-scm.com/)
 - Database Management: MySQL (version 5.7.39)
-- Build Tool: Gradle, SringBoot
+- Build Tool: Gradle
 - Web Framework: Spring MVC, JPA, Restful API
 
 # Lessons Learned:
