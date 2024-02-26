@@ -45,5 +45,5 @@ Programming Languages:
 
 - How to use the Restful API JPA repositories and properly separate concerns between the services, controllers, and the repos.
 - How to utilize javascript to make the webpage more dynamic and user friendly.
-- How to parse, clean, and format data using pythong to generate 1000s of song in a database.
+- How to parse, clean, and format large data sets using python libraries to generate 1000s of songs into a database.
 
