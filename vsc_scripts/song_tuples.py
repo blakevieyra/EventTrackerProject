@@ -1864,22 +1864,110 @@ class SongGenerator:
         ('Justify My Love', 1990, 'The Immaculate Collection', 4.58, 'Pop', 'Madonna'),
         ('Take A Bow', 1994, 'Bedtime Stories', 5.20, 'Pop', 'Madonna'),
         ('Express Yourself', 1989, 'Like a Prayer', 4.04, 'Pop', 'Madonna'),
-        ('Like A Prayer', 1989, 'Like a Prayer', 5.41, 'Pop', 'Madonna')
-]
-    
-   # def join_songs(self):
-       # parse_instance = parse.SongParser.generateSongTuples(self)
-       # self.songs.extend(parse_instance)
+        ('Like A Prayer', 1989, 'Like a Prayer', 5.41, 'Pop', 'Madonna'),
+        ('Ballad of Davy Crockett', 1955, '2:13', 'Best of Bill Hayes', 'Country', 'Bill Hayes'),
+        ('Raunchy', 1957, '2:23', 'Raunchy & Other Great Instrumentals', 'Rock', 'Bill Justis'),
+        ("(I've Had) the Time of My Life", 1987, '4:49', 'Dirty Dancing: Original Soundtrack', 'Pop', 'Bill Medley & Jennifer Warnes'),
+        ('Blue Moon of Kentucky', 1947, '3:03', 'Bluegrass Special', 'Bluegrass', 'Bill Monroe'),
+        ('Lean On Me', 1972, '4:18', 'Still Bill', 'R&B', 'Bill Withers'),
+        ("Ain't No Sunshine", 1971, '2:04', 'Just as I Am', 'Soul', 'Bill Withers'),
+        ('Strange Fruit', 1939, 'Lady Day: The Best of Billie Holiday', 3.1, 'Jazz', 'Billie Holiday'),
+        ('God Bless the Child', 1941, 'Lady Day: The Best of Billie Holiday', 3.0, 'Jazz', 'Billie Holiday'),
+        ('Lover Man (Oh, Where Can You Be?)', 1945, 'The Quintessential Billie Holiday, Vol. 9: 1944-1945', 3.16, 'Jazz', 'Billie Holiday'),
+        ('Summertime', 1936, 'The Quintessential Billie Holiday, Vol. 1: 1933-1935', 2.55, 'Jazz', 'Billie Holiday'),
+        ('Billie Jean', 1982, 'Thriller', 4.54, 'Pop', 'Michael Jackson'),
+        ('Kiss the Rain', 1998, 'Growing, Pains', 4.09, 'Pop', 'Billie Myers'),
+        ('The Petite Waltz (La Petite Valse)', 1951, 'The Petite Waltz', 2.48, 'Easy Listening', 'Billy Cotton & his Band'),
+        ('My Foolish Heart', 1950, 'My Foolish Heart', 3.11, 'Jazz', 'Billy Eckstine'),
+        ('I Apologize', 1951, 'I Apologize', 2.51, 'Jazz', 'Billy Eckstine'),
+        ('Cradle of Love', 1990, 'Charmed Life', 4.39, 'Rock', 'Billy Idol'),
+        ('Eyes Without a Face', 1984, 'Rebel Yell', 4.58, 'Rock', 'Billy Idol'),
+        ('Mony Mony (Live)', 1987, 'Vital Idol', 5.01, 'Rock', 'Billy Idol'),
+        ('White Wedding', 1983, 'Billy Idol', 4.12, 'Rock', 'Billy Idol'),
+        ('Little Children', 1964, 'Little Children', 2.47, 'Pop', 'Billy J Kramer & The Dakotas'),
+        ('The River of Dreams', 1993, 'River of Dreams', 4.06, 'Rock', 'Billy Joel'),
+        ('Uptown Girl', 1983, 'An Innocent Man', 3.14, 'Pop', 'Billy Joel'),
+        ('Just the Way You Are', 1978, 'The Stranger', 4.48, 'Pop', 'Billy Joel'),
+        ('My Life', 1979, '52nd Street', 4.43, 'Pop', 'Billy Joel'),
+        ("We Didn't Start the Fire", 1989, 'Storm Front', 4.49, 'Pop', 'Billy Joel'),
+        ('Tell Her About It', 1983, 'An Innocent Man', 3.51, 'Pop', 'Billy Joel'),
+        ("It's Still Rock 'n' Roll to Me", 1980, 'Glass Houses', 2.57, 'Pop', 'Billy Joel'),
+        ('Piano Man', 1974, 'Piano Man', 5.37, 'Rock', 'Billy Joel'),
+        ('Yes! We Have No Bananas', 1923, 'Yes! We Have No Bananas', 3.06, 'Pop', 'Billy Jones'),
+        ('Get Outta My Dreams Get Into My Car', 1988, 'Tear Down These Walls', 4.46, 'Pop', 'Billy Ocean'),
+        ('When the Going Gets Tough, the Tough Get Going', 1986, 'Love Zone', 4.08, 'Pop', 'Billy Ocean'),
+        ('Caribbean Queen (No More Love On the Run)', 1984, 'Suddenly', 4.06, 'Pop', 'Billy Ocean'),
+        ("There'll Be Sad Songs (To Make You Cry)", 1986, 'Love Zone', 4.49, 'Pop', 'Billy Ocean'),
+        ('Loverboy', 1985, 'Suddenly', 4.1, 'Pop', 'Billy Ocean'),
+        ('Love Really Hurts Without You', 1976, 'Billy Ocean', 3.0, 'Pop', 'Billy Ocean'),
+        ('Me & Mrs Jones', 1973, '360 Degrees of Billy Paul', 4.46, 'Soul', 'Billy Paul'),
+        ('Will It Go Round In Circles', 1973, 'The Kids & Me', 3.47, 'R&B', 'Billy Preston'),
+        ('Nothing From Nothing', 1974, 'The Kids & Me', 2.35, 'R&B', 'Billy Preston'),
+        ("With You I'm Born Again", 1980, 'Late at Night', 3.35, 'R&B', 'Billy Preston & Syreeta'),
+        ('Achy Breaky Heart', 1992, 'Some Gave All', 3.23, 'Country', 'Billy Ray Cyrus'),
+        ('I Can Help', 1975, 'I Can Help', 3.58, 'Country', 'Billy Swan'),
+        ('Sail Along Silvery Moon', 1958, 'Golden Instrumentals', 2.09, 'Easy Listening', 'Billy Vaughn'),
+        ('Melody of Love', 1955, 'Melody of Love', 3.12, 'Easy Listening', 'Billy Vaughn'),
+        ('Wheels (Vier Schimmel, ein Wagen)', 1961, 'Golden Instrumentals', 1.58, 'Easy Listening', 'Billy Vaughn'),
+        ('La Paloma', 1958, 'Golden Instrumentals', 2.08, 'Easy Listening', 'Billy Vaughn'),
+        ('At This Moment', 1987, 'By Request: The Best of Billy Vera & The Beaters', 4.17, 'Pop', 'Billy Vera'),
+        ('Sixty Minute Man', 1951, 'The Chronological Billy Ward & The Dominoes 1951-1953', 2.34, 'R&B', 'Billy Ward & The Dominoes'),
+        ('Hop Scotch Polka', 1950, 'The Chronological Billy Whitlock 1950-1952', 2.34, 'Pop', 'Billy Whitlock'),
+        ('El Bimbo', 1975, 'El Bimbo', 2.32, 'Disco', 'Bimbo Jet'),
+        ('White Christmas', 1942, 'Merry Christmas', 3.03, 'Holiday', 'Bing Crosby'),
+        ('Swinging On a Star', 1944, 'Bing Crosby - His Original Recordings', 2.32, 'Pop', 'Bing Crosby'),
+        ('Pennies From Heaven', 1936, 'Bing Crosby - His Original Recordings', 3.07, 'Pop', 'Bing Crosby'),
+        ("I'll be seeing you", 1944, 'Bing Crosby - His Original Recordings', 3.01, 'Pop', 'Bing Crosby'),
+        ('Sunday, Monday or Always', 1943, 'Bing Crosby - His Original Recordings', 3.09, 'Pop', 'Bing Crosby'),
+        ('Now Is the Hour (Maori Farewell Song)', 1948, 'Bing Crosby - His Original Recordings', 2.36, 'Pop', 'Bing Crosby'),
+        ('Only Forever', 1940, 'Bing Crosby - His Original Recordings', 3.1, 'Pop', 'Bing Crosby'),
+        ('Brother, Can You Spare a Dime?', 1932, 'Bing Crosby - His Original Recordings', 3.15, 'Pop', 'Bing Crosby'),
+        ('Sweet Leilani', 1937, 'Bing Crosby - His Original Recordings', 3.13, 'Pop', 'Bing Crosby'),
+        ('Too-Ra-Loo-Ra-Loo-Ra', 1944, 'Bing Crosby - His Original Recordings', 3.21, 'Pop', 'Bing Crosby'),
+        ('I Love You', 1944, 'Bing Crosby - His Original Recordings', 3.13, 'Pop', 'Bing Crosby'),
+        ('Moonlight Becomes You', 1942, 'Bing Crosby - His Original Recordings', 3.12, 'Pop', 'Bing Crosby'),
+        ('Rudolph, the Red-Nosed Reindeer', 1950, 'Merry Christmas', 2.1, 'Holiday', 'Bing Crosby'),
+        ('Dolores', 1941, 'Bing Crosby - His Original Recordings', 2.57, 'Pop', 'Bing Crosby'),
+        ('Love in Bloom', 1934, 'Bing Crosby - His Original Recordings', 3.13, 'Pop', 'Bing Crosby'),
+        ('San Fernando Valley', 1944, 'Bing Crosby - His Original Recordings', 3.14, 'Pop', 'Bing Crosby'),
+        ('On the Atchison, Topeka & the Santa Fe', 1945, 'Bing Crosby - His Original Recordings', 3.06, 'Pop', 'Bing Crosby'),
+        ('June in January', 1934, 'Bing Crosby - His Original Recordings', 2.45, 'Pop', 'Bing Crosby'),
+        ('Silent Night, Holy Night', 1935, 'Bing Crosby - His Original Recordings', 2.54, 'Pop', 'Bing Crosby'),
+        ('Please', 1932, 'Bing Crosby - His Original Recordings', 3.14, 'Pop', 'Bing Crosby'),
+        ('Out of Nowhere', 1931, 'Bing Crosby - His Original Recordings', 3.2, 'Pop', 'Bing Crosby'),
+        ('You Are My Sunshine', 1941, 'Bing Crosby - His Original Recordings', 2.28, 'Pop', 'Bing Crosby'),
+        ('Trade Winds', 1940, 'Bing Crosby - His Original Recordings', 3.15, 'Pop', 'Bing Crosby'),
+        ('Red Sails in the Sunset', 1935, 'Bing Crosby - His Original Recordings', 3.13, 'Pop', 'Bing Crosby'),
+        ("I've Got a Pocketful of Dreams", 1938, 'Bing Crosby - His Original Recordings', 2.59, 'Pop', 'Bing Crosby'),
+        ('You Must Have Been a Beautiful Baby', 1938, 'Bing Crosby - His Original Recordings', 3.09, 'Pop', 'Bing Crosby'),
+        ('The Moon Got in My Eyes', 1937, 'Bing Crosby - His Original Recordings', 3.17, 'Pop', 'Bing Crosby'),
+        ("I Can't Begin to Tell You", 1945, 'Bing Crosby - His Original Recordings', 2.59, 'Pop', 'Bing Crosby & Carmen Cavallaro'),
+        ("Alexander's ragtime band", 1938, 'Bing Crosby - His Original Recordings', 3.0, 'Pop', 'Bing Crosby & Connee Boswell'),
+        ('True Love', 1956, 'High Society', 2.35, 'Soundtrack', 'Bing Crosby & Grace Kelly'),
+        ("It's Been a Long, Long Time", 1945, 'Bing Crosby - His Original Recordings', 3.21, 'Pop', 'Bing Crosby & Les Paul'),
+        ("Don't Fence Me In", 1944, 'Bing Crosby - His Original Recordings', 3.06, 'Pop', 'Bing Crosby & The Andrews Sisters'),
+        ("Pistol Packin' Mama", 1943, 'Bing Crosby - His Original Recordings', 3.0, 'Pop', 'Bing Crosby & The Andrews Sisters'),
+        ('Ac-cent-tchu-ate the Positive', 1945, 'Bing Crosby - His Original Recordings', 2.46, 'Pop', 'Bing Crosby & The Andrews Sisters'),
+        ('Sioux City Sue', 1946, 'Bing Crosby - His Original Recordings', 2.47, 'Pop', 'Bing Crosby & The Jesters'),
+        ('Dinah', 1932, 'Bing Crosby - His Original Recordings', 2.56, 'Pop', 'Bing Crosby & The Mills Brothers'),
+        ("Oh, What a Beautiful Mornin'", 1943, 'Bing Crosby - His Original Recordings', 2.27, 'Pop', 'Bing Crosby & Trudy Erwin'),
+        ('Birthday', 1987, "Life's Too Good", 3.58, 'Alternative Rock', 'The Sugarcubes'),
+        ('Bitter Sweet Symphony', 1997, 'Urban Hymns', 5.58, 'Alternative Rock', 'The Verve'),
+        ('In a Mist', 1927, 'In a Mist', 3.0, 'Jazz', 'Bix Beiderbecke'),
+        ('Army of Me', 1995, 'Post', 3.55, 'Alternative Rock', 'Bjork')
+]        
 
     def songs_data(self):
-        #self.join_songs()
+        parse_instance = parse.SongParser.generateSongTuples(self)
+        self.songs.extend(parse_instance)
         unique_songs = sorted(list(dict.fromkeys(self.songs)), key=lambda x: x[0])
+        #print("*************************************************************************")
         #print(f"Unique songs: {len(unique_songs)}, Total songs: {len(self.songs)}")
         return unique_songs
 
 display_song = SongGenerator()
-for song in display_song.songs_data():
-    print(song)
+#for song in display_song.songs_data():
+    #print(song)
     #print(len(display_song.songs_data()))
 
 
