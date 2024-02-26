@@ -2,13 +2,15 @@
 
 - JPAArtistsTracker
 - Created by Blake Vieyra
-![image](https://github.com/blakevieyra/EventTrackerProject/assets/88246090/cfcd1736-e778-46e9-912b-467498486eb0)
 
 # Description:
 
 - The JPAArtistsTracker project is a full-stack web application that allows the user to search for over 660 musical artists and over 1600 songs from a preloaded database. The user can apply CRUD operations to the artists in the database, as well as the songs. The user can keyword search for an artist or a song and find songs they like. They can also discover new songs from a favorite artist or discover new artists and their songs like they were at a favorite record store with many albums of many artists. 
   
 - Deployed AWS EC2 Link: http://18.224.81.89:8080/JPAArtistsTracker
+
+  ![image](https://github.com/blakevieyra/EventTrackerProject/assets/88246090/cfcd1736-e778-46e9-912b-467498486eb0)
+
 
 # Key Features:
 
