@@ -25,10 +25,7 @@
 | PUT       | `/api/artists/1`   | JSON of a new version of artist `1` | JSON of updated artist | 201, 400 |
 | DELETE    | `/api/artists/1`   | JSON of deletion of artist `1` | JSON of deleted artist | 204, 404, 400 |  
 | GET       | `/api/artists/1/songs`      | JSON retrieval of all song of artist `1` | List of all song entities | 200, 404 |
-| GET       | `/api/artists/1/songs/1`   | JSON retrieval of a song ID 1 of artist `1` | JSON of song ID `1` | 200, 404 |
-| POST      | `/api/artists/1/songs`      | JSON of a new song entity  | JSON of created song | 201, 404, 400 | 
-| PUT       | `/api/artists/1/songs/1`   | JSON of a new version of song `1` | JSON of updated song | 200, 404, 400 |              
-| DELETE    | `/api/artists/1/songs/1`   | JSON of deletion of song `1` | JSON of deleted song | 204, 404, 400 |              
+| GET       | `/api/artists/1/songs/1`   | JSON retrieval of a song ID 1 of artist `1` | JSON of song ID `1` | 200, 404 |         
 
 # Tech Used:
 
