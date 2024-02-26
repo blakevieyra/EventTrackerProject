@@ -8,7 +8,9 @@ class SongParser:
         file_path = 'TopSongs.csv'
         df = pd.read_csv(file_path)
         songs_info = list(df[['Artist', 'Song', 'Year', "col1", "col2", "col3"]].itertuples(index=False, name=None))
-        return songs_info
+        updated_tuples = [t[:3] for t in songs_info]
+        return updated_tuples
+
 
 songs = SongParser()
-print(songs.generateSongTuples())
+#print(songs.generateSongTuples())

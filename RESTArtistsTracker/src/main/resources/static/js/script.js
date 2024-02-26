@@ -4,17 +4,28 @@ window.addEventListener("load", function(e) {
 
 function init() {
 	var audioSources = [
+
 		'music/06 Ramble On.m4a',
-		'music/01 Hells Bells.m4a',
-		'music/02 Meant to Live.m4a',
-		'music/13 Titanium (feat. Sia).m4a',
-		'music/1-06 Wish You Were Here.m4a',
-		'music/05 Shes Everything.m4a',
-		'music/04 Electric Feel.m4a',
-		'music/02 No One Like You.m4a',
+		'music/01 Hotel California.m4a',
+		'music/01 Counting Stars.m4a',
 		'music/03 If You Could Only See.m4a',
+		'music/01 Hells Bells.m4a',
+		'music/05 Shes Everything.m4a',
+		'music/11 Black Dog.m4a',
+		'music/05 Desperado.m4a',
+		'music/2-10 Last Kiss.m4a',
+		'music/02 Meant to Live.m4a',
+		'music/03 Stan.m4a',
 		'music/01 The A Team.m4a',
+		'music/06 Otherside.m4a',
+		'music/13 Say Something.m4a',
+		'music/07 With Arms Wide Open.m4a',
+		'music/04 Its Been Awhile.m4a',
+		'music/13 Titanium (feat. Sia).m4a',
+		'music/04 Electric Feel.m4a',
 		'music/02 Dont Take the Girl.m4a',
+		'music/02 No One Like You.m4a',
+		'music/05 Knockin On Heavens Door.m4a',
 		'music/02 Carrying Your Love With Me.m4a'
 	];
 	var index = 0;
@@ -113,13 +124,13 @@ function init() {
 		getAllSongs();
 	});
 	//document.getElementById('getAllArtistsBtn').addEventListener('click', function(e) {
-		//e.preventDefault();
-		//console.log('geting all songs');
-		//tbody = document.getElementById('artistsTable');
-		//tbody.textContent = '';
-		//tbody = document.getElementById('songTable');
-		//tbody.textContent = '';
-		
+	//e.preventDefault();
+	//console.log('geting all songs');
+	//tbody = document.getElementById('artistsTable');
+	//tbody.textContent = '';
+	//tbody = document.getElementById('songTable');
+	//tbody.textContent = '';
+
 	//});
 	document.addingSongForm.addSongbtn.addEventListener('click', function(e) {
 		e.preventDefault();
@@ -161,8 +172,6 @@ function getArtistById(artistId) {
 			if (xhr.status === 200) {
 				let artist = JSON.parse(xhr.responseText);
 				console.log(artist);
-				let tbody = document.getElementById('songTable');
-				//tbody.textContent = '';
 				displayArtists(artist);
 			} else {
 				let doc = document.getElementById('artistsTable');
@@ -181,11 +190,9 @@ function getSongById(artistId, songId) {
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === XMLHttpRequest.DONE) {
 			if (xhr.status === 200) {
-				let artist = JSON.parse(xhr.responseText);
-				console.log(artist);
-				let tbody = document.getElementById('songTable');
-				//tbody.textContent = '';
-				displaySongs(songId);
+				let song = JSON.parse(xhr.responseText);
+				console.log(song)
+				displaySongs({ id: artistId }, song);
 			} else {
 				let doc = document.getElementById('artistsTable');
 				let error = document.createElement('h3');
@@ -263,14 +270,24 @@ function displayArtists(artists) {
 			td.textContent = artist.name;
 			tr.appendChild(td);
 
+
 			td = document.createElement('td');
 			let updateBtn = document.createElement('button');
 			updateBtn.textContent = "Update";
 			updateBtn.classList.add('btn');
 			updateBtn.addEventListener("click", function(e) {
-				let container = document.getElementById('artistsData');
-				getArtistById(artist.id)
+				e.preventDefault();
+				getSongById(artist.id, songs.id);
+				var form = document.getElementById('songData');
+				if (form) {
+					var scrollAmount = form.offsetHeight / 4;
+					form.scrollTo({
+						top: form.scrollTop + scrollAmount,
+						behavior: 'smooth'
+					});
+				}
 			});
+			td.appendChild(updateBtn);
 			let delBtn = document.createElement('button');
 			delBtn.textContent = "Delete";
 			delBtn.classList.add('btn');
@@ -307,13 +324,22 @@ function displayArtists(artists) {
 		td.textContent = artists.name;
 		tr.appendChild(td);
 
+
 		td = document.createElement('td');
 		let updateBtn = document.createElement('button');
 		updateBtn.textContent = "Update";
 		updateBtn.classList.add('btn');
 		updateBtn.addEventListener("click", function(e) {
-			let container = document.getElementById('artistsData');
-			getArtistById(artists.id)
+			e.preventDefault();
+			getArtistById(artists.id);
+			var form = document.getElementById('artistsData');
+			if (form) {
+				var scrollAmount = form.offsetHeight / 4;
+				form.scrollTo({
+					top: form.scrollTop + scrollAmount,
+					behavior: 'smooth'
+				});
+			}
 		});
 		td.appendChild(updateBtn);
 		let delBtn = document.createElement('button');
@@ -325,8 +351,8 @@ function displayArtists(artists) {
 		td.appendChild(delBtn);
 		tr.appendChild(td);
 
-
 		tr.addEventListener('click', function(e) {
+			getArtistById(artists.id)
 			getSongs(artists)
 		});
 		tbody.appendChild(tr);
@@ -358,7 +384,7 @@ function deleteSong(artist, song) {
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === XMLHttpRequest.DONE) {
 			if (xhr.status === 204) {
-				displaySongs(artist, song);
+				getAllSongs();
 			} else {
 				let doc = document.getElementById('songTable');
 				let error = document.createElement('h3');
@@ -436,7 +462,7 @@ function displaySongs(artist, songs) {
 	let tbody = document.getElementById('songTable');
 	tbody.textContent = '';
 
-	if (songs && Array.isArray(songs) && songs.length > 0) {
+	if (Array.isArray(songs)) {
 		for (let song of songs) {
 			let tr = document.createElement('tr');
 
@@ -450,28 +476,36 @@ function displaySongs(artist, songs) {
 			tr.appendChild(td);
 
 			td = document.createElement('td');
+			td.textContent = song.year;
+			tr.appendChild(td);
+
+			td = document.createElement('td');
 			td.textContent = song.album;
 			tr.appendChild(td);
 
 			td = document.createElement('td');
-			td.textContent = song.year;
+			td.textContent = song.length;
 			tr.appendChild(td);
 
 			td = document.createElement('td');
 			td.textContent = song.genre;
 			tr.appendChild(td);
 
-			//td = document.createElement('td');
-			//td.textContent = song.length;
-			//tr.appendChild(td);
-
 			td = document.createElement('td');
 			let updateBtn = document.createElement('button');
 			updateBtn.textContent = "Update";
 			updateBtn.classList.add('btn');
 			updateBtn.addEventListener("click", function(e) {
-				let container = document.getElementById('songData');
-				getSongById(song.artist.id, song.id);
+				e.preventDefault();
+				getSongById(artist.id, songs.id);
+				var form = document.getElementById('songData');
+				if (form) {
+					var scrollAmount = form.offsetHeight / 4;
+					form.scrollTo({
+						top: form.scrollTop + scrollAmount,
+						behavior: 'smooth'
+					});
+				}
 			});
 			td.appendChild(updateBtn);
 			let delBtn = document.createElement('button');
@@ -502,28 +536,36 @@ function displaySongs(artist, songs) {
 		tr.appendChild(td);
 
 		td = document.createElement('td');
+		td.textContent = songs.year;
+		tr.appendChild(td);
+
+		td = document.createElement('td');
 		td.textContent = songs.album;
 		tr.appendChild(td);
 
 		td = document.createElement('td');
-		td.textContent = songs.year;
+		td.textContent = songs.length;
 		tr.appendChild(td);
 
 		td = document.createElement('td');
 		td.textContent = songs.genre;
 		tr.appendChild(td);
 
-		//td = document.createElement('td');
-		//td.textContent = song.length;
-		//tr.appendChild(td);
-
 		td = document.createElement('td');
 		let updateBtn = document.createElement('button');
 		updateBtn.textContent = "Update";
 		updateBtn.classList.add('btn');
 		updateBtn.addEventListener("click", function(e) {
-			let container = document.getElementById('songData');
-			getSongById(songs.artist.id, songs.id);
+			e.preventDefault();
+			getSongById(artist.id, songs.id);
+			var form = document.getElementById('songData');
+			if (form) {
+				var scrollAmount = form.offsetHeight / 4;
+				form.scrollTo({
+					top: form.scrollTop + scrollAmount,
+					behavior: 'smooth'
+				});
+			}
 		});
 		td.appendChild(updateBtn);
 		let delBtn = document.createElement('button');
@@ -542,6 +584,7 @@ function displaySongs(artist, songs) {
 		tbody.appendChild(tr);
 	}
 }
+
 
 
 
@@ -564,28 +607,36 @@ function displayAllSongs(songs) {
 			tr.appendChild(td);
 
 			td = document.createElement('td');
+			td.textContent = song.year;
+			tr.appendChild(td);
+
+			td = document.createElement('td');
 			td.textContent = song.album;
 			tr.appendChild(td);
 
 			td = document.createElement('td');
-			td.textContent = song.year;
+			td.textContent = song.length;
 			tr.appendChild(td);
 
 			td = document.createElement('td');
 			td.textContent = song.genre;
 			tr.appendChild(td);
 
-			//td = document.createElement('td');
-			//td.textContent = song.length;
-			//tr.appendChild(td);
-
 			td = document.createElement('td');
 			let updateBtn = document.createElement('button');
 			updateBtn.textContent = "Update";
 			updateBtn.classList.add('btn');
 			updateBtn.addEventListener("click", function(e) {
-				let container = document.getElementById('songData');
-				container.scrollTop = container.scrollHeight;
+				e.preventDefault();
+				getSongById(artist.id, songs.id);
+				var form = document.getElementById('songData');
+				if (form) {
+					var scrollAmount = form.offsetHeight / 4;
+					form.scrollTo({
+						top: form.scrollTop + scrollAmount,
+						behavior: 'smooth'
+					});
+				}
 			});
 			td.appendChild(updateBtn);
 			let delBtn = document.createElement('button');
@@ -667,13 +718,8 @@ function displaySearchedSongs(songs) {
 			td.textContent = song.id;
 			tr.appendChild(td);
 
-
 			td = document.createElement('td');
 			td.textContent = song.name;
-			tr.appendChild(td);
-
-			td = document.createElement('td');
-			td.textContent = song.album;
 			tr.appendChild(td);
 
 			td = document.createElement('td');
@@ -681,23 +727,34 @@ function displaySearchedSongs(songs) {
 			tr.appendChild(td);
 
 			td = document.createElement('td');
-			td.textContent = song.genre;
+			td.textContent = song.album;
 			tr.appendChild(td);
 
-			//td = document.createElement('td');
-			//td.textContent = song.length;
-			//tr.appendChild(td);
+			td = document.createElement('td');
+			td.textContent = song.length;
+			tr.appendChild(td);
+
+			td = document.createElement('td');
+			td.textContent = song.genre;
+			tr.appendChild(td);
 
 			td = document.createElement('td');
 			let updateBtn = document.createElement('button');
 			updateBtn.textContent = "Update";
 			updateBtn.classList.add('btn');
 			updateBtn.addEventListener("click", function(e) {
-				let container = document.getElementById('songData');
-				getSongById(song.artist.id, song.id)
-
+				e.preventDefault();
+				getSongById(artist.id, songs.id);
+				var form = document.getElementById('songData');
+				if (form) {
+					var scrollAmount = form.offsetHeight / 4;
+					form.scrollTo({
+						top: form.scrollTop + scrollAmount,
+						behavior: 'smooth'
+					});
+				}
 			});
-			td.appendChild(updateBtn);
+			td.appendChild(updateBtn);;
 			let delBtn = document.createElement('button');
 			delBtn.textContent = "Delete";
 			delBtn.classList.add('btn');
@@ -708,7 +765,7 @@ function displaySearchedSongs(songs) {
 			tr.appendChild(td);
 			tr.addEventListener('click', function(e) {
 				getSongById(song.artist.id, song.id)
-				getArtistById(artist.id);
+				getArtistById(song.artist.id);
 			});
 			tbody.appendChild(tr);
 		}
