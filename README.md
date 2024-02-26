@@ -9,7 +9,8 @@
   
 - Deployed AWS EC2 Link: http://18.224.81.89:8080/RESTArtistsTracker
 
-  ![image](https://github.com/blakevieyra/EventTrackerProject/assets/88246090/cfcd1736-e778-46e9-912b-467498486eb0)
+  ![image](https://github.com/blakevieyra/EventTrackerProject/assets/88246090/1718e2d6-b198-4786-a205-5b759e9b335c)
+
 
 
 # Key Features:
