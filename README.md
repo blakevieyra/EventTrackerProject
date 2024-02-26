@@ -2,6 +2,7 @@
 
 - JPAArtistsTracker
 - Created by Blake Vieyra
+![image](https://github.com/blakevieyra/EventTrackerProject/assets/88246090/cfcd1736-e778-46e9-912b-467498486eb0)
 
 # Description:
 
