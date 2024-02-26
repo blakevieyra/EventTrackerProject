@@ -1,11 +1,11 @@
 # EventTrackerProject:
 
-- JPAArtistsTracker
+- RESTArtistsTracker
 - Created by Blake Vieyra
 
 # Description:
 
-- The JPAArtistsTracker project is a full-stack web application that allows the user to search for over 3000 musical artists and over 5000 songs from a loaded database. The user can apply CRUD operations to the artists in the database, as well as the songs. The user can keyword search for an artist or a song and find songs they like. They can also discover new songs from a favorite artist or discover new artists and their songs like they were at a favorite record store with many albums of many artists. 
+- The RESTArtistsTracker project is a full-stack web application that allows the user to search for over 3000 musical artists and over 5000 songs from a loaded database. The user can apply CRUD operations to the artists in the database, as well as the songs. The user can keyword search for an artist or a song and find songs they like. They can also discover new songs from a favorite artist or discover new artists and their songs like they were at a favorite record store with many albums of many artists. 
   
 - Deployed AWS EC2 Link: http://18.224.81.89:8080/RESTArtistsTracker
 
