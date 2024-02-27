@@ -12,14 +12,15 @@
 <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-	<p>Background image: "Vinyl Records" by Clay Banks, hosted on Canva. Used under license/agreement. All rights reserved.
-	</p>
+	<p>Background image: "Vinyl Records" by Clay Banks, hosted on
+		Canva. Used under license/agreement. All rights reserved.</p>
 	<br>
 	<br>
 	<br>
 	<h1 class="text-center mb-4">The Record Store</h1>
 	<br>
-	<h4 class="text-center mb-4">where you can find your favorite records from your favorite artists</h4>
+	<h4 class="text-center mb-4">where you can find your favorite
+		records from your favorite artists</h4>
 	<br>
 	<div id='searchFields'>
 		<div class="row">
@@ -32,7 +33,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -46,8 +47,9 @@
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<div class="row">
 			<div class="col">
-				<div class="jukebox">
-					<h3 class="text-center mb-4">The JukeBox</h3>
+				<div class="jukeboxDiv">
+					<h3 class="text-center mb-4" id="jukebox">The JukeBox</h3>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<audio class="text-center mb-4" id="audioPlayer"></audio>
 					<div class="text-center mb-4" id="songDisplay"></div>
 					<div class="text-center">
 						<button id="playButton" class="btn btn-primary mb-4">Play/Pause</button>
@@ -55,7 +57,6 @@
 							Song</button>
 					</div>
 				</div>
-				<audio class="text-center mb-4" id="audioPlayer"></audio>
 			</div>
 		</div>
 
@@ -72,7 +73,7 @@
 						</form>
 					</div>  -->
 					<br>
-					<div id="keywordSearchDiv">
+					<div id="keywordSearchDiv" class="searchbar">
 						<form id="keywordSearchForm">
 							<label for="keyword">Search for Artists or Bands</label> <input
 								class="form-control" type="text" id="keyword"
@@ -100,8 +101,9 @@
 									class="form-control" type="number" name="artistId"
 									id="artistId" placeholder="artist ID"> <input
 									class="form-control" type="text" name="name"
-									placeholder="updated artist name"> <input class="form-control"
-									type="text" name="band" placeholder="updated band">
+									placeholder="updated artist name"> <input
+									class="form-control" type="text" name="band"
+									placeholder="updated band">
 								<textarea class="form-control" rows="2" cols="40" name="image"
 									placeholder="updated artist image"></textarea>
 								<button class="btn btn-primary" name="updateArtistbtn">Update
@@ -109,13 +111,15 @@
 
 							</form>
 						</div>
-						<br><br>
+						<br>
+						<br>
 						<div id="addArtistsDiv">
 							<form name="addingArtistForm">
 								<label for="artist"><strong>Add a new artist</strong></label><input
 									class="form-control" type="text" name="name"
-									placeholder="new artist name"> <input class="form-control"
-									type="text" name="band" placeholder="new band name">
+									placeholder="new artist name"> <input
+									class="form-control" type="text" name="band"
+									placeholder="new band name">
 								<textarea class="form-control" rows="2" cols="40" name="image"
 									placeholder="new artist image"></textarea>
 								<button class="btn btn-primary" name="addArtistbtn">Add
@@ -132,7 +136,7 @@
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<div class="row">
 				<div class="col">
-					<div id="keywordSongSearchDiv">
+					<div id="keywordSongSearchDiv" class="searchbar">
 						<form id="keywordSongSearchForm">
 							<label for="keyword">Search for Songs by Name, Genre, or
 								Album</label> <input class="form-control" type="text" id="keywordSong"
@@ -161,14 +165,15 @@
 				<div id="updateSongDiv">
 					<form name="updateSongForm">
 						<label for="artist"><strong>Update song</strong></label> <input
-							class="form-control" type="number" name="songArtistId" id="songArtistId"
-							placeholder="artist ID"> <input class="form-control"
-							type="number" name="songId" id="songId" placeholder="song ID">
-						<input class="form-control" type="text" name="songName"
-							placeholder="updated track name"><input class="form-control"
-							type="number" name="releaseYear" id="releaseYear"
-							placeholder="updated release year"><input class="form-control"
-							type="text" name="genre" placeholder="updated genre">
+							class="form-control" type="number" name="songArtistId"
+							id="songArtistId" placeholder="artist ID"> <input
+							class="form-control" type="number" name="songId" id="songId"
+							placeholder="song ID"> <input class="form-control"
+							type="text" name="songName" placeholder="updated track name"><input
+							class="form-control" type="number" name="releaseYear"
+							id="releaseYear" placeholder="updated release year"><input
+							class="form-control" type="text" name="genre"
+							placeholder="updated genre">
 						<textarea class="form-control" rows="2" cols="40" name="album"
 							placeholder="updated album title"></textarea>
 						<!-- <input class="form-control" type="number" name="length"
@@ -181,13 +186,14 @@
 				<div id="addSongsDiv">
 					<form name="addingSongForm">
 						<label for="artist"><strong>Add a new song</strong></label> <input
-							class="form-control" type="number" name="addSongArtistId" id="addSongArtistId"
-							placeholder="artist ID"> <input class="form-control"
-							type="text" name="name" placeholder="new track name"> <input
-							class="form-control" type="number" name="releaseYear"
-							id="releaseYear" placeholder="new release year"><input
-							class="form-control" type="text" name="new genre"
-							id="genre"  placeholder="song genre">
+							class="form-control" type="number" name="addSongArtistId"
+							id="addSongArtistId" placeholder="artist ID"> <input
+							class="form-control" type="text" name="name"
+							placeholder="new track name"> <input class="form-control"
+							type="number" name="releaseYear" id="releaseYear"
+							placeholder="new release year"><input
+							class="form-control" type="text" name="new genre" id="genre"
+							placeholder="song genre">
 						<textarea class="form-control" rows="2" cols="40" name="album"
 							placeholder="new album title"></textarea>
 						<!-- <input class="form-control" type="number" name="length"

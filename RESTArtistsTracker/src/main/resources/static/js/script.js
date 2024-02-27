@@ -37,7 +37,7 @@ function togglePlayPause() {
 			audioPlayer.src = currentSong;
 		}
 		audioPlayer.controls = true;
-		audioPlayer.volume = 0.3;
+		audioPlayer.volume = 0.9;
 		audioPlayer.play();
 	} else {
 		audioPlayer.pause();
@@ -64,6 +64,8 @@ function updateSongDisplay(song) {
 
 function init() {
 	let audioPlayer = document.getElementById('audioPlayer');
+	audioPlayer.controls = true;
+
 	document.getElementById('playButton').addEventListener('click', togglePlayPause);
 
 	document.getElementById('nextButton').addEventListener('click', function() {

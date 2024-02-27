@@ -216,7 +216,7 @@ INSERT INTO `artist` (`id`, `name`, `image`) VALUES (144, 'EPMD', 'image_url_epm
 INSERT INTO `artist` (`id`, `name`, `image`) VALUES (145, 'Eagles', 'image_url_eagles');
 INSERT INTO `artist` (`id`, `name`, `image`) VALUES (146, 'Eagles Of Death Metal', 'image_url_eagles_of_death_metal');
 INSERT INTO `artist` (`id`, `name`, `image`) VALUES (147, 'Eazy-E', 'image_url_eazy-e');
-INSERT INTO `artist` (`id`, `name`, `image`) VALUES (148, 'Ed Sheeran', 'image_url_ed_sheeran');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (148, 'Ed Sheeran', 'https://upload.wikimedia.org/wikipedia/en/3/3f/Ed_Sheeran_%2B_cover.png');
 INSERT INTO `artist` (`id`, `name`, `image`) VALUES (149, 'Eddie Cochran', 'image_url_eddie_cochran');
 INSERT INTO `artist` (`id`, `name`, `image`) VALUES (150, 'Edith Piaf', 'image_url_edith_piaf');
 INSERT INTO `artist` (`id`, `name`, `image`) VALUES (151, 'Elbow', 'image_url_elbow');
@@ -227,7 +227,7 @@ INSERT INTO `artist` (`id`, `name`, `image`) VALUES (155, 'Elton John', 'image_u
 INSERT INTO `artist` (`id`, `name`, `image`) VALUES (156, 'Elvis Costello', 'image_url_elvis_costello');
 INSERT INTO `artist` (`id`, `name`, `image`) VALUES (157, 'Elvis Presley', 'image_url_elvis_presley');
 INSERT INTO `artist` (`id`, `name`, `image`) VALUES (158, 'Emeli Sandé', 'image_url_emeli_sandé');
-INSERT INTO `artist` (`id`, `name`, `image`) VALUES (159, 'Eminem', 'image_url_eminem');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (159, 'Eminem', 'https://www.eminem.net/wp-content/uploads/eminem-the-marshall-mathers-lp-album-cover-front.jpg.webp');
 INSERT INTO `artist` (`id`, `name`, `image`) VALUES (160, 'Enigma', 'image_url_enigma');
 INSERT INTO `artist` (`id`, `name`, `image`) VALUES (161, 'Ennio Morricone', 'image_url_ennio_morricone');
 INSERT INTO `artist` (`id`, `name`, `image`) VALUES (162, 'Enya', 'image_url_enya');
@@ -520,7 +520,7 @@ INSERT INTO `artist` (`id`, `name`, `image`) VALUES (449, 'Patti Smith', 'image_
 INSERT INTO `artist` (`id`, `name`, `image`) VALUES (450, 'Paul McCartney', 'image_url_paul_mccartney');
 INSERT INTO `artist` (`id`, `name`, `image`) VALUES (451, 'Paul Simon', 'image_url_paul_simon');
 INSERT INTO `artist` (`id`, `name`, `image`) VALUES (452, 'Paul Weller', 'image_url_paul_weller');
-INSERT INTO `artist` (`id`, `name`, `image`) VALUES (453, 'Pearl Jam', 'image_url_pearl_jam');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (453, 'Pearl Jam', 'https://m.media-amazon.com/images/I/61nY-n8uSWL._UF1000,1000_QL80_.jpg');
 INSERT INTO `artist` (`id`, `name`, `image`) VALUES (454, 'Peggy Lee', 'image_url_peggy_lee');
 INSERT INTO `artist` (`id`, `name`, `image`) VALUES (455, 'Pendulum', 'image_url_pendulum');
 INSERT INTO `artist` (`id`, `name`, `image`) VALUES (456, 'Perry Como', 'image_url_perry_como');
