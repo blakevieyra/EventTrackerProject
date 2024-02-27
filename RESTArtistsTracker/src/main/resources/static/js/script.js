@@ -1,74 +1,83 @@
+var audioSources = [
+	'music/06 Ramble On.m4a',
+	'music/Last Kiss.m4a',
+	'music/02 Meant to Live.m4a',
+	'music/04 Electric Feel.m4a',
+	'music/01 Counting Stars.m4a',
+	'music/03 If You Could Only See.m4a',
+	'music/02 No One Like You.m4a',
+	'music/01 Hells Bells.m4a',
+	'music/05 Shes Everything.m4a',
+	'music/Black Dog.m4a',
+	'music/05 Desperado.m4a',
+	'music/Stan.m4a',
+	'music/The A Team.m4a',
+	'music/06 Otherside.m4a',
+	'music/13 Say Something.m4a',
+	'music/07 With Arms Wide Open.m4a',
+	'music/04 Its Been Awhile.m4a',
+	'music/13 Titanium (feat. Sia).m4a',
+	'music/02 Dont Take the Girl.m4a',
+	'music/Knockin On Heavens Door.m4a',
+	'music/01 Hotel California.m4a',
+	'music/02 Carrying Your Love With Me.m4a'
+];
+var index = 0;
+var currentSong = '';
+
 window.addEventListener("load", function(e) {
 	init();
 });
 
-function init() {
-	var audioSources = [
-
-		'music/06 Ramble On.m4a',
-		'music/01 Hotel California.m4a',
-		'music/01 Counting Stars.m4a',
-		'music/03 If You Could Only See.m4a',
-		'music/01 Hells Bells.m4a',
-		'music/05 Shes Everything.m4a',
-		'music/11 Black Dog.m4a',
-		'music/05 Desperado.m4a',
-		'music/2-10 Last Kiss.m4a',
-		'music/02 Meant to Live.m4a',
-		'music/03 Stan.m4a',
-		'music/01 The A Team.m4a',
-		'music/06 Otherside.m4a',
-		'music/13 Say Something.m4a',
-		'music/07 With Arms Wide Open.m4a',
-		'music/04 Its Been Awhile.m4a',
-		'music/13 Titanium (feat. Sia).m4a',
-		'music/04 Electric Feel.m4a',
-		'music/02 Dont Take the Girl.m4a',
-		'music/02 No One Like You.m4a',
-		'music/05 Knockin On Heavens Door.m4a',
-		'music/02 Carrying Your Love With Me.m4a'
-	];
-	var index = 0;
-
-	var audio = document.createElement('audio');
-	audio.src = audioSources[index];
-	audio.controls = true;
-	audio.volume = 0.3;
-	document.body.appendChild(audio);
-
-	function updateSongDisplay() {
-		var songName = audioSources[index].split('/').pop().split('.').shift();
-		document.getElementById('songDisplay').innerText = "Now Playing: " + songName;
-	}
-
-	document.getElementById('playButton').addEventListener('click', function() {
-		if (audio.paused) {
-			audio.play();
-		} else {
-			audio.pause();
+function togglePlayPause() {
+	let audioPlayer = document.getElementById('audioPlayer');
+	if (audioPlayer.paused || audioPlayer.src === '') {
+		if (audioPlayer.src === '') {
+			currentSong = audioSources[index];
+			audioPlayer.src = currentSong;
 		}
-		updateSongDisplay();
-	});
+		audioPlayer.controls = true;
+		audioPlayer.volume = 0.3;
+		audioPlayer.play();
+	} else {
+		audioPlayer.pause();
+	}
+	updateSongDisplay(currentSong);
+}
+
+function playSelectedSong(song) {
+	if (!song.includes("music/")) {
+		song = "music/" + song + ".m4a";
+	}
+	currentSong = song;
+	let audioPlayer = document.getElementById('audioPlayer');
+	audioPlayer.src = currentSong;
+	audioPlayer.play();
+	updateSongDisplay(currentSong);
+}
+
+function updateSongDisplay(song) {
+	var songName = song.split('/').pop().split('.').shift();
+	let songDisplay = document.getElementById('songDisplay');
+	songDisplay.textContent = "Now Playing: " + songName;
+}
+
+function init() {
+	let audioPlayer = document.getElementById('audioPlayer');
+	document.getElementById('playButton').addEventListener('click', togglePlayPause);
 
 	document.getElementById('nextButton').addEventListener('click', function() {
 		index = (index + 1) % audioSources.length;
-		audio.src = audioSources[index];
-		audio.play();
-		updateSongDisplay();
+		currentSong = audioSources[index];
+		audioPlayer.src = currentSong;
+		togglePlayPause();
 	});
 
-	audio.addEventListener('ended', function() {
+	audioPlayer.addEventListener('ended', function() {
 		index = (index + 1) % audioSources.length;
-		audio.src = audioSources[index];
-		audio.play();
-		updateSongDisplay();
-	});
-
-	audio.addEventListener('ended', function() {
-		index = (index + 1) % audioSources.length;
-		audio.src = audioSources[index];
-		audio.play();
-		updateSongDisplay();
+		currentSong = audioSources[index];
+		audioPlayer.src = currentSong;
+		togglePlayPause();
 	});
 	document.addingArtistForm.addArtistbtn.addEventListener('click', function(e) {
 		e.preventDefault();
@@ -106,13 +115,13 @@ function init() {
 		console.log(keyword);
 		getSongsByKeyword(keyword);
 	});
-	document.getElementById('artistBtn').addEventListener('click', function(e) {
-		e.preventDefault();
-		console.log('searching for artist');
-		let artistId = document.getElementById('id').value;
-		console.log(artistId);
-		getArtistById(artistId);
-	});
+	//document.getElementById('artistBtn').addEventListener('click', function(e) {
+	//e.preventDefault();
+	//console.log('searching for artist');
+	//let artistId = document.getElementById('id').value;
+	//console.log(artistId);
+	//getArtistById(artistId);
+	//});
 	document.getElementById('getAllArtistsBtn').addEventListener('click', function(e) {
 		e.preventDefault();
 		console.log('geting all artists');
@@ -230,7 +239,6 @@ function getAllSongs() {
 		if (xhr.readyState === xhr.DONE) {
 			if (xhr.status === 200) {
 				let songs = JSON.parse(xhr.responseText)
-				console.log(songs)
 				displayAllSongs(songs);
 			} else {
 				let doc = document.getElementById('songTable');
@@ -258,18 +266,26 @@ function displayArtists(artists) {
 			td.textContent = artist.id;
 			tr.appendChild(td);
 
-			//td = document.createElement('td');
-			//let img = document.createElement('img');
-			//img.classList.add('thumbnail-image');
-			//img.src = artists.image;
-			//img.alt = "Artist Image";
-			//.appendChild(img);
-			//tr.appendChild(td);
-
 			td = document.createElement('td');
-			td.textContent = artist.name;
 			tr.appendChild(td);
 
+			td = document.createElement('td');
+			let img = document.createElement('img');
+			img.classList.add('thumbnail-image');
+			img.src = artists.image;
+			img.onerror = function() {
+				this.onerror = null;
+				this.src = 'images/vinyl.png';
+			};
+			img.alt = "No Image Available";
+			td.appendChild(img);
+
+			if (artist.band === null) {
+				artist.band = ''
+			}
+			td = document.createElement('td');
+			td.textContent = artist.name + " " + artist.band;
+			tr.appendChild(td);
 
 			td = document.createElement('td');
 			let updateBtn = document.createElement('button');
@@ -277,8 +293,8 @@ function displayArtists(artists) {
 			updateBtn.classList.add('btn');
 			updateBtn.addEventListener("click", function(e) {
 				e.preventDefault();
-				getSongById(artist.id, songs.id);
-				var form = document.getElementById('songData');
+				getArtistById(artists.id);
+				var form = document.getElementById('artistsData');
 				if (form) {
 					var scrollAmount = form.offsetHeight / 4;
 					form.scrollTo({
@@ -304,26 +320,35 @@ function displayArtists(artists) {
 			tbody.appendChild(tr);
 		}
 	} else {
+		document.getElementById('artistId').value = artists.id;
 		let tbody = document.getElementById('artistsTable');
+
 		tbody.textContent = '';
 		let tr = document.createElement('tr');
 
 		let td = document.createElement('td');
+		td.setAttribute('artistId', '' + artists.id);
 		td.textContent = artists.id;
 		tr.appendChild(td);
 
-		//td = document.createElement('td');
-		//let img = document.createElement('img');
-		//img.classList.add('thumbnail-image');
-		//img.src = artists.image;
-		//img.alt = "Artist Image";
-		//.appendChild(img);
-		//tr.appendChild(td);
-
 		td = document.createElement('td');
-		td.textContent = artists.name;
+		let img = document.createElement('img');
+		img.classList.add('thumbnail-image');
+		img.src = artists.image;
+		img.onerror = function() {
+			this.onerror = null;
+			this.src = 'images/vinyl.png';
+		};
+		img.alt = "No Image Available";
+		td.appendChild(img);
 		tr.appendChild(td);
 
+		if (artists.band === null) {
+			artists.band = ''
+		}
+		td = document.createElement('td');
+		td.textContent = artists.name + " " + artists.band;
+		tr.appendChild(td);
 
 		td = document.createElement('td');
 		let updateBtn = document.createElement('button');
@@ -365,8 +390,11 @@ function deleteArtist(artist) {
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === XMLHttpRequest.DONE) {
 			if (xhr.status === 204) {
+				let doc = document.getElementById('artistsTable');
+				let added = document.createElement('h3');
+				added.textContent = "Artist Deleted";
+				doc.appendChild(added);
 				loadAllArtists();
-				//getAllSongs();
 			} else {
 				let doc = document.getElementById('artistsTable');
 				let error = document.createElement('h3');
@@ -402,7 +430,11 @@ function addArtist(artist) {
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === XMLHttpRequest.DONE) {
 			if (xhr.status === 201) {
-				loadAllArtists();
+				let doc = document.getElementById('artistsTable');
+				let added = document.createElement('h3');
+				added.textContent = "Artist Created";
+				doc.appendChild(added);
+
 			} else {
 				let doc = document.getElementById('artistsTable');
 				let error = document.createElement('h3');
@@ -465,9 +497,12 @@ function displaySongs(artist, songs) {
 	if (Array.isArray(songs)) {
 		for (let song of songs) {
 			let tr = document.createElement('tr');
+			
+			document.getElementById('artistId').value = artist.id;
+			document.getElementById('songId').value = song.id;
+
 
 			let td = document.createElement('td');
-			td.setAttribute('songId', '' + song.id);
 			td.textContent = song.id;
 			tr.appendChild(td);
 
@@ -483,9 +518,9 @@ function displaySongs(artist, songs) {
 			td.textContent = song.album;
 			tr.appendChild(td);
 
-			td = document.createElement('td');
-			td.textContent = song.length;
-			tr.appendChild(td);
+			//td = document.createElement('td');
+			//td.textContent = song.length;
+			//tr.appendChild(td);
 
 			td = document.createElement('td');
 			td.textContent = song.genre;
@@ -520,6 +555,7 @@ function displaySongs(artist, songs) {
 			tr.addEventListener('click', function(e) {
 				getArtistById(artist.id);
 				getSongById(artist.id, song.id);
+				playSelectedSong(song.name);
 			});
 			tbody.appendChild(tr);
 		}
@@ -527,6 +563,8 @@ function displaySongs(artist, songs) {
 		let tr = document.createElement('tr');
 
 		let td = document.createElement('td');
+		document.getElementById('artistId').value = artist.id;
+		document.getElementById('songId').value = songs.id;
 		td.setAttribute('songId', '' + songs.id);
 		td.textContent = songs.id;
 		tr.appendChild(td);
@@ -543,9 +581,9 @@ function displaySongs(artist, songs) {
 		td.textContent = songs.album;
 		tr.appendChild(td);
 
-		td = document.createElement('td');
-		td.textContent = songs.length;
-		tr.appendChild(td);
+		//td = document.createElement('td');
+		//td.textContent = songs.length;
+		//tr.appendChild(td);
 
 		td = document.createElement('td');
 		td.textContent = songs.genre;
@@ -580,6 +618,7 @@ function displaySongs(artist, songs) {
 		tr.addEventListener('click', function(e) {
 			getArtistById(artist.id);
 			getSongById(artist.id, songs.id);
+			playSelectedSong(songs.name);
 		});
 		tbody.appendChild(tr);
 	}
@@ -599,6 +638,7 @@ function displayAllSongs(songs) {
 
 			let td = document.createElement('td');
 			td.setAttribute('songId', '' + song.id);
+			td.setAttribute('artistId', '' + song.artist.id);
 			td.textContent = song.id;
 			tr.appendChild(td);
 
@@ -614,9 +654,9 @@ function displayAllSongs(songs) {
 			td.textContent = song.album;
 			tr.appendChild(td);
 
-			td = document.createElement('td');
-			td.textContent = song.length;
-			tr.appendChild(td);
+			//td = document.createElement('td');
+			//td.textContent = song.length;
+			//tr.appendChild(td);
 
 			td = document.createElement('td');
 			td.textContent = song.genre;
@@ -651,6 +691,7 @@ function displayAllSongs(songs) {
 			tr.addEventListener('click', function(e) {
 				getArtistById(song.artist.id);
 				getSongById(song.artist.id, song.id);
+				playSelectedSong(song.name);
 			});
 			tbody.appendChild(tr);
 		}
@@ -712,6 +753,9 @@ function displaySearchedSongs(songs) {
 	if (songs && Array.isArray(songs) && songs.length > 0) {
 		for (let song of songs) {
 			let tr = document.createElement('tr');
+	
+			document.getElementById('artistId').value = songs.artist.id;
+			document.getElementById('songId').value = songs.id;
 
 			let td = document.createElement('td');
 			td.setAttribute('songId', '' + song.id);
@@ -730,9 +774,9 @@ function displaySearchedSongs(songs) {
 			td.textContent = song.album;
 			tr.appendChild(td);
 
-			td = document.createElement('td');
-			td.textContent = song.length;
-			tr.appendChild(td);
+			//td = document.createElement('td');
+			//td.textContent = song.length;
+			//tr.appendChild(td);
 
 			td = document.createElement('td');
 			td.textContent = song.genre;
@@ -766,6 +810,7 @@ function displaySearchedSongs(songs) {
 			tr.addEventListener('click', function(e) {
 				getSongById(song.artist.id, song.id)
 				getArtistById(song.artist.id);
+				playSelectedSong(song.name);
 			});
 			tbody.appendChild(tr);
 		}
@@ -778,7 +823,11 @@ function updateArtist(artistId, updatedArtist) {
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === XMLHttpRequest.DONE) {
 			if (xhr.status === 200) {
-				loadAllArtists();
+				getArtistById(artistId);
+				let doc = document.getElementById('artistsTable');
+				let added = document.createElement('h3');
+				added.textContent = "Artist Updated";
+				doc.appendChild(added);
 			} else {
 				let doc = document.getElementById('artistsTable');
 				let error = document.createElement('h3');
@@ -811,6 +860,7 @@ function updateSong(artistId, songId, updatedSong) {
 	let updatedSongJSON = JSON.stringify(updatedSong);
 	xhr.send(updatedSongJSON);
 }
+
 
 
 

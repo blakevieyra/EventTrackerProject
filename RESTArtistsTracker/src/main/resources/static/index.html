@@ -14,8 +14,8 @@
 <body>
 	<br>
 	<br>
-	<h1 class="text-center mb-4">The Record Store</h1>
 	<br>
+	<h1 class="text-center mb-4">The Record Store</h1>
 	<br>
 	<div id='searchFields'>
 		<div class="row">
@@ -28,111 +28,124 @@
 				</div>
 			</div>
 		</div>
+		<br> <br> <br> <br> <br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<div class="row">
 			<div class="col">
-				<div id="findArtistDiv">
-					<form id="findArtistForm">
-						<label for="findArtist">Search for Artist by ID</label> <input
-							class="form-control" type="number" id="id">
-						<button class="btn btn-primary" id="artistBtn">Search</button>
-					</form>
-				</div>
-			</div>
-		</div>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<div class="row">
-			<div class="col">
-				<div id="keywordSearchDiv">
-					<form id="keywordSearchForm">
-						<label for="keyword">Search for Artists by Name or Band</label> <input
-							class="form-control" type="text" id="keyword">
-						<button class="btn btn-primary" id="keywordBtn">Search</button>
-					</form>
-				</div>
-			</div>
-		</div>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<div class="row">
-			<div class="col">
-				<div id="keywordSongSearchDiv">
-					<form id="keywordSongSearchForm">
-						<label for="keyword">Search for Songs by Name, Genre, or
-							Album</label> <input class="form-control" type="text" id="keywordSong">
-						<button class="btn btn-primary" id="keywordSongBtn">Search</button>
-					</form>
-				</div>
-			</div>
-		</div>
-		<!-- 
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<div class="row">
-			<div class="col">
-				<div id="findAllSongsDiv">
-					<form id="findAllSongsForm">
-						<button class="btn btn-primary" id="findAllSongsBtn">See
-							All Songs</button>
-					</form>
-				</div>
-			</div>
-		</div><!--  -->
-	</div> 
-	<main class="container-fluid">
-		<div class="row">
-			<div class="col">
-				<div id="artistData" class="table-container">
-					<table class="table table-hover">
-						<thead class="table-dark">
-							<tr>
-								<th>ID</th>
-								<th>Artist</th>
-								<th>Edit</th>
-							</tr>
-						</thead>
-						<tbody id="artistsTable"></tbody>
-					</table>
-					<div id="updateArtistsDiv">
-						<form name="updateArtistForm">
-							<label for="artist"><strong>Update artist</strong></label> <input
-								class="form-control" type="number" name="artistId" id="artistId"
-								placeholder="artist ID"> <input class="form-control"
-								type="text" name="name" placeholder="artist name"> <input
-								class="form-control" type="text" name="band"
-								placeholder="artist band">
-							<textarea class="form-control" rows="2" cols="40" name="image"
-								placeholder="artist image"></textarea>
-							<button class="btn btn-primary" name="updateArtistbtn">Update
-								Artist</button>
-
-						</form>
+				<div class="jukebox">
+					<h3 class="text-center mb-4">The JukeBox</h3>
+					<div class="text-center mb-4" id="songDisplay"></div>
+					<div class="text-center">
+						<button id="playButton" class="btn btn-primary mb-4">Play/Pause</button>
+						<button id="nextButton" class="btn btn-primary mb-4">Next
+							Song</button>
 					</div>
-					<div id="addArtistsDiv">
-						<form name="addingArtistForm">
-							<label for="artist"><strong>Add a new artist</strong></label><input
-								class="form-control" type="text" name="name"
-								placeholder="artist name"> <input class="form-control"
-								type="text" name="band" placeholder="artist band">
-							<textarea class="form-control" rows="2" cols="40" name="image"
-								placeholder="artist image"></textarea>
-							<button class="btn btn-primary" name="addArtistbtn">Add
-								Artist</button>
+				</div>
+				<audio class="text-center mb-4" id="audioPlayer"></audio>
+			</div>
+		</div>
+
+	</div>
+	<main class="container-fluid">
+		<div class="col">
+			<div class="row">
+				<div class="col">
+					<!-- <div id="findArtistDiv">
+						<form id="findArtistForm">
+							<label for="findArtist">Search for Artist by ID</label> <input
+								class="form-control" type="number" id="id">
+							<button class="btn btn-primary" id="artistBtn">Search</button>
+						</form>
+					</div>  -->
+					<br>
+					<div id="keywordSearchDiv">
+						<form id="keywordSearchForm">
+							<label for="keyword">Search for Artists or Bands</label> <input
+								class="form-control" type="text" id="keyword"
+								placeholder="Pearl Jam">
+							<button class="btn btn-primary" id="keywordBtn">Search</button>
 						</form>
 					</div>
 					<br>
+
+					<div id="artistData" class="table-container">
+						<table class="table table-hover">
+							<thead class="table-dark">
+								<tr>
+									<th>ID</th>
+									<th></th>
+									<th>Artist</th>
+									<th>Edit</th>
+								</tr>
+							</thead>
+							<tbody id="artistsTable"></tbody>
+						</table>
+						<div id="updateArtistsDiv">
+							<form name="updateArtistForm">
+								<label for="artist"><strong>Update artist</strong></label> <input
+									class="form-control" type="number" name="artistId"
+									id="artistId" placeholder="artist ID"> <input
+									class="form-control" type="text" name="name"
+									placeholder="updated artist name"> <input class="form-control"
+									type="text" name="band" placeholder="updated band">
+								<textarea class="form-control" rows="2" cols="40" name="image"
+									placeholder="updated artist image"></textarea>
+								<button class="btn btn-primary" name="updateArtistbtn">Update
+									Artist</button>
+
+							</form>
+						</div>
+						<div id="addArtistsDiv">
+							<form name="addingArtistForm">
+								<label for="artist"><strong>Add a new artist</strong></label><input
+									class="form-control" type="text" name="name"
+									placeholder="artist name"> <input class="form-control"
+									type="text" name="band" placeholder="artist band">
+								<textarea class="form-control" rows="2" cols="40" name="image"
+									placeholder="artist image"></textarea>
+								<button class="btn btn-primary" name="addArtistbtn">Add
+									Artist</button>
+							</form>
+						</div>
+						<br>
+					</div>
 				</div>
 			</div>
 		</div>
-		<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<div class="col">
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<div class="row">
+				<div class="col">
+					<div id="keywordSongSearchDiv">
+						<form id="keywordSongSearchForm">
+							<label for="keyword">Search for Songs by Name, Genre, or
+								Album</label> <input class="form-control" type="text" id="keywordSong"
+								placeholder="Try 'Last Kiss' or 'Stan'">
+							<button class="btn btn-primary" id="keywordSongBtn">Search</button>
+						</form>
+					</div>
+				</div>
+			</div>
+			<br>
 			<div id="songData" class="table-container">
 				<table class="table table-hover">
 					<thead class="table-dark">
 						<tr>
 							<th>ID</th>
 							<th>Track Name</th>
-							<th>Release Year</th>
+							<th>Year</th>
 							<th>Album</th>
-							<th>Length</th>
 							<th>Genre</th>
 							<th>Edit</th>
 						</tr>
@@ -147,14 +160,14 @@
 							placeholder="artist ID"> <input class="form-control"
 							type="number" name="songId" id="songId" placeholder="song ID">
 						<input class="form-control" type="text" name="songName"
-							placeholder="song name"><input class="form-control"
+							placeholder="update track name"><input class="form-control"
 							type="number" name="releaseYear" id="releaseYear"
-							placeholder="release year"><input class="form-control"
-							type="text" name="genre" placeholder="song genre">
+							placeholder="updated release year"><input class="form-control"
+							type="text" name="genre" placeholder="updated genre">
 						<textarea class="form-control" rows="2" cols="40" name="album"
-							placeholder="song album"></textarea>
-						<input class="form-control" type="number" name="length"
-							placeholder="song length">
+							placeholder="updated album title"></textarea>
+						<!-- <input class="form-control" type="number" name="length"
+							placeholder="updated song length"> -->
 						<button class="btn btn-primary" name="updateSongbtn">Update
 							Song</button>
 					</form>
@@ -162,14 +175,14 @@
 				<br> <br>
 				<div id="addSongsDiv">
 					<form name="addingSongForm">
-						<label for="artist"><strong>Add new song for
-								artist by ID</strong></label> <input class="form-control" type="number"
-							name="artistId" id="artistId" placeholder="artist ID"> <input
-							class="form-control" type="text" name="name"
-							placeholder="song name"> <input class="form-control"
-							type="number" name="releaseYear" id="releaseYear"
-							placeholder="release year"><input class="form-control"
-							type="text" name="genre" placeholder="song genre">
+						<label for="artist"><strong>Add a new song</strong></label> <input
+							class="form-control" type="number" name="artistId" id="artistId"
+							placeholder="artist ID"> <input class="form-control"
+							type="text" name="name" placeholder="song name"> <input
+							class="form-control" type="number" name="releaseYear"
+							id="releaseYear" placeholder="release year"><input
+							class="form-control" type="text" name="genre"
+							placeholder="song genre">
 						<textarea class="form-control" rows="2" cols="40" name="album"
 							placeholder="song album"></textarea>
 						<input class="form-control" type="number" name="length"
@@ -182,19 +195,6 @@
 			</div>
 		</div>
 	</main>
-	<br>
-	<br>
-	<div class="row">
-		<div class="col">
-			<button id="playButton" class="btn btn-primary mb-4 d-block mx-auto">Play/Pause
-				JukeBox</button>
-			<button id="nextButton" class="btn btn-primary mb-4 d-block mx-auto">Next
-				Song</button>
-		</div>
-	</div>
-	<div id="songDisplay"></div>
-	<br>
-	<br>
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
@@ -203,3 +203,15 @@
 	<script src="js/script.js"></script>
 </body>
 </html>
+<!-- 
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<div class="row">
+			<div class="col">
+				<div id="findAllSongsDiv">
+					<form id="findAllSongsForm">
+						<button class="btn btn-primary" id="findAllSongsBtn">See
+							All Songs</button>
+					</form>
+				</div>
+			</div>
+		</div><!--  -->

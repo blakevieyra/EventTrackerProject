@@ -17,6 +17,19 @@ h1 {
 	text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
 }
 
+.container-fluid {
+	opacity: 0.8;
+	min-height: 70vh;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	padding: 30px;
+	color: white;
+	text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
+}
+
+
 .thumbnail-image {
 	width: 100px;
 	height: auto;
@@ -24,11 +37,12 @@ h1 {
 
 .table-container {
 	margin-left: 75px;
-	height: 350px;
+	height: 400px;
 	max-width: 700px;
 	overflow-x: auto;
 	overflow-y: auto;
 	text-align: center;
+	margin: auto; 
 }
 
 .table-container table {
@@ -37,6 +51,8 @@ h1 {
 	overflow-x: auto;
 	overflow-y: auto;
 	text-align: center;
+	border-collapse: collapse; 
+	
 }
 
 body {
@@ -51,17 +67,6 @@ body {
 	text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
 }
 
-.container-fluid {
-	opacity: 0.8;
-	min-height: 70vh;
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	align-items: center;
-	padding: 30px;
-	color: white;
-	text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
-}
 
 .btn {
 	opacity: 0.9;
@@ -106,3 +111,9 @@ body {
 	color: white;
 	text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.5);
 }
+
+/* .jukebox {
+	opacity: 0.8;
+	border: 2px solid black;
+	background-color:light-gray;
+} */
