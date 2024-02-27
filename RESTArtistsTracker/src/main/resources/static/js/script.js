@@ -143,13 +143,14 @@ function init() {
 	//});
 	document.addingSongForm.addSongbtn.addEventListener('click', function(e) {
 		e.preventDefault();
-		let artistId = document.addingSongForm.artistId.value;
+		let artistId = document.addingSongForm.addSongArtistId.value;
+
 		let song = {
-			artistId: addingSongForm.artistId.value,
+			artistId: addingSongForm.addSongArtistId.value,
 			name: addingSongForm.name.value,
 			genre: addingSongForm.genre.value,
 			album: addingSongForm.album.value,
-			length: addingSongForm.length.value,
+			//length: addingSongForm.length.value,
 		};
 		console.log('adding songs' + artistId);
 		addSong(artistId, song);
@@ -157,7 +158,7 @@ function init() {
 	});
 	document.updateSongForm.updateSongbtn.addEventListener('click', function(e) {
 		e.preventDefault();
-		let artistId = document.updateSongForm.artistId.value;
+		let artistId = document.updateSongForm.songArtistId.value;
 		let songId = document.updateSongForm.songId.value;
 		let updatedSong = {
 			name: document.updateSongForm.songName.value,
@@ -412,7 +413,7 @@ function deleteSong(artist, song) {
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === XMLHttpRequest.DONE) {
 			if (xhr.status === 204) {
-				getAllSongs();
+				getSongs(artist)
 			} else {
 				let doc = document.getElementById('songTable');
 				let error = document.createElement('h3');
@@ -497,10 +498,6 @@ function displaySongs(artist, songs) {
 	if (Array.isArray(songs)) {
 		for (let song of songs) {
 			let tr = document.createElement('tr');
-			
-			document.getElementById('artistId').value = artist.id;
-			document.getElementById('songId').value = song.id;
-
 
 			let td = document.createElement('td');
 			td.textContent = song.id;
@@ -563,7 +560,8 @@ function displaySongs(artist, songs) {
 		let tr = document.createElement('tr');
 
 		let td = document.createElement('td');
-		document.getElementById('artistId').value = artist.id;
+		document.getElementById('songArtistId').value = artist.id;
+		document.getElementById('addSongArtistId').value = artist.id;
 		document.getElementById('songId').value = songs.id;
 		td.setAttribute('songId', '' + songs.id);
 		td.textContent = songs.id;
@@ -637,8 +635,7 @@ function displayAllSongs(songs) {
 			let tr = document.createElement('tr');
 
 			let td = document.createElement('td');
-			td.setAttribute('songId', '' + song.id);
-			td.setAttribute('artistId', '' + song.artist.id);
+
 			td.textContent = song.id;
 			tr.appendChild(td);
 
@@ -753,8 +750,10 @@ function displaySearchedSongs(songs) {
 	if (songs && Array.isArray(songs) && songs.length > 0) {
 		for (let song of songs) {
 			let tr = document.createElement('tr');
-	
-			document.getElementById('artistId').value = songs.artist.id;
+
+			document.getElementById('songArtistId').value = { id: songs.id }.id;
+			document.getElementById('addSongArtistId').value = { id: songs.id }.id;
+
 			document.getElementById('songId').value = songs.id;
 
 			let td = document.createElement('td');
