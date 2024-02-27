@@ -69,6 +69,14 @@ function init() {
 	document.getElementById('playButton').addEventListener('click', togglePlayPause);
 
 	document.getElementById('nextButton').addEventListener('click', function() {
+		let record = document.getElementById("playRecord");
+		record.textContent = "";
+		let recordImg = document.createElement('img');
+		recordImg.textContent = "";
+		recordImg.classList.add("playRecord");
+		recordImg.src = 'images/vinyl.png';
+		record.appendChild(recordImg);
+		
 		index = (index + 1) % audioSources.length;
 		currentSong = audioSources[index];
 		audioPlayer.src = currentSong;
@@ -335,16 +343,34 @@ function displayArtists(artists) {
 		tr.appendChild(td);
 
 		td = document.createElement('td');
-		let img = document.createElement('img');
-		img.classList.add('thumbnail-image');
-		img.src = artists.image;
-		img.onerror = function() {
+		td.textContent = "";
+
+		let tdImg = document.createElement('img');
+		tdImg.textContent = "";
+
+		tdImg.classList.add('thumbnail-image');
+		tdImg.src = artists.image;
+		tdImg.onerror = function() {
 			this.onerror = null;
 			this.src = 'images/vinyl.png';
 		};
-		img.alt = "No Image Available";
-		td.appendChild(img);
+		td.appendChild(tdImg);
 		tr.appendChild(td);
+
+		let record = document.getElementById("playRecord");
+		record.textContent = "";
+		let recordImg = document.createElement('img');
+		recordImg.textContent = "";
+		recordImg.classList.add("playRecord");
+		recordImg.src = artists.image;
+		recordImg.onerror = function() {
+			this.onerror = null;
+			this.src = 'images/vinyl.png';
+			record.appendChild(recordImg);
+		};
+
+		record.appendChild(recordImg);
+		tdImg.alt = "No Image Available";
 
 		if (artists.band === null) {
 			artists.band = ''

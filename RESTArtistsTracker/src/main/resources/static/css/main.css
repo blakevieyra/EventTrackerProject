@@ -130,5 +130,13 @@ body {
 	text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.5);
 	font-family: Roylands, 'sans-serif';
 	font-style: italic;
-	color: #FFCBA4; /* Warm peach color */
+	color: #FFCBA4;
+}
+
+.playRecord {
+	width: 250px;
+	height: 250px;
+	display: block;
+	overflow-x: auto;
+	overflow-y: auto;
 }
