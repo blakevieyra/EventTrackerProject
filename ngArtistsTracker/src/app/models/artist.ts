@@ -1,15 +1,19 @@
+import { Songs } from "./songs";
+
 export class Artist {
 
   id: number;
   name: string;
-  // songs: Song[] = [];
+  songs: Songs[] = [];
 
   constructor(
     id: number = 0,
-    name: string = ''
+    name: string = '',
+    songs: Songs[] = []
   ) {
     this.id = id;
     this.name = name;
+    this.songs = songs;
   }
 
 }

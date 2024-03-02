@@ -1,0 +1,21 @@
+<form>
+
+  <div class="mb-3 text-center">
+    <label for="username" class="form-label text-light">User Name</label>
+    <input type="text" class="form-control" name="username" placeholder="Username" [(ngModel)]="newUser.username">
+  </div>
+
+  <div class="mb-3 text-center">
+    <label for="email" class="form-label text-light">Email</label>
+    <input type="text" class="form-control" name="email" placeholder="Email" [(ngModel)]="newUser.email">
+  </div>
+
+  <div class="mb-3 text-center">
+    <label for="password" class="form-label text-light">Password</label>
+    <input type="password" class="form-control" name="password" placeholder="Password" [(ngModel)]="newUser.password">
+  </div>
+
+  <div class="mb-3 d-grid gap-2">
+    <button (click)="register(newUser)" type="submit" class="btn btn-primary">Register Account</button>
+  </div>
+</form>
