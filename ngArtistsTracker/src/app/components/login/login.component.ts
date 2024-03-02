@@ -23,7 +23,9 @@ export class LoginComponent {
     console.log(user);
     this.auth.login(user.username, user.password).subscribe({
       next: (loggedInUser) => {
-        this.router.navigateByUrl('/todo');
+        console.log(user.username);
+        console.log(user.password);
+        this.router.navigateByUrl('/artists');
       },
       error: (problem) => {
         console.error('LoginComponent.login(): Error logging in user:');

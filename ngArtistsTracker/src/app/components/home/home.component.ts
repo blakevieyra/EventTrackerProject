@@ -4,13 +4,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ArtistService } from '../../services/artist.service';
 import { RegisterComponent } from "../register/register.component";
+import { LoginComponent } from "../login/login.component";
 
 @Component({
     selector: 'app-home',
     standalone: true,
     templateUrl: './home.component.html',
     styleUrl: './home.component.css',
-    imports: [CommonModule, FormsModule, RegisterComponent]
+    imports: [CommonModule, FormsModule, RegisterComponent, LoginComponent]
 })
 export class HomeComponent implements OnInit {
   constructor(private artistService: ArtistService) {}
