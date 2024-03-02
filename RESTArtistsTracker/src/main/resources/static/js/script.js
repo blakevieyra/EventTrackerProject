@@ -24,7 +24,7 @@ var audioSources = [
 ];
 var index = 0;
 var currentSong = '';
-
+let spotifyTrack = '';
 window.addEventListener("load", function(e) {
 	init();
 });
@@ -37,7 +37,6 @@ function togglePlayPause() {
 			audioPlayer.src = currentSong;
 		}
 		audioPlayer.controls = true;
-		audioPlayer.volume = 0.9;
 		audioPlayer.play();
 	} else {
 		audioPlayer.pause();
@@ -63,20 +62,27 @@ function updateSongDisplay(song) {
 }
 
 function init() {
+	//APPController();
 	let audioPlayer = document.getElementById('audioPlayer');
 	audioPlayer.controls = true;
 
-	document.getElementById('playButton').addEventListener('click', togglePlayPause);
+	document.getElementById('playButton').addEventListener('click', togglePlayPause()); 
+		//if (spotifyTrack) {
+			//currentSong = spotifyTrack;
+		 //} else {
+			//togglePlayPause()
+		//}
+	//});
 
 	document.getElementById('nextButton').addEventListener('click', function() {
-		let record = document.getElementById("playRecord");
-		record.textContent = "";
-		let recordImg = document.createElement('img');
-		recordImg.textContent = "";
-		recordImg.classList.add("playRecord");
-		recordImg.src = 'images/vinyl.png';
-		record.appendChild(recordImg);
-		
+		//let record = document.getElementById("playRecord");
+		//record.textContent = "";
+		//let recordImg = document.createElement('img');
+		//recordImg.textContent = "";
+		//recordImg.classList.add("playRecord");
+		//recordImg.src = 'images/vinyl.png';
+		//record.appendChild(recordImg);
+
 		index = (index + 1) % audioSources.length;
 		currentSong = audioSources[index];
 		audioPlayer.src = currentSong;
@@ -281,15 +287,15 @@ function displayArtists(artists) {
 			tr.appendChild(td);
 
 			td = document.createElement('td');
-			let img = document.createElement('img');
-			img.classList.add('thumbnail-image');
-			img.src = artists.image;
-			img.onerror = function() {
-				this.onerror = null;
-				this.src = 'images/vinyl.png';
-			};
-			img.alt = "No Image Available";
-			td.appendChild(img);
+			//let img = document.createElement('img');
+			//img.classList.add('thumbnail-image');
+			//img.src = artists.image;
+			//img.onerror = function() {
+			//this.onerror = null;
+			//this.src = 'images/vinyl.png';
+			//};
+			//img.alt = "No Image Available";
+			//td.appendChild(img);
 
 			if (artist.band === null) {
 				artist.band = ''
@@ -345,32 +351,32 @@ function displayArtists(artists) {
 		td = document.createElement('td');
 		td.textContent = "";
 
-		let tdImg = document.createElement('img');
-		tdImg.textContent = "";
+		//let tdImg = document.createElement('img');
+		//tdImg.textContent = "";
 
-		tdImg.classList.add('thumbnail-image');
-		tdImg.src = artists.image;
-		tdImg.onerror = function() {
-			this.onerror = null;
-			this.src = 'images/vinyl.png';
-		};
-		td.appendChild(tdImg);
+		//tdImg.classList.add('thumbnail-image');
+		//tdImg.src = artists.image;
+		//tdImg.onerror = function() {
+		//this.onerror = null;
+		//this.src = 'images/vinyl.png';
+		///};
+		//td.appendChild(tdImg);
 		tr.appendChild(td);
 
-		let record = document.getElementById("playRecord");
-		record.textContent = "";
-		let recordImg = document.createElement('img');
-		recordImg.textContent = "";
-		recordImg.classList.add("playRecord");
-		recordImg.src = artists.image;
-		recordImg.onerror = function() {
-			this.onerror = null;
-			this.src = 'images/vinyl.png';
-			record.appendChild(recordImg);
-		};
+		//let record = document.getElementById("playRecord");
+		//record.textContent = "";
+		//let recordImg = document.createElement('img');
+		//recordImg.textContent = "";
+		//recordImg.classList.add("playRecord");
+		//recordImg.src = artists.image;
+		//recordImg.onerror = function() {
+		//this.onerror = null;
+		//this.src = 'images/vinyl.png';
+		//record.appendChild(recordImg);
+		//};
 
-		record.appendChild(recordImg);
-		tdImg.alt = "No Image Available";
+		//record.appendChild(recordImg);
+		//tdImg.alt = "No Image Available";
 
 		if (artists.band === null) {
 			artists.band = ''
@@ -577,10 +583,27 @@ function displaySongs(artist, songs) {
 			td.appendChild(delBtn);
 			tr.appendChild(td);
 
-			tr.addEventListener('click', function(e) {
+			tr.addEventListener('click', async function(e) {
 				getArtistById(artist.id);
 				getSongById(artist.id, song.id);
 				playSelectedSong(song.name);
+				console.log(artist.name)
+				let index = artist.name.split(" ");
+				let firstName = index[0]
+				const query = song.name + " " + firstName;
+				console.log(query)
+				UIController.resetTrackDetail();
+				const token = await APIController.getToken();
+				UIController.storeToken(token);
+				if (query) {
+					const track = await APIController.searchTrack(token, query);
+					if (track) {
+						UIController.displayTrackDetail(track);
+					} else {
+						UIController.resetTrackDetail();
+						alert('Track not found. Please try another search.');
+					}
+				}
 			});
 			tbody.appendChild(tr);
 		}
@@ -641,10 +664,26 @@ function displaySongs(artist, songs) {
 		td.appendChild(delBtn);
 		tr.appendChild(td);
 
-		tr.addEventListener('click', function(e) {
+		tr.addEventListener('click', async function(e) {
 			getArtistById(artist.id);
 			getSongById(artist.id, songs.id);
 			playSelectedSong(songs.name);
+			let index = songs.artist.name.split(" ");
+			let firstName = index[0]
+			const query = songs.name + " " + firstName;
+			console.log(query)
+			UIController.resetTrackDetail();
+			const token = await APIController.getToken();
+			UIController.storeToken(token);
+			if (query) {
+				const track = await APIController.searchTrack(token, query);
+				if (track) {
+					UIController.displayTrackDetail(track);
+				} else {
+					UIController.resetTrackDetail();
+					alert('Track not found. Please try another search.');
+				}
+			}
 		});
 		tbody.appendChild(tr);
 	}
@@ -713,10 +752,26 @@ function displayAllSongs(songs) {
 			td.appendChild(delBtn);
 			tr.appendChild(td);
 
-			tr.addEventListener('click', function(e) {
+			tr.addEventListener('click', async function(e) {
 				getArtistById(song.artist.id);
 				getSongById(song.artist.id, song.id);
 				playSelectedSong(song.name);
+				let index = artist.name.split(" ");
+				let firstName = index[0]
+				const query = song.name + " " + firstName;
+				console.log(query)
+				UIController.resetTrackDetail();
+				const token = await APIController.getToken();
+				UIController.storeToken(token);
+				if (query) {
+					const track = await APIController.searchTrack(token, query);
+					if (track) {
+						UIController.displayTrackDetail(track);
+					} else {
+						UIController.resetTrackDetail();
+						alert('Track not found. Please try another search.');
+					}
+				}
 			});
 			tbody.appendChild(tr);
 		}
@@ -815,7 +870,7 @@ function displaySearchedSongs(songs) {
 			updateBtn.classList.add('btn');
 			updateBtn.addEventListener("click", function(e) {
 				e.preventDefault();
-				getSongById(artist.id, songs.id);
+				getSongById(artist.id, song.id);
 				var form = document.getElementById('songData');
 				if (form) {
 					var scrollAmount = form.offsetHeight / 4;
@@ -834,10 +889,26 @@ function displaySearchedSongs(songs) {
 			});
 			td.appendChild(delBtn);
 			tr.appendChild(td);
-			tr.addEventListener('click', function(e) {
+			tr.addEventListener('click', async function(e) {
 				getSongById(song.artist.id, song.id)
 				getArtistById(song.artist.id);
 				playSelectedSong(song.name);
+				let index = song.artist.name.split(" ");
+				let firstName = index[0]
+				const query = song.name + " " + firstName;
+				console.log(query)
+				UIController.resetTrackDetail();
+				const token = await APIController.getToken();
+				UIController.storeToken(token);
+				if (query) {
+					const track = await APIController.searchTrack(token, query);
+					if (track) {
+						UIController.displayTrackDetail(track);
+					} else {
+						UIController.resetTrackDetail();
+						alert('Track not found. Please try another search.');
+					}
+				}
 			});
 			tbody.appendChild(tr);
 		}
@@ -887,6 +958,120 @@ function updateSong(artistId, songId, updatedSong) {
 	let updatedSongJSON = JSON.stringify(updatedSong);
 	xhr.send(updatedSongJSON);
 }
+
+
+const APIController = (function() {
+	const clientId = 'a93962aa13c948e2be74922153604b4a';
+	const clientSecret = '41921268f68f418dac79ee10cb5a4073';
+
+	const _getToken = async () => {
+		try {
+			const result = await fetch('https://accounts.spotify.com/api/token', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded',
+					'Authorization': 'Basic ' + btoa(clientId + ':' + clientSecret)
+				},
+				body: 'grant_type=client_credentials'
+			});
+			const data = await result.json();
+			return data.access_token;
+		} catch (error) {
+			console.error("Error fetching token:", error);
+		}
+	};
+	const _searchTrack = async (token, query) => {
+		try {
+			const result = await fetch(`https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=track&limit=1`, {
+				method: 'GET',
+				headers: { 'Authorization': 'Bearer ' + token }
+			});
+			const data = await result.json();
+			return data.tracks.items[0];
+		} catch (error) {
+			console.error("Error searching track:", error);
+		}
+	};
+
+	return {
+		getToken: _getToken,
+		searchTrack: _searchTrack
+	}
+})();
+
+const UIController = (function() {
+	const DOMElements = {
+		buttonSubmit: '#btn_submit',
+		divSongDetail: '#songDetail',
+		inputSearch: '#track_search',
+		hfToken: '#hidden_token'
+	};
+
+	return {
+		inputField: function() {
+			return {
+				submit: document.querySelector(DOMElements.buttonSubmit),
+				songDetail: document.querySelector(DOMElements.divSongDetail),
+				search: document.querySelector(DOMElements.inputSearch),
+				token: document.querySelector(DOMElements.hfToken)
+			}
+		},
+		displayTrackDetail: function(track) {
+			const { album, name, artists } = track;
+			this.spotifyTrack = track.external_urls.spotify;
+			const artistName = artists.map(artist => artist.name).join(", ");
+			const html = `
+                    <div class="track-detail">
+                        <img src="${album.images[0].url}" alt="${name}" style="width:325px;height:300px;">
+                        <div>Song: ${name}</div>
+                        <div>Artist: ${artistName}</div>
+                        <div><a href="${track.external_urls.spotify}" target="_blank">Play on Spotify</a></div>
+                    </div>
+                `;
+			this.inputField().songDetail.innerHTML = html;
+		},
+		resetTrackDetail: function() {
+			this.inputField().songDetail.innerHTML = '';
+		},
+		storeToken: function(value) {
+			console.log(this.inputField().token);
+			this.inputField().token.value = value;
+		}
+	}
+})();
+
+//const APPController = (function(UICtrl, APICtrl) {
+//const setupEventListeners = () => {
+//const DOMInputs = UICtrl.inputField();
+
+//if (DOMInputs.submit) {
+//DOMInputs.submit.addEventListener('click', async (e) => {
+//e.preventDefault();
+//UICtrl.resetTrackDetail();
+//const token = await APICtrl.getToken();
+//UICtrl.storeToken(token);
+//const query = DOMInputs.search.value;
+//if (query) {
+//const track = await APICtrl.searchTrack(token, query);
+//if (track) {
+//UICtrl.displayTrackDetail(track);
+//} else {
+//UICtrl.resetTrackDetail();
+//alert('Track not found. Please try another search.');
+//}
+//}
+//});
+//}
+//};
+
+//return {
+//init: function() {
+//console.log('App is starting');
+//setupEventListeners();
+//}
+//}
+//})(UIController, APIController);
+
 
 
 

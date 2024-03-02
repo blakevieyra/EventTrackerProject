@@ -1,0 +1,70 @@
+/* Adjusts the width and text alignment of dropdown buttons */
+.btn.dropdown-toggle {
+    width: 150px;
+    text-align: left;
+}
+
+/* Positions the caret within dropdown buttons */
+span.caret {
+    position: absolute;
+    left: 90%;
+    top: 45%;
+}
+
+/* Adds padding to labels for better alignment */
+label {
+    padding-top: 5px;
+}
+
+/* Ensures form labels have no left padding */
+.form-label {
+    padding-left: 0px !important;
+}
+
+/* Sizes images appropriately for track details */
+/* img {
+    width: 350px;
+	height: 325px;
+	display: block;
+    Ensures the image is block-level for proper spacing
+    margin: 0 auto;
+    Centers the image
+}
+ */
+/* Customizes the color of success buttons */
+.btn-success {
+    background-color: #3b7d4a !important;
+}
+
+/* Changes the color on hover for success buttons */
+.btn-success:hover {
+    background-color: #4daf64 !important;
+}
+
+/* Adds a border to track images */
+img.track {
+    border: 1px solid #8a8a8a;
+}
+
+/* Additional styles for the list of songs and song details */
+#songList a {
+    cursor: pointer;
+    margin-bottom: 5px;
+    /* Adds space between list items */
+}
+
+/* Styling for the song detail section */
+#songDetail {
+    padding: 20px;
+    /* Adds a light background color */
+    border-radius: 5px;
+    /* Rounds the corners */
+    margin-top: 20px;
+    /* Adds space above the details section */
+}
+
+/* Ensures the search input and button are aligned correctly */
+#searchForm .form-group,
+#searchForm button {
+    margin-bottom: 10px;
+}
