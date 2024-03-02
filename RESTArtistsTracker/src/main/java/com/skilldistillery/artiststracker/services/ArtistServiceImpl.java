@@ -1,15 +1,15 @@
 package com.skilldistillery.artiststracker.services;
 
 import java.util.List;
+import java.util.Set;
 
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.artiststracker.entities.Artist;
+import com.skilldistillery.artiststracker.entities.User;
 import com.skilldistillery.artiststracker.repositories.ArtistRepository;
-
-import jakarta.security.auth.message.callback.PrivateKeyCallback.Request;
+import com.skilldistillery.artiststracker.repositories.UserRepository;
 
 @Service
 public class ArtistServiceImpl implements ArtistService {
@@ -17,65 +17,58 @@ public class ArtistServiceImpl implements ArtistService {
 	@Autowired
 	private ArtistRepository artistRepo;
 
+	@Autowired
+	private UserRepository userRepo;
+
 	@Override
-	public Artist findArtistById(int id) {
-		return artistRepo.findById(id);
+	public Artist findArtistById(String username, int id) {
+		return artistRepo.findByUsers_UsernameAndId(username, id);
 	}
 
 	@Override
-	public List<Artist> index() {
-		return artistRepo.findAll();
+	public Set<Artist> index(String username) {
+		return artistRepo.findByUsers_Username(username);
 	}
 
 	@Override
-	public List<Artist> getArtistByName(String name) {
-		return artistRepo.findByName(name);
+	public List<Artist> getArtistByName(String username, String name) {
+		return artistRepo.findByUsers_UsernameAndName(username, name);
 	}
 
-//	@Override
-//	public List<Artist> getArtistBySong(String name) {
-//		return artistRepo.findBySongs(name);
-//	}
-
 	@Override
-	public List<Artist> keywordSearch(String keyword) {
+	public List<Artist> keywordSearch(String username, String keyword) {
 		keyword = "%" + keyword + "%";
-		return artistRepo.findByNameLikeOrBandLike(keyword, keyword);
+		return artistRepo.findByUsers_UsernameAndNameLikeOrBandLike(username, keyword, keyword);
 	}
 
 	@Override
-	public Artist create(Artist artist) {
-		return artistRepo.saveAndFlush(artist);
-	}
-
-	@Override
-	public void delete(int id) {
-		if (artistRepo.existsById(id)) {
-			artistRepo.deleteById(id);
+	public Artist create(String username, Artist artist) {
+		User user = userRepo.findByUsername(username);
+		if (user != null) {
+			artist.getUsers().add(user);
+			return artistRepo.saveAndFlush(artist);
 		}
+		return null;
 	}
 
 	@Override
-	public Artist update(int id, Artist artist) {
-		Artist foundArtist = findArtistById(id);
+	public Artist update(String username, int id, Artist artist) {
+		Artist foundArtist = artistRepo.findByUsers_UsernameAndId(username, id);
 		if (foundArtist != null) {
 			foundArtist.setName(artist.getName());
+			foundArtist.setBand(artist.getBand());
 			return artistRepo.saveAndFlush(foundArtist);
 		}
 		return foundArtist;
 	}
 
 	@Override
-	public <OkHttpClient> void populateArtist() {
-//		OkHttpClient client = new OkHttpClient();
-//
-//		Request request = new Request.Builder()
-//			.url("https://deezerdevs-deezer.p.rapidapi.com/infos")
-//			.get()
-//			.addHeader("X-RapidAPI-Key", "c85e2ae41bmshc5dcb4c9dfbd0f3p15e336jsnc09d9a0c8b64")
-//			.addHeader("X-RapidAPI-Host", "deezerdevs-deezer.p.rapidapi.com")
-//			.build();
-//
-//		Response response = client.newCall(request).execute();	
+	public boolean destroy(String username, int id) {
+		boolean isDeleted = false;
+		if (artistRepo.existsByUsers_UsernameAndId(username, id)) {
+			artistRepo.deleteById(id);
+			isDeleted = true;
+		}
+		return isDeleted;
 	}
 }

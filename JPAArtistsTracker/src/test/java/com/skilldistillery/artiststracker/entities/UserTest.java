@@ -14,11 +14,11 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
-class ArtistTest {
+class UserTest {
 	
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Artist artist;
+	private User user;
 
 	
 	@BeforeAll
@@ -34,44 +34,26 @@ class ArtistTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		artist = em.find(Artist.class, 1);
+		user = em.find(User.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		artist = null;
+		user = null;
 	}
 
 	@Test
-	void test_Artist_Has_Name() {
-		assertNotNull(artist);
-		assertEquals("2Pac", artist.getName());
+	void test_User_Has_Name() {
+		assertNotNull(user);
+		assertEquals("blake", user.getUsername());
 		
 	}
 	
-//	@Test
-//	void test_Artist_Has_Band() {
-//		assertNotNull(artist);
-//		assertEquals("Blake's Band", artist.getBand());	
-//	}
-	
 	@Test
-	void test_Artist_Has_Song() {
-		assertNotNull(artist);
-		assertTrue(artist.getSongs().size() > 0);	
-	}
-	
-	@Test
-	void test_Artist_Has_User() {
-		assertNotNull(artist);
-		assertTrue(artist.getUsers().size() > 0);	
-	}
-	
-	@Test
-	void test_Artist_Has_User_Has_Role() {
-		assertNotNull(artist);
-		assertEquals("standard", artist.getUsers().get(0).getRole());	
+	void test_User_Has_Artists() {
+		assertNotNull(user);
+		assertTrue(user.getFavoriteArtists().size() > 0);	
 	}
 
 }

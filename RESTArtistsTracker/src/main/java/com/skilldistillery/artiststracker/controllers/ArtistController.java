@@ -1,6 +1,8 @@
 package com.skilldistillery.artiststracker.controllers;
 
+import java.security.Principal;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -28,13 +30,13 @@ public class ArtistController {
 	private ArtistService artistService;
 
 	@GetMapping("artists")
-	public List<Artist> index() {
-		return artistService.index();
+	public Set<Artist> index(Principal principal, HttpServletResponse res, HttpServletRequest req) {
+		return artistService.index(principal.getName());
 	}
 
 	@GetMapping(path = "artists/{id}")
-	public Artist showArtistById(@PathVariable("id") Integer id, HttpServletResponse res) {
-		Artist artist = artistService.findArtistById(id);
+	public Artist showArtistById(Principal principal, @PathVariable("id") Integer id, HttpServletResponse res) {
+		Artist artist = artistService.findArtistById(principal.getName(), id);
 		try {
 			if (artist == null) {
 				res.setStatus(404);
@@ -65,8 +67,8 @@ public class ArtistController {
 //	}
 
 	@PostMapping(path = "artists")
-	public Artist createPost(@RequestBody Artist artist, HttpServletResponse res, HttpServletRequest req) {
-		artist = artistService.create(artist);
+	public Artist createPost(Principal principal,@RequestBody Artist artist, HttpServletResponse res, HttpServletRequest req) {
+		artist = artistService.create(principal.getName(), artist);
 		try {
 			if (artist != null) {
 				res.setStatus(201);
@@ -82,10 +84,10 @@ public class ArtistController {
 
 	// put means replacing entity with a new json representation
 	@PutMapping(path = "artists/{id}")
-	public Artist updateArtist(@PathVariable("id") Integer id, @RequestBody Artist artist, HttpServletResponse res,
+	public Artist updateArtist(Principal principal, @PathVariable("id") Integer id, @RequestBody Artist artist, HttpServletResponse res,
 			HttpServletRequest req) {
 		try {
-			artist = artistService.update(id, artist);
+			artist = artistService.update(principal.getName(), id, artist);
 			if (artist == null) {
 				res.setStatus(404);
 			}
@@ -99,10 +101,10 @@ public class ArtistController {
 	}
 
 	@DeleteMapping(path = "artists/{id}")
-	public void deletePost(@PathVariable("id") Integer id, HttpServletResponse res) {
-		artistService.delete(id);
+	public void deletePost(Principal principal, @PathVariable("id") Integer id, HttpServletResponse res) {
+		artistService.destroy(principal.getName(), id);
 		try {
-			if (artistService.findArtistById(id) == null) {
+			if (artistService.findArtistById(principal.getName(), id) == null) {
 				res.setStatus(204);
 			} else {
 				res.setStatus(404);
@@ -114,10 +116,10 @@ public class ArtistController {
 	}
 
 	@GetMapping(path = "artists/search/{keyword}")
-	public List<Artist> show(@PathVariable("keyword") String keyword, HttpServletResponse res) {
+	public List<Artist> show(Principal principal, @PathVariable("keyword") String keyword, HttpServletResponse res) {
 		List<Artist> posts = null;
 		try {
-			posts = artistService.keywordSearch(keyword);
+			posts = artistService.keywordSearch(principal.getName(), keyword);
 		} catch (Exception e) {
 			res.setStatus(400);
 			e.printStackTrace();

@@ -31,7 +31,7 @@ public class SongServiceImpl implements SongService {
 
 	@Override
 	public Song createSong(int artistId, Song song) {
-		Optional<Artist> opt = Optional.of(artistRepo.findById(artistId));
+		Optional<Artist> opt = artistRepo.findById(artistId);
 		if (opt.isPresent()) {
 			song.setArtist(opt.get());
 			return songRepo.saveAndFlush(song);

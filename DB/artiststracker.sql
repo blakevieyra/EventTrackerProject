@@ -53,20 +53,64 @@ CREATE TABLE IF NOT EXISTS `song` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table `user`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `user` ;
+
+CREATE TABLE IF NOT EXISTS `user` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(60) NOT NULL,
+  `password` VARCHAR(60) NULL,
+  `enabled` TINYINT NULL,
+  `email` VARCHAR(60) NULL,
+  `role` VARCHAR(60) NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `username_UNIQUE` (`username` ASC))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `user_has_artist`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `user_has_artist` ;
+
+CREATE TABLE IF NOT EXISTS `user_has_artist` (
+  `user_id` INT UNSIGNED NOT NULL,
+  `artist_id` INT NOT NULL,
+  PRIMARY KEY (`user_id`, `artist_id`),
+  INDEX `fk_user_has_artist_artist1_idx` (`artist_id` ASC),
+  INDEX `fk_user_has_artist_user1_idx` (`user_id` ASC),
+  CONSTRAINT `fk_user_has_artist_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_user_has_artist_artist1`
+    FOREIGN KEY (`artist_id`)
+    REFERENCES `artist` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
 SET SQL_MODE = '';
 DROP USER IF EXISTS artistsuser@localhost;
 SET SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 CREATE USER 'artistsuser'@'localhost' IDENTIFIED BY 'artistsuser';
 
 GRANT SELECT, INSERT, TRIGGER, UPDATE, DELETE ON TABLE * TO 'artistsuser'@'localhost';
+SET SQL_MODE = '';
+DROP USER IF EXISTS admin@localhost;
+SET SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin';
+
+GRANT SELECT, INSERT, TRIGGER, UPDATE, DELETE ON TABLE * TO 'admin'@'localhost';
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-
--- -----------------------------------------------------
--- Data for table `artist`
--- -----------------------------------------------------
 START TRANSACTION;
 USE `artiststrackerdb`;
 INSERT INTO `artist` (`id`, `name`, `image`) VALUES (1, '2Pac', 'image_url_2pac');
@@ -216,7 +260,7 @@ INSERT INTO `artist` (`id`, `name`, `image`) VALUES (144, 'EPMD', 'image_url_epm
 INSERT INTO `artist` (`id`, `name`, `image`) VALUES (145, 'Eagles', 'image_url_eagles');
 INSERT INTO `artist` (`id`, `name`, `image`) VALUES (146, 'Eagles Of Death Metal', 'image_url_eagles_of_death_metal');
 INSERT INTO `artist` (`id`, `name`, `image`) VALUES (147, 'Eazy-E', 'image_url_eazy-e');
-INSERT INTO `artist` (`id`, `name`, `image`) VALUES (148, 'Ed Sheeran', 'https://upload.wikimedia.org/wikipedia/en/3/3f/Ed_Sheeran_%2B_cover.png');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (148, 'Ed Sheeran', 'image_url_ed_sheeran');
 INSERT INTO `artist` (`id`, `name`, `image`) VALUES (149, 'Eddie Cochran', 'image_url_eddie_cochran');
 INSERT INTO `artist` (`id`, `name`, `image`) VALUES (150, 'Edith Piaf', 'image_url_edith_piaf');
 INSERT INTO `artist` (`id`, `name`, `image`) VALUES (151, 'Elbow', 'image_url_elbow');
@@ -227,7 +271,7 @@ INSERT INTO `artist` (`id`, `name`, `image`) VALUES (155, 'Elton John', 'image_u
 INSERT INTO `artist` (`id`, `name`, `image`) VALUES (156, 'Elvis Costello', 'image_url_elvis_costello');
 INSERT INTO `artist` (`id`, `name`, `image`) VALUES (157, 'Elvis Presley', 'image_url_elvis_presley');
 INSERT INTO `artist` (`id`, `name`, `image`) VALUES (158, 'Emeli Sandé', 'image_url_emeli_sandé');
-INSERT INTO `artist` (`id`, `name`, `image`) VALUES (159, 'Eminem', 'https://www.eminem.net/wp-content/uploads/eminem-the-marshall-mathers-lp-album-cover-front.jpg.webp');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (159, 'Eminem', 'image_url_eminem');
 INSERT INTO `artist` (`id`, `name`, `image`) VALUES (160, 'Enigma', 'image_url_enigma');
 INSERT INTO `artist` (`id`, `name`, `image`) VALUES (161, 'Ennio Morricone', 'image_url_ennio_morricone');
 INSERT INTO `artist` (`id`, `name`, `image`) VALUES (162, 'Enya', 'image_url_enya');
@@ -520,7 +564,7 @@ INSERT INTO `artist` (`id`, `name`, `image`) VALUES (449, 'Patti Smith', 'image_
 INSERT INTO `artist` (`id`, `name`, `image`) VALUES (450, 'Paul McCartney', 'image_url_paul_mccartney');
 INSERT INTO `artist` (`id`, `name`, `image`) VALUES (451, 'Paul Simon', 'image_url_paul_simon');
 INSERT INTO `artist` (`id`, `name`, `image`) VALUES (452, 'Paul Weller', 'image_url_paul_weller');
-INSERT INTO `artist` (`id`, `name`, `image`) VALUES (453, 'Pearl Jam', 'https://m.media-amazon.com/images/I/61nY-n8uSWL._UF1000,1000_QL80_.jpg');
+INSERT INTO `artist` (`id`, `name`, `image`) VALUES (453, 'Pearl Jam', 'image_url_pearl_jam');
 INSERT INTO `artist` (`id`, `name`, `image`) VALUES (454, 'Peggy Lee', 'image_url_peggy_lee');
 INSERT INTO `artist` (`id`, `name`, `image`) VALUES (455, 'Pendulum', 'image_url_pendulum');
 INSERT INTO `artist` (`id`, `name`, `image`) VALUES (456, 'Perry Como', 'image_url_perry_como');
@@ -10040,6 +10084,26 @@ INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album
 INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (6096, 'Not Gonna Get Us', '5.332', '2003', '', '', 3866);
 INSERT INTO `song` (`id`, `name`, `song_length`, `release_year`, `genre`, `album_title`, `artist_id`) VALUES (6097, 'Scream & Shout', '10.621', '2013', '', '', 3867);
 
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `user`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `artiststrackerdb`;
+INSERT INTO `user` (`id`, `username`, `password`, `enabled`, `email`, `role`) VALUES (1, 'blake', 'blake', 1, 'blake', "standard");
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `user_has_artist`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `artiststrackerdb`;
+INSERT INTO `user_has_artist` (`user_id`, `artist_id`) VALUES (1, 1);
 
 COMMIT;
 

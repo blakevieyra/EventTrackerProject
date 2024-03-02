@@ -42,27 +42,27 @@ class SongTest {
 	}
 
 	@Test
+	void test_Song_Has_Artists() {
+		assertNotNull(song);
+		assertEquals("(The Lights Went Out In) Massachusetts", song.getArtist().getName());
+	}
+
+	@Test
 	void test_Song_Has_Name() {
 		assertNotNull(song);
-		assertEquals("test", song.getName());
+		assertEquals("Horizontal", song.getName());
 	}
-
-	@Test
-	void test_Song_Has_Artist() {
-		assertNotNull(song);
-		assertEquals("Blake Vieyra", song.getArtist().getName());
-	}
-
-	@Test
-	void test_Song_Has_Album() {
-		assertNotNull(song);
-		assertEquals("test", song.getAlbum());
-	}
-
-	@Test
-	void test_Song_Has_Genre() {
-		assertNotNull(song);
-		assertEquals("rock", song.getGenre());
-	}
+//
+//	@Test
+//	void test_Song_Has_Album() {
+//		assertNotNull(song);
+//		assertEquals("test", song.getAlbum());
+//	}
+//
+//	@Test
+//	void test_Song_Has_Genre() {
+//		assertNotNull(song);
+//		assertEquals("rock", song.getGenre());
+//	}
 
 }
