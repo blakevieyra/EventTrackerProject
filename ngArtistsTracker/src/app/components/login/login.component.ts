@@ -25,7 +25,7 @@ export class LoginComponent {
       next: (loggedInUser) => {
         console.log(user.username);
         console.log(user.password);
-        this.router.navigateByUrl('/artists');
+        this.router.navigateByUrl('/home');
       },
       error: (problem) => {
         console.error('LoginComponent.login(): Error logging in user:');
@@ -33,4 +33,5 @@ export class LoginComponent {
       },
     });
   }
+
 }
