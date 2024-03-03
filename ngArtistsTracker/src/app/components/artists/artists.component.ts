@@ -6,6 +6,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Artist } from '../../models/artist';
+import { ScrollCarousel } from 'scroll-carousel';
 
 @Component({
   selector: 'app-artists',
@@ -32,7 +33,7 @@ export class ArtistsComponent {
   artists: Artist[] = [];
   trackDetail: any;
   token: string = '';
-  selectedSong: string = "";
+  selectedSong: string = '';
 
   ngOnInit(): void {
     this.reload();
@@ -103,6 +104,15 @@ export class ArtistsComponent {
   displayTable() {
     this.selected = null;
   }
+
+  resetTable() {
+    this.trackDetail = null;
+  }
+
+  resetSong() {
+    this.songs = [];
+  }
+
   setEditArtist() {
     this.editArtist = Object.assign({}, this.selected);
   }

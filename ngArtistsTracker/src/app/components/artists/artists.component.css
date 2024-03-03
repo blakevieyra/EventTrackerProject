@@ -1,3 +1,4 @@
+
 h1 {
   margin-top: 50px;
   font-size: 70px;
@@ -231,4 +232,25 @@ img.track {
 #searchForm .form-group,
 #searchForm button {
   margin-bottom: 10px;
+}
+
+.scroll-carousel-viewport {
+  overflow: hidden;
+  position: relative;
+  width: 100%
+}
+
+.scroll-carousel-slider {
+  display: inline-flex;
+  position: relative
+}
+
+.sc-slide {
+  display: inline-block;
+  position: relative
+}
+
+.sc-slide img,
+.sc-slide video {
+  max-width: fit-content !important
 }
