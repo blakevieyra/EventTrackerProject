@@ -1,3 +1,4 @@
+import { ArtistsComponent } from './../artists/artists.component';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -8,19 +9,19 @@ import { Songs } from '../../models/songs';
 @Component({
   selector: 'app-songs',
   standalone: true,
-  imports: [CommonModule, FormsModule,],
+  imports: [CommonModule, FormsModule, ArtistsComponent],
   templateUrl: './songs.component.html',
-  styleUrl: './songs.component.css'
+  styleUrl: './songs.component.css',
 })
 export class SongsComponent {
-
   constructor(
+    // private ArtistsComponent: ArtistsComponent,
     private songsService: SongsService,
     private activateRoute: ActivatedRoute,
     private router: Router
   ) {}
 
-   //initialized parameter and variables
+  //initialized parameter and variables
   editSong: Songs | null = null;
   newSong: Songs = new Songs();
   title: string = 'Incompleted Song Count: ';
@@ -36,8 +37,7 @@ export class SongsComponent {
           let songsId = parseInt(songsIdStr);
           if (isNaN(songsId)) {
             this.router.navigateByUrl('songsId');
-          }
-          else {
+          } else {
             this.getSong(songsId);
           }
         }
@@ -48,8 +48,6 @@ export class SongsComponent {
       },
     });
   }
-
-
 
   //loaded the method on the page once subscribed call is made
   reload(): void {
@@ -63,9 +61,6 @@ export class SongsComponent {
       },
     });
   }
-
-
-
   // getTodoCount() {
   //   return this.incompletePipe.transform(this.todos, false).length;
   // }
@@ -83,16 +78,15 @@ export class SongsComponent {
   getSong(songsId: number) {
     this.songsService.show(songsId).subscribe({
       next: (song) => {
-        (this.selected = song),
-        this.reload();
+        (this.selected = song), this.reload();
       },
       error: () => {
-        this.router.navigateByUrl('SongNotFound')
+        this.router.navigateByUrl('SongNotFound');
       },
     });
   }
 
-  addTodo(song: Songs) {
+  addSong(song: Songs) {
     this.songsService.create(song).subscribe({
       next: (createdTodo) => {
         this.newSong = new Songs();
@@ -102,7 +96,7 @@ export class SongsComponent {
     });
   }
 
-  updateTodo(song: Songs, goToDetail = true) {
+  updateSong(song: Songs, goToDetail = true) {
     console.log(song);
     this.songsService.update(song).subscribe({
       next: (updatedSong) => {
@@ -119,7 +113,7 @@ export class SongsComponent {
     });
   }
 
-  deleteTodo(id: number) {
+  deleteSong(id: number) {
     this.songsService.destroy(id).subscribe({
       next: () => {
         this.reload();

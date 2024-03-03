@@ -63,8 +63,8 @@ export class ArtistsComponent {
   // getTodoCount() {
   //   return this.incompletePipe.transform(this.todos, false).length;
   // }
-  displayArtists(artists: Artist) {
-    this.selected = artists;
+  displayArtists(artist: Artist) {
+    this.selected = artist;
   }
 
   displayTable() {
@@ -95,6 +95,16 @@ export class ArtistsComponent {
     });
   }
 
+  // saveArtist(artist: Artist) {
+  //   this.artistService.saveArtist(artist).subscribe({
+  //     next: (createdArtist) => {
+  //       this.newArtist = new Artist();
+  //       this.reload();
+  //     },
+  //     error: () => {},
+  //   });
+  // }
+
   updateArtist(artist: Artist, goToDetail = true) {
     console.log(artist);
     this.artistService.update(artist).subscribe({
@@ -112,7 +122,7 @@ export class ArtistsComponent {
     });
   }
 
-  deleteTodo(id: number) {
+  deleteArtist(id: number) {
     this.artistService.destroy(id).subscribe({
       next: () => {
         this.reload();

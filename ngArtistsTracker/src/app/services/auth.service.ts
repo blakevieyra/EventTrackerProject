@@ -13,6 +13,8 @@ export class AuthService {
   private baseUrl = 'http://localhost:8083/';
   private url = environment.baseUrl;
 
+  user : User = new User();
+
   constructor(private http: HttpClient) {}
 
   register(user: User): Observable<User> {
@@ -44,6 +46,7 @@ export class AuthService {
         // While credentials are stored in browser localStorage, we consider
         // ourselves logged in.
         localStorage.setItem('credentials', credentials);
+        this.user = newUser;
         return newUser;
       }),
       catchError((err: any) => {

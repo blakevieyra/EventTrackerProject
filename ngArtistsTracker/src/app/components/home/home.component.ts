@@ -22,25 +22,77 @@ export class HomeComponent implements OnInit {
     route: Router
   ) {}
 
+  selected: boolean = false;
+  newArtist: Artist | null = null;
+  favorite: boolean = false;
   artists: Artist[] = [];
+  keyword: string = '';
 
-  ngOnInit(): void {
-    this.loadArtists();
-  }
+
+
+  ngOnInit(): void {}
 
   loadArtists(): void {
-    this.artistService.index().subscribe({
+    this.artistService.all().subscribe({
       next: (artist) => {
         this.artists = artist;
-        console.log(this.artists);
+        // console.log(this.artists);
       },
       error: (problem) => {
-        console.error('ArtistComponent.loadArtists(): error loading artists: ');
+        console.error(
+          'ArtistComponent.loadArtists(): error loading all artists: '
+        );
         console.error(problem);
       },
     });
   }
+  toggleSelected() {
+    this.selected = true;
+  }
+
+  keywordSearch(keyword: string): void {
+    this.artistService.searchArtist(keyword).subscribe({
+      next: (artist) => {
+        this.artists = artist;
+        //console.log(this.artists);
+      },
+      error: (problem) => {
+        console.error(
+          'ArtistComponent.loadArtists(): error keyword searching artists: '
+        );
+        console.error(problem);
+      },
+    });
+  }
+
+  addArtistToUser(artist: Artist) {
+    this.artistService.create(artist).subscribe({
+      next: (createdArtist) => {
+        this.newArtist = new Artist();
+        //this.loadArtists();
+      },
+      error: () => {},
+    });
+  }
+
+  removeArtistFromUser(artist: Artist) {
+    this.artistService.destroy(artist.id).subscribe({
+      next: () => {
+        // this.loadArtists();
+      },
+      error: () => {},
+    });
+  }
+
   loggedIn(): boolean {
     return this.auth.checkLogin();
+  }
+
+  toggleArtist(event: any, artist: any): void {
+    if (event.target.checked) {
+      this.addArtistToUser(artist);
+    } else {
+      this.removeArtistFromUser(artist);
+    }
   }
 }

@@ -40,6 +40,17 @@ export class SongsService {
     );
   }
 
+  indexAll(): Observable<Songs[]> {
+    return this.http.get<Songs[]>(this.url, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error('SongsArtist.index(): error retrieving songs: ' + err)
+        );
+      })
+    );
+  }
+
   show(songsId: number): Observable<Songs> {
     return this.http
       .get<Songs>(this.url + '/' + songsId, this.getHttpOptions())
@@ -59,8 +70,7 @@ export class SongsService {
       catchError((err: any) => {
         console.log(err);
         return throwError(
-          () =>
-            new Error('SongsService.create(): error creating song: ' + err)
+          () => new Error('SongsService.create(): error creating song: ' + err)
         );
       })
     );
@@ -97,9 +107,7 @@ export class SongsService {
           console.log(err);
           return throwError(
             () =>
-              new Error(
-                'SongsService.delete(): error deleting song: ' + err
-              )
+              new Error('SongsService.delete(): error deleting song: ' + err)
           );
         })
       );
