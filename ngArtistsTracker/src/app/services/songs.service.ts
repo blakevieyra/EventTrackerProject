@@ -53,7 +53,7 @@ export class SongsService {
 
   searchSongs(keyword: string): Observable<Songs[]> {
     return this.http
-      .get<Songs[]>(this.url + 'search/' + keyword, this.getHttpOptions())
+      .get<Songs[]>(this.url + '/search/' + keyword, this.getHttpOptions())
       .pipe(
         catchError((err: any) => {
           console.log(err);

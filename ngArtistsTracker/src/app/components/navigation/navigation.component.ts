@@ -22,7 +22,7 @@ import { LogoutComponent } from '../logout/logout.component';
 export class NavigationComponent {
   public isCollapsed = false;
 
-  constructor(private auth: AuthService, private logout: LoginComponent) {}
+  constructor(private auth: AuthService) {}
 
   loggedIn(): boolean {
     return this.auth.checkLogin();

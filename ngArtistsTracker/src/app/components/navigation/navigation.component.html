@@ -7,12 +7,12 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup" [ngbCollapse]='isCollapsed'>
     <div class="navbar-nav">
-      <a class="nav-item nav-link mx-4" [routerLink]="['/about']">About</a>
-      <a class="nav-item nav-link mx-4" [routerLink]="['/artist']">My Artists</a>
-      <a class="nav-item nav-link mx-4" [routerLink]="['/songs']">Song Search</a>
-      <a *ngIf="!loggedIn()" class="nav-item nav-link mx-4" [routerLink]="['/register']">Register</a>
-      <a *ngIf="!loggedIn()" class="nav-item nav-link mx-4" [routerLink]="['/login']">Login</a>
-      <button class="btn btn-primary btn-danger" (click)="logout()">Logout</button>
+      <a class="nav-item nav-link" [routerLink]="['/about']">About</a>
+      <a class="nav-item nav-link" [routerLink]="['/songs']">Song Search</a>
+      <a class="nav-item nav-link" [routerLink]="['/artist']">My Collection</a>
+      <a *ngIf="!loggedIn()" class="nav-item nav-link" [routerLink]="['/register']">Register</a>
+      <a *ngIf="!loggedIn()" class="nav-item nav-link" [routerLink]="['/login']">Login</a>
+      <a class="nav-item nav-link" *ngIf="loggedIn()"><app-logout></app-logout></a>
     </div>
   </div>
 </nav>

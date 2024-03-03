@@ -1,3 +1,4 @@
+import { Songs } from './../../models/songs';
 import { ArtistService } from './../../services/artist.service';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
@@ -13,6 +14,7 @@ import { Artist } from '../../models/artist';
   styleUrl: './artists.component.css',
 })
 export class ArtistsComponent {
+  songs: any;
   constructor(
     private artistService: ArtistService,
     private activateRoute: ActivatedRoute,
@@ -20,6 +22,7 @@ export class ArtistsComponent {
   ) {}
 
   //initialized parameter and variables
+
   editArtist: Artist | null = null;
   newArtist: Artist = new Artist();
   title: string = 'Incompleted Artist Count: ';
@@ -56,6 +59,17 @@ export class ArtistsComponent {
       error: (problem) => {
         console.error('ArtistsComponent.reload(): error loading artists: ');
         console.error(problem);
+      },
+    });
+  }
+
+  getArtistSongs(id: number): void {
+    this.artistService.getSongsFromArtist(id).subscribe({
+      next: (songs) => {
+        this.songs = songs; // Assuming the response directly contains the songs data
+      },
+      error: (error) => {
+        console.error('ArtistsComponent.getArtistSongs(): error loading songs', error);
       },
     });
   }
