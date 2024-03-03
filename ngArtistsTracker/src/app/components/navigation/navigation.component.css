@@ -1,0 +1,5 @@
+/* Custom CSS */
+.navbar-nav .nav-item .nav-link {
+  margin-right: 20px !important;
+  /* Adjust the space as needed */
+}

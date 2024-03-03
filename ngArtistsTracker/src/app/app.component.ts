@@ -12,7 +12,8 @@ import { ArtistsComponent } from './components/artists/artists.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet,
+  imports: [
+    RouterOutlet,
     HomeComponent,
     NavigationComponent,
     LoginComponent,
@@ -20,11 +21,11 @@ import { ArtistsComponent } from './components/artists/artists.component';
     RegisterComponent,
     ArtistsComponent,
     SongsComponent,
-    AboutComponent
+    AboutComponent,
   ],
 
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
 })
 export class AppComponent {
   title = 'ngArtistsTracker';

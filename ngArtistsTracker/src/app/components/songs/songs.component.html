@@ -60,7 +60,7 @@
                 <th>Track Name</th>
                 <th>Year Released</th>
                 <th>Genre</th>
-                <th>Favorite</th>
+                <!-- <th>Favorite</th> -->
               </thead>
               <tbody>
                 <tr *ngFor="let s of mySongs">
@@ -68,9 +68,9 @@
                   <td>{{s.name}}</td>
                   <td>{{s.year}}</td>
                   <td>{{s.genre}}</td>
-                  <td>
+                  <!-- <td>
                     <input (change)="toggleSongs($event, s)" type="checkbox" name="addSong">
-                  </td>
+                  </td> -->
                   <!-- <td *ngIf="!favorite">
                   <button class="btn btn-primary" (click)="isFavorite(); addArtistToUser(a)">Favorite</button> -->
                   <!--

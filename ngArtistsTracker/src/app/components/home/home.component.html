@@ -40,7 +40,7 @@
   <!-- <h1 class="text-center mb-4">My Artists</h1> -->
 
   <main class="container mt-5">
-    <div class="row">
+    <div *ngIf="loggedIn()" class="row">
       <div class="col">
         <div class="searchbar mb-3">
           <label name="search">Enter for you favorite artists or bands</label>
