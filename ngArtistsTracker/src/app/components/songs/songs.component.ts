@@ -22,14 +22,16 @@ export class SongsComponent {
   ) {}
 
   //initialized parameter and variables
+  selected: boolean = false;
   editSong: Songs | null = null;
-  newSong: Songs = new Songs();
+  newSong: Songs |  null = null;
   title: string = 'Incompleted Song Count: ';
-  selected: Songs | null = null;
-  songs: Songs[] = [];
+  song: Songs | null = null;
+  mySongs: Songs[] = [];
+  keyword: string = '';
 
   ngOnInit(): void {
-    this.reload();
+    // this.reload();
     this.activateRoute.paramMap.subscribe({
       next: (params) => {
         let songsIdStr = params.get('songsId');
@@ -53,7 +55,7 @@ export class SongsComponent {
   reload(): void {
     this.songsService.index().subscribe({
       next: (songs) => {
-        this.songs = songs;
+        this.mySongs = songs;
       },
       error: (problem) => {
         console.error('SongsComponent.reload(): error loading songs: ');
@@ -64,21 +66,21 @@ export class SongsComponent {
   // getTodoCount() {
   //   return this.incompletePipe.transform(this.todos, false).length;
   // }
-  displaySongs(songs: Songs) {
-    this.selected = songs;
-  }
+  // displaySongs(songs: Songs) {
+  //   this.mySongs = songs;
+  // }
 
   displayTable() {
-    this.selected = null;
+    this.song = null;
   }
   setEditSong() {
-    this.editSong = Object.assign({}, this.selected);
+    this.selected = Object.assign({}, this.selected);
   }
 
   getSong(songsId: number) {
     this.songsService.show(songsId).subscribe({
       next: (song) => {
-        (this.selected = song), this.reload();
+        (this.song = song), this.reload();
       },
       error: () => {
         this.router.navigateByUrl('SongNotFound');
@@ -102,7 +104,7 @@ export class SongsComponent {
       next: (updatedSong) => {
         this.editSong = null;
         if (goToDetail) {
-          this.selected = updatedSong;
+          this.song = updatedSong;
         }
         this.reload();
       },
@@ -119,6 +121,61 @@ export class SongsComponent {
         this.reload();
       },
       error: () => {},
+    });
+  }
+  addArtistToUser(song: Songs) {
+    this.songsService.create(song).subscribe({
+      next: (createdArtist) => {
+        this.newSong = new Songs();
+        //this.loadArtists();
+      },
+      error: () => {},
+    });
+  }
+
+  toggleSelected() {
+    this.selected = true;
+  }
+
+  addSongToArtist(song: Songs) {
+    this.songsService.create(song).subscribe({
+      next: (createdArtist) => {
+        this.newSong = new Songs();
+        //this.loadArtists();
+      },
+      error: () => {},
+    });
+  }
+
+  toggleSongs(event: any, song: any): void {
+    if (event.target.checked) {
+      this.addArtistToUser(song);
+    } else {
+      this.removeSongFromArtist(song);
+    }
+  }
+
+  removeSongFromArtist(song: Songs) {
+    this.songsService.destroy(song.id).subscribe({
+      next: () => {
+        // this.loadArtists();
+      },
+      error: () => {},
+    });
+  }
+
+  keywordSearch(keyword: string): void {
+    this.songsService.searchSongs(keyword).subscribe({
+      next: (song) => {
+        this.mySongs = song;
+        //console.log(this.artists);
+      },
+      error: (problem) => {
+        console.error(
+          'ArtistComponent.loadArtists(): error keyword searching artists: '
+        );
+        console.error(problem);
+      },
     });
   }
 }

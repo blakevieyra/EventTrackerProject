@@ -11,7 +11,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 })
 export class SongsService {
   // private baseUrl = 'http://localhost:8090/';
-  private url = environment.baseUrl + 'api/artists';
+  private url = environment.baseUrl + 'api/songs';
 
   constructor(
     private http: HttpClient,
@@ -49,6 +49,23 @@ export class SongsService {
         );
       })
     );
+  }
+
+  searchSongs(keyword: string): Observable<Songs[]> {
+    return this.http
+      .get<Songs[]>(this.url + 'search/' + keyword, this.getHttpOptions())
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError(
+            () =>
+              new Error(
+                'SongsService.index(): error retrieving Artist by keyword: ' +
+                  err
+              )
+          );
+        })
+      );
   }
 
   show(songsId: number): Observable<Songs> {
