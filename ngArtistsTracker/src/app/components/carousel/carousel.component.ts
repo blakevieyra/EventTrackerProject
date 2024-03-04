@@ -10,7 +10,7 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
   imports: [CommonModule, CarouselModule],
 })
 export class CarouselComponent {
-  myInterval = 5000;
+  myInterval = 4500;
   activeSlideIndex = 0;
   slides: { image: string; text?: string }[] = [
     {

@@ -6,11 +6,14 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Artist } from '../../models/artist';
+import { LoginComponent } from '../login/login.component';
+import { AuthService } from '../../services/auth.service';
+import { RegisterComponent } from '../register/register.component';
 
 @Component({
   selector: 'app-artists',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, LoginComponent, RegisterComponent],
   templateUrl: './artists.component.html',
   styleUrl: './artists.component.css',
 })
@@ -18,10 +21,13 @@ export class ArtistsComponent {
   constructor(
     private artistService: ArtistService,
     private spotifyService: SpotifyService,
-
+    private auth: AuthService,
     private activateRoute: ActivatedRoute,
     private router: Router
   ) {}
+  loggedIn(): boolean {
+    return this.auth.checkLogin();
+  }
 
   //initialized parameter and variables
   songs: any[] = [];

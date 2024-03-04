@@ -29,8 +29,6 @@
   <br>
   <br>
   <br>
-  <br>
-  <br>
   <div class="d-flex justify-content-center align-items-center vh-75">
   </div>
   <h1 class="text-center mb-4">Find your Songs</h1>
@@ -47,47 +45,58 @@
   <!-- <h1 class="text-center mb-4">My Artists</h1> -->
 
   <main class="container mt-5">
-    <div class="row">
-      <div class="col">
-        <div class="searchbar mb-3">
-          <label name="search">Enter a name, genre, or band</label>
-          <input type="search" class="form-control" id="searchBar" [(ngModel)]="keyword"
-            placeholder="Try 'Last Kiss' or 'A Team'">
-          <button class="btn btn-primary" (click)="keywordSearch(keyword);toggleSelected()">Search</button>
-          <button class="btn btn-primary" (click)="reload();toggleSelected()">Show All Songs</button>
-        </div>
-        <br>
-        <div class="text-center mb-4 scrollable-container">
-          <div *ngIf="selected">
+    <div *ngIf="!loggedIn()" class="row">
+      <app-login></app-login>
+    </div>
+    <div *ngIf="loggedIn()" class="row">
+      <div class="row">
+        <div class="col">
+          <div class="d-flex justify-content-center align-items-center">
 
-            <table class="table table-striped table-hover table-dark">
-              <thead class="table-dark">
-                <th>ID</th>
-                <th>Track Name</th>
-                <th>Year Released</th>
-                <th>Genre</th>
-                <th>Artist</th>
-                <!-- <th>Favorite</th> -->
-              </thead>
-              <tbody>
-                <tr *ngFor="let s of mySongs">
-                  <td>{{s.id}}</td>
-                  <td>{{s.name}}</td>
-                  <td>{{s.year}}</td>
-                  <td>{{s.genre}}</td>
-                  <td>{{s.artist?.name}}</td>
-                  <!-- <td>
+            <button class="btn btn-primary" (click)="reload();toggleSelected()">Show All Songs</button>
+          </div>
+          <div class="searchbar mb-3">
+            <label name="search">Search for by song name, genre, or band</label>
+            <input type="search" class="form-control text-center mb-4" id="searchBar" [(ngModel)]="keyword"
+              placeholder="Try 'Last Kiss' or 'A Team'">
+            <div class="d-flex justify-content-center align-items-center">
+
+              <button class="btn btn-primary" (click)="keywordSearch(keyword);toggleSelected()">Search</button>
+            </div>
+          </div>
+          <br>
+          <div class="text-center mb-4 scrollable-container">
+            <div *ngIf="selected">
+
+              <table class="table table-striped table-hover table-dark">
+                <thead class="table-dark">
+                  <th>ID</th>
+                  <th>Track Name</th>
+                  <th>Year Released</th>
+                  <th>Genre</th>
+                  <th>Artist</th>
+                  <!-- <th>Favorite</th> -->
+                </thead>
+                <tbody>
+                  <tr *ngFor="let s of mySongs">
+                    <td>{{s.id}}</td>
+                    <td>{{s.name}}</td>
+                    <td>{{s.year}}</td>
+                    <td>{{s.genre}}</td>
+                    <td>{{s.artist?.name}}</td>
+                    <!-- <td>
                     <input (change)="toggleSongs($event, s)" type="checkbox" name="addSong">
                   </td> -->
-                  <!-- <td *ngIf="!favorite">
+                    <!-- <td *ngIf="!favorite">
                   <button class="btn btn-primary" (click)="isFavorite(); addArtistToUser(a)">Favorite</button> -->
-                  <!--
+                    <!--
                 <td>
                   <button class="btn btn-danger" (click)="isFavorite(); removeArtistFromUser(a.id)">Unfavorite</button>
                 </td> -->
-                </tr>
-              </tbody>
-            </table>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>

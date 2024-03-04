@@ -11,10 +11,10 @@ import { AboutComponent } from './components/about/about.component';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
-  { path: 'home', component: HomeComponent },
-  { path: 'login', component: LoginComponent },
+  { path: 'home', component: ArtistsComponent },
+  { path: 'artist', component: HomeComponent },
+  { path: 'login', component: HomeComponent },
   { path: 'artist/:artistId', component: ArtistsComponent },
-  { path: 'artist', component: ArtistsComponent },
   { path: 'songs', component: SongsComponent },
   { path: 'songs/:songsId', component: SongsComponent },
   { path: 'navigation', component: NavigationComponent },

@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth.service';
 import { ArtistsComponent } from './../artists/artists.component';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
@@ -6,17 +7,25 @@ import { SongsService } from '../../services/songs.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Songs } from '../../models/songs';
 import { CarouselComponent } from '../carousel/carousel.component';
+import { LoginComponent } from '../login/login.component';
 
 @Component({
   selector: 'app-songs',
   standalone: true,
-  imports: [CommonModule, FormsModule, ArtistsComponent, CarouselComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ArtistsComponent,
+    CarouselComponent,
+    LoginComponent,
+  ],
   templateUrl: './songs.component.html',
   styleUrl: './songs.component.css',
 })
 export class SongsComponent {
   constructor(
     // private ArtistsComponent: ArtistsComponent,
+    private auth: AuthService,
     private songsService: SongsService,
     private activateRoute: ActivatedRoute,
     private router: Router
@@ -25,7 +34,7 @@ export class SongsComponent {
   //initialized parameter and variables
   selected: boolean = false;
   editSong: Songs | null = null;
-  newSong: Songs |  null = null;
+  newSong: Songs | null = null;
   title: string = 'Incompleted Song Count: ';
   song: Songs | null = null;
   mySongs: Songs[] = [];
@@ -52,6 +61,9 @@ export class SongsComponent {
     });
   }
 
+  loggedIn(): boolean {
+    return this.auth.checkLogin();
+  }
   //loaded the method on the page once subscribed call is made
   reload(): void {
     this.songsService.index().subscribe({

@@ -5,19 +5,21 @@ import { RouterLink } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from '../login/login.component';
 import { LogoutComponent } from '../logout/logout.component';
+import { HomeComponent } from "../home/home.component";
 
 @Component({
-  selector: 'app-navigation',
-  standalone: true,
-  templateUrl: './navigation.component.html',
-  styleUrl: './navigation.component.css',
-  imports: [
-    CommonModule,
-    RouterLink,
-    NgbModule,
-    LoginComponent,
-    LogoutComponent,
-  ],
+    selector: 'app-navigation',
+    standalone: true,
+    templateUrl: './navigation.component.html',
+    styleUrl: './navigation.component.css',
+    imports: [
+        CommonModule,
+        RouterLink,
+        NgbModule,
+        LoginComponent,
+        LogoutComponent,
+        HomeComponent
+    ]
 })
 export class NavigationComponent {
   public isCollapsed = false;
