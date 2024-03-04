@@ -27,4 +27,13 @@ export class SpotifyComponent implements OnInit {
         this.trackDetail = track;
       });
   }
+
+  searchArtist(query: string) {
+    if (!query) return;
+    this.spotifyService
+      .searchArtist(this.token, query)
+      .subscribe((track: any) => {
+        this.trackDetail = track;
+      });
+  }
 }

@@ -57,90 +57,122 @@
           <h1 *ngIf="!selected" class="text-center mb-4">My Record Collection</h1>
           <br>
           <br>
-
-
           <div *ngIf="! selected">
-            <!-- <div class="text-center mb-4 scrollable-container"> -->
-
-            <!-- <table class="table table-striped table-hover table-dark">
+            <!-- <div id="carouselExampleCaptions" class="d-flex justify-content-center align-items-center carousel slide"
+              data-bs-ride="carousel">
+              <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+                  aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+                  aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+                  aria-label="Slide 3"></button>
+              </div>
+              <div class="carousel-inner">
+                <div *ngFor="let a of artists" (click)="displayArtists(a)" class="carousel-item active">
+                  <button class="btn btn-primary" (click)="searchArtist(a.name)">Details</button>
+                  <div class="track-detail">
+                    <img [src]="trackDetail.album.images[0].url" [alt]="trackDetail.name"
+                      style="width:950px;height:600px;">
+                  </div>
+                  <div class="carousel-caption d-none d-md-block">
+                    <h5>{{a.id}}{{a.name}}</h5>
+                    <p>Click for artist details</p>
+                  </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+                  data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+                  data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+            </div> -->
+            <div class="text-center mb-4 scrollable-container">
+              <table class="table table-striped table-hover table-dark">
                 <thead class="table-dark">
                   <th>ID</th>
-                  <th>Artist</th>
+                  <th>Name</th>
+                  <th>Artist Info</th>
                   <th>Delete</th>
                 </thead>
-                <tbody> -->
-            <div *ngFor="let a of artists" class="my-carousel"
-              data-carousel='{"speed": 15, "autoplay": true, "smartSpeed": true, "slideSelector": ".my-slide"}'>
-              <div (click)="displayArtists(a)" class="my-slide">{{a.id}}{{a.name}}</div>
-            </div>
-            <!-- <tr *ngFor="let a of artists">
-                    <td (click)="displayArtists(a)">{{a.id}}</td>
-                    <td (click)="displayArtists(a)">{{a.name}}</td> -->
-            <!-- <td>
-              <input (change)="saveArtist(a)" type="checkbox" name="completed" [(ngModel)]="todo.completed">
-            </td> -->
-            <!-- <td> <button class="btn btn-danger" (click)="deleteArtist(a.id)">X</button> </td>
+                <tbody>
+                  <tr *ngFor="let a of artists">
+                    <td (click)="displayArtists(a);searchArtist(a.name)">{{a.id}}</td>
+                    <td (click)="displayArtists(a);searchArtist(a.name)">{{a.name}}</td>
+                    <td> <button class="btn btn-primary" (click)="displayArtists(a);searchArtist(a.name)">+</button>
+                    </td>
+                    <td> <button class="btn btn-danger" (click)="deleteArtist(a.id)">X</button> </td>
                   </tr>
                 </tbody>
-              </table> -->
-            <form class="addArtistForm .dark-form">
-              <label name="addArtist">Add a new artist</label><br>
-              <input class="form-control" type="text" name="name" [(ngModel)]="newArtist.name" required
-                placeholder="artist name">
-              <input class="form-control" type="text" name="band" [(ngModel)]="newArtist.band"
-                placeholder="artist band">
-              <!-- <input type="image" name="band" [(ngModel)]="newArtist.image"> -->
-              <button class="btn btn-primary" (click)="addArtist(newArtist)">Add Artist</button>
-            </form>
-            <!-- Show Completed: <input type="checkbox" [(ngModel)]="showComplete"> -->
+              </table>
+              <form class="addArtistForm .dark-form">
+                <label name="addArtist">Add a new artist</label><br>
+                <input class="form-control" type="text" name="name" [(ngModel)]="newArtist.name" required
+                  placeholder="artist name">
+                <input class="form-control" type="text" name="band" [(ngModel)]="newArtist.band"
+                  placeholder="artist band">
+              </form>
+            </div>
           </div>
-        </div>
 
-        <div class="mb-3 text-center" id="artistData" *ngIf="selected && ! editArtist">
-          <br><br>
-          <h1>{{selected.name}}</h1>
-          <br><br>
-          <div *ngIf="songs && songs.length > 0">
-            <h4>{{selected.name}}'s Songs</h4>
-            <h3 *ngFor="let song of songs">{{ song.name }}, {{ song.year }} {{ song.album }} {{ song.genre }}
-              <button class="btn btn-primary" (click)="searchTrack(song.name, selected.name)">Details</button>
-              <div *ngIf="trackDetail && selectedSong === song.name">
-                <div class="track-detail">
-                  <img [src]="trackDetail.album.images[0].url" [alt]="trackDetail.name"
-                    style="width:625px;height:600px;">
-                  <div>Song: {{trackDetail.name}}</div>
-                  <!-- <div>Artist: {{ trackArtists }}</div> -->
-                  <div><a [href]="trackDetail.external_urls.spotify" target="_blank">Play on Spotify</a></div>
+          <div class="mb-3 text-center" id="artistData" *ngIf="selected && ! editArtist">
+            <br><br>
+            <h1>{{selected.name}}</h1>
+            <br>
+            <div class="song-detail">
+            <img [src]="songDetail.images[0].url" [alt]="songDetail.name">
+            <!-- <img [src]="songDetail.items.images[1].url" [alt]="songDetail.name">
+            <img [src]="songDetail.items.images[2].url" [alt]="songDetail.name"> -->
+            </div>
+           <br>
+            <div *ngIf="songs && songs.length > 0">
+              <!-- <h4>{{selected.name}}'s Songs</h4> -->
+              <br><br>
+              <h3 *ngFor="let song of songs">{{ song.name }}, {{ song.year }} {{ song.album }} {{ song.genre }}
+                <button class="btn btn-primary" (click)="searchTrack(song.name, selected.name)">Details</button>
+                <div *ngIf="trackDetail && selectedSong === song.name">
+                  <div class="track-detail">
+                    <img [src]="trackDetail.album.images[0].url" [alt]="trackDetail.name"
+                      style="width:625px;height:600px;">
+                    <div>Song: {{trackDetail.name}}</div>
+                    <!-- <div>Artist: {{ trackArtists }}</div> -->
+                    <div><a [href]="trackDetail.external_urls.spotify" target="_blank">Play on Spotify</a></div>
+                  </div>
                 </div>
-              </div>
-            </h3>
+              </h3>
+            </div>
+            <br><br>
+            <h4>{{selected.band}}</h4>
+            <button class="btn btn-primary" (click)="getArtistSongs(selected.id)">GET SONGS</button>
+            <button class="btn btn-primary" (click)="setEditArtist()">Update Artists Info</button>
+            <button class="btn btn-danger" (click)="displayTable();resetTable();resetSong()">Back</button>
+            <br><br>
           </div>
-          <br><br>
-          <h4>{{selected.band}}</h4>
-          <button class="btn btn-primary" (click)="getArtistSongs(selected.id)">GET SONGS</button>
-          <button class="btn btn-primary" (click)="setEditArtist()">Update Artists Info</button>
-          <button class="btn btn-danger" (click)="displayTable();resetTable();resetSong()">Back</button>
-          <br><br>
         </div>
-      </div>
-      <div id="artistsEdit" *ngIf="editArtist">
-        <form class=".form-control-dark artistsEditForm">
-          <label for="name">Updated Name</label>
-          <input class="form-control" type="text" name="name" [(ngModel)]="editArtist.name"> <br>
-          <label for="band">Updated Band</label>
-          <input class="form-control" type="text" name="name" [(ngModel)]="editArtist.band"> <br>
+        <div id="artistsEdit" *ngIf="editArtist">
+          <form class=".form-control-dark artistsEditForm">
+            <label for="name">Updated Name</label>
+            <input class="form-control" type="text" name="name" [(ngModel)]="editArtist.name"> <br>
+            <label for="band">Updated Band</label>
+            <input class="form-control" type="text" name="name" [(ngModel)]="editArtist.band"> <br>
 
-          <button class="btn btn-outline-primary" (click)="updateArtist(editArtist)">Save</button>
+            <button class="btn btn-primary" (click)="updateArtist(editArtist)">Save</button>
 
-          <button class="btn btn-outline-danger" (click)="editArtist = null">Cancel</button>
-        </form>
+            <button class="btn btn-danger" (click)="editArtist = null">Cancel</button>
+          </form>
+        </div>
+        <br>
+        <!-- </div> -->
+        <div class="d-flex justify-content-center align-items-center vh-100"></div>
+        <p>Background image: "Vinyl Records" by Clay Banks, hosted on Canva. Used under license/agreement. All
+          rights
+          reserved.</p>
       </div>
-      <br>
-      <!-- </div> -->
-      <div class="d-flex justify-content-center align-items-center vh-100"></div>
-      <p>Background image: "Vinyl Records" by Clay Banks, hosted on Canva. Used under license/agreement. All
-        rights
-        reserved.</p>
     </main>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
       integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"

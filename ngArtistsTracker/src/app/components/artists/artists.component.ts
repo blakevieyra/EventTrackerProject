@@ -6,7 +6,6 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Artist } from '../../models/artist';
-import { ScrollCarousel } from 'scroll-carousel';
 
 @Component({
   selector: 'app-artists',
@@ -34,6 +33,7 @@ export class ArtistsComponent {
   trackDetail: any;
   token: string = '';
   selectedSong: string = '';
+  songDetail: any;
 
   ngOnInit(): void {
     this.reload();
@@ -83,7 +83,7 @@ export class ArtistsComponent {
   getArtistSongs(id: number): void {
     this.artistService.getSongsFromArtist(id).subscribe({
       next: (songs) => {
-        this.songs = Array.isArray(songs) ? songs : [songs]; // Ensure songs is always an array
+        this.songs = Array.isArray(songs) ? songs : [songs];
       },
       error: (error) => {
         console.error(
@@ -98,6 +98,7 @@ export class ArtistsComponent {
   //   return this.incompletePipe.transform(this.todos, false).length;
   // }
   displayArtists(artist: Artist) {
+    // this.searchTrack(artist.name, artist.band);
     this.selected = artist;
   }
 
@@ -138,16 +139,6 @@ export class ArtistsComponent {
     });
   }
 
-  // saveArtist(artist: Artist) {
-  //   this.artistService.saveArtist(artist).subscribe({
-  //     next: (createdArtist) => {
-  //       this.newArtist = new Artist();
-  //       this.reload();
-  //     },
-  //     error: () => {},
-  //   });
-  // }
-
   updateArtist(artist: Artist, goToDetail = true) {
     console.log(artist);
     this.artistService.update(artist).subscribe({
@@ -179,12 +170,21 @@ export class ArtistsComponent {
       .searchTrack(this.token, `${songName} ${artistName}`)
       .subscribe((track) => {
         this.trackDetail = track;
-        // Assuming songName is unique and can serve as an identifier
         this.selectedSong = songName;
+        console.log(this.trackDetail, this.selectedSong);
       });
   }
+
+  searchArtist(query: string) {
+    return this.spotifyService
+      .searchArtist(this.token, query)
+      .subscribe((artist: any) => {
+        this.songDetail = artist;
+        console.log(this.songDetail);
+      });
+  }
+
   // get trackArtists() {
   //   return this.trackDetail.artists.map((artist) => artist.name).join(', ');
   // }
 }
-

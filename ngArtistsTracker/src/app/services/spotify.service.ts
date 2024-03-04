@@ -37,4 +37,16 @@ export class SpotifyService {
       )
       .pipe(map((data) => data.tracks.items[0]));
   }
+
+  searchArtist(token: string, query: string): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: 'Bearer ' + token,
+    });
+    return this.http
+      .get<any>(
+        `${this.searchUrl}?q=${encodeURIComponent(query)}&type=artist&limit=1`,
+        { headers }
+      )
+      .pipe(map((data) => data.artists.items[0])); // Corrected path to access the first artist
+  }
 }
