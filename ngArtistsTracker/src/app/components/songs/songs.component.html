@@ -56,7 +56,7 @@
             <button class="btn btn-primary" (click)="reload();toggleSelected()">Show All Songs</button>
           </div>
           <div class="searchbar mb-3">
-            <label name="search">Search for by song name, genre, or band</label>
+            <label name="search">Search for by song name, genre, or band. Double click on the song for details.</label>
             <input type="search" class="form-control text-center mb-4" id="searchBar" [(ngModel)]="keyword"
               placeholder="Try 'Last Kiss' or 'A Team'">
             <div class="d-flex justify-content-center align-items-center">
@@ -78,25 +78,28 @@
                   <!-- <th>Favorite</th> -->
                 </thead>
                 <tbody>
-                  <tr *ngFor="let s of mySongs">
+                  <tr *ngFor="let s of mySongs" (click)="searchAndToggle(s.name, s.genre)">
                     <td>{{s.id}}</td>
-                    <td>{{s.name}}</td>
+                    <td (click)="toggleShowMethod($event)">{{s.name}}</td>
                     <td>{{s.year}}</td>
                     <td>{{s.genre}}</td>
                     <td>{{s.artist?.name}}</td>
-                    <!-- <td>
-                    <input (change)="toggleSongs($event, s)" type="checkbox" name="addSong">
-                  </td> -->
-                    <!-- <td *ngIf="!favorite">
-                  <button class="btn btn-primary" (click)="isFavorite(); addArtistToUser(a)">Favorite</button> -->
-                    <!--
-                <td>
-                  <button class="btn btn-danger" (click)="isFavorite(); removeArtistFromUser(a.id)">Unfavorite</button>
-                </td> -->
                   </tr>
                 </tbody>
               </table>
             </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-center align-items-center" *ngIf="toggleShow">
+          <div class="track-detail">
+            <img [src]="trackDetail.album.images[0].url" [alt]="trackDetail.name" style="width:625px;height:600px;">
+            <div>Song: {{trackDetail.name}}</div>
+            <div>Artists: {{trackDetail.artists[0].name}}</div>
+            <div>Album: {{trackDetail.album.name}} - {{trackDetail.album.type}}</div>
+            <div>Release Date: {{trackDetail.album.release_date}}</div>
+            <div>Popularity: {{trackDetail.popularity}}</div>
+            <div><audio [src]="trackDetail.preview_url" controls target="_blank">Preview Song</audio></div>
+            <div><a [href]="trackDetail.external_urls.spotify" target="_blank">Play on Spotify</a></div>
           </div>
         </div>
       </div>

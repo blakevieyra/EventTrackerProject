@@ -112,7 +112,11 @@
                       <img [src]="trackDetail.album.images[0].url" [alt]="trackDetail.name"
                         style="width:625px;height:600px;">
                       <div>Song: {{trackDetail.name}}</div>
-                      <!-- <div>Artist: {{ trackArtists }}</div> -->
+                      <div>Artists: {{trackDetail.artists[0].name}}</div>
+                      <div>Album: {{trackDetail.album.name}} - {{trackDetail.album.type}}</div>
+                      <div>Release Date: {{trackDetail.album.release_date}}</div>
+                      <div>Popularity: {{trackDetail.popularity}}</div>
+                      <div><audio [src]="trackDetail.preview_url" controls target="_blank">Preview Song</audio></div>
                       <div><a [href]="trackDetail.external_urls.spotify" target="_blank">Play on Spotify</a></div>
                     </div>
                   </div>
@@ -129,9 +133,11 @@
           <div id="artistsEdit" *ngIf="editArtist">
             <form class=".form-control-dark artistsEditForm dark-form">
               <!-- <label for="name">Updated Name</label> -->
-              <input class="form-control" type="text" name="name" [(ngModel)]="editArtist.name"  placeholder="Updated Name"><br>
+              <input class="form-control" type="text" name="name" [(ngModel)]="editArtist.name"
+                placeholder="Updated Name"><br>
               <!-- <label for="band">Updated Band</label> -->
-              <input class="form-control" type="text" name="name" [(ngModel)]="editArtist.band" placeholder="Updated Band"><br>
+              <input class="form-control" type="text" name="name" [(ngModel)]="editArtist.band"
+                placeholder="Updated Band"><br>
 
               <button class="btn btn-primary" (click)="updateArtist(editArtist)">Save</button>
 

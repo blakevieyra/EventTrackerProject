@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Songs } from '../../models/songs';
 import { CarouselComponent } from '../carousel/carousel.component';
 import { LoginComponent } from '../login/login.component';
+import { SpotifyService } from '../../services/spotify.service';
 
 @Component({
   selector: 'app-songs',
@@ -27,21 +28,30 @@ export class SongsComponent {
     // private ArtistsComponent: ArtistsComponent,
     private auth: AuthService,
     private songsService: SongsService,
+    private spotifyService: SpotifyService,
     private activateRoute: ActivatedRoute,
     private router: Router
   ) {}
 
   //initialized parameter and variables
   selected: boolean = false;
+  show: boolean = false;
   editSong: Songs | null = null;
   newSong: Songs | null = null;
   title: string = 'Incompleted Song Count: ';
   song: Songs | null = null;
   mySongs: Songs[] = [];
   keyword: string = '';
+  trackDetail: any;
+  token: string = '';
+  selectedSong: string = '';
+  songDetail: any;
 
   ngOnInit(): void {
     // this.reload();
+    this.spotifyService.getToken().subscribe((token) => {
+      this.token = token;
+    });
     this.activateRoute.paramMap.subscribe({
       next: (params) => {
         let songsIdStr = params.get('songsId');
@@ -190,6 +200,26 @@ export class SongsComponent {
         console.error(problem);
       },
     });
+  }
+  searchTrack(songName: string, artistName: string) {
+    return this.spotifyService
+      .searchTrack(this.token, `${songName} ${artistName}`)
+      .subscribe((track) => {
+        this.trackDetail = track;
+        this.selectedSong = songName;
+        console.log(this.trackDetail, this.selectedSong);
+      });
+  }
+  toggleShowMethod($event: Event): void {
+    $event.stopPropagation();
+    this.toggleShow = !this.toggleShow;
+  }
+
+  toggleShow = false; // Assuming this controls the visibility of the detail section
+
+  searchAndToggle(trackName: string, trackGenre: string): void {
+    this.searchTrack(trackName, trackGenre); // Perform the search or fetch track details
+    this.toggleShow = !this.toggleShow; // Toggle the visibility of the detail section
   }
 }
 
