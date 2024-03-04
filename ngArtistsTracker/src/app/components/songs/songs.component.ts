@@ -5,11 +5,12 @@ import { FormsModule } from '@angular/forms';
 import { SongsService } from '../../services/songs.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Songs } from '../../models/songs';
+import { CarouselComponent } from '../carousel/carousel.component';
 
 @Component({
   selector: 'app-songs',
   standalone: true,
-  imports: [CommonModule, FormsModule, ArtistsComponent],
+  imports: [CommonModule, FormsModule, ArtistsComponent, CarouselComponent],
   templateUrl: './songs.component.html',
   styleUrl: './songs.component.css',
 })

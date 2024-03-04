@@ -1,0 +1,11 @@
+.top-artists-today {
+  width: 525px;
+  height: 500px;
+  /* display: block; */
+  /* overflow-x: auto;
+  overflow-y: auto; */
+  /* flex-direction: row; */
+  justify-content: center;
+  align-items: center;
+
+}

@@ -54,7 +54,7 @@
     <main class="row">
       <div class="col">
         <div class="mb-3">
-          <h1 *ngIf="!selected" class="text-center mb-4">My Record Collection</h1>
+          <h1 *ngIf="!selected" class="text-center mb-4">My Artists</h1>
           <br>
           <br>
           <div *ngIf="! selected">
@@ -125,11 +125,13 @@
             <h1>{{selected.name}}</h1>
             <br>
             <div class="song-detail">
-            <img [src]="songDetail.images[0].url" [alt]="songDetail.name">
-            <!-- <img [src]="songDetail.items.images[1].url" [alt]="songDetail.name">
-            <img [src]="songDetail.items.images[2].url" [alt]="songDetail.name"> -->
+
+              <img [src]="songDetail.images[0].url" [alt]="songDetail.name" style="width:625px;height:600px;">
+              <h4>Spotify Followers: {{songDetail.followers.total}}</h4>
+              <h4>Genre: {{songDetail.genres[2]}}</h4>
+              <h4><a [href]="songDetail.external_urls.spotify" target="_blank">See on Spotify</a></h4>
             </div>
-           <br>
+            <br>
             <div *ngIf="songs && songs.length > 0">
               <!-- <h4>{{selected.name}}'s Songs</h4> -->
               <br><br>

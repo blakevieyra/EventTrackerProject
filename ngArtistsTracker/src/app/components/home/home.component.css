@@ -74,6 +74,7 @@ body {
   color: white;
   text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.5);
 }
+
 .btn {
   opacity: 0.95;
   display: inline-block;
@@ -215,4 +216,16 @@ img.track {
 #searchForm .form-group,
 #searchForm button {
   margin-bottom: 10px;
+}
+
+.carousel-item {
+  width: 525px;
+  height: 500px;
+  /* display: block; */
+  /* overflow-x: auto;
+  overflow-y: auto; */
+  /* flex-direction: row; */
+  justify-content: center;
+  align-items: center;
+
 }

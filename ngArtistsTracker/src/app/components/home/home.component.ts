@@ -1,25 +1,26 @@
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Artist } from './../../models/artist';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ArtistService } from '../../services/artist.service';
-import { RegisterComponent } from "../register/register.component";
-import { LoginComponent } from "../login/login.component";
+import { RegisterComponent } from '../register/register.component';
+import { LoginComponent } from '../login/login.component';
 import { AuthService } from '../../services/auth.service';
+import { CarouselComponent } from '../carousel/carousel.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css',
-  imports: [CommonModule, FormsModule, RegisterComponent, LoginComponent],
+  styleUrls: ['./home.component.css'],
+  imports: [CommonModule, FormsModule, RegisterComponent, LoginComponent, CarouselComponent],
 })
 export class HomeComponent implements OnInit {
   constructor(
     private artistService: ArtistService,
     private auth: AuthService,
-    route: Router
+    private route: Router
   ) {}
 
   selected: boolean = false;
@@ -28,9 +29,24 @@ export class HomeComponent implements OnInit {
   artists: Artist[] = [];
   keyword: string = '';
 
+  // ngAfterViewInit(): void {
+  //   let myCarouselElement = document.getElementById('carouselExampleFade');
+  //   if (myCarouselElement) {
+  //     let carousel = new this.bootstrap.Carousel(myCarouselElement, {
+  //       interval: 2000,
+  //       wrap: false,
+  //     });
+  //   } else {
+  //     console.error('Carousel element not found');
+  //   }
+  // }
 
-
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // document.addEventListener('DOMContentLoaded', () => {
+    //   var myCarousel = document.querySelector('#carouselExampleFade');
+    //   var carousel = new this.bootstrap.Carousel(myCarousel);
+    // });
+  }
 
   loadArtists(): void {
     this.artistService.all().subscribe({
