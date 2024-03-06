@@ -1,10 +1,9 @@
+import { environment } from '../../environments/environment';
 import { Songs } from './../models/songs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment.development';
 import { Observable, catchError, throwError } from 'rxjs';
 import { Artist } from '../models/artist';
-// import { DatePipe } from '@angular/common';
 import { AuthService } from './auth.service';
 import { SongsService } from './songs.service';
 
@@ -12,12 +11,10 @@ import { SongsService } from './songs.service';
   providedIn: 'root',
 })
 export class ArtistService {
-  // private baseUrl = 'http://localhost:8090/';
   private url = environment.baseUrl;
 
   constructor(
     private http: HttpClient,
-    // private datePipe: DatePipe,
     private auth: AuthService,
     private songService: SongsService
   ) {}
@@ -89,10 +86,7 @@ export class ArtistService {
   }
 
   show(artistsId: number): Observable<Artist> {
-    return this.http
-      .get<Artist>(
-        this.url + 'api/artists' + '/' + artistsId,
-        this.getHttpOptions()
+    return this.http.get<Artist>(this.url + 'api/artists' + '/' + artistsId, this.getHttpOptions()
       )
       .pipe(
         catchError((err: any) => {
@@ -122,11 +116,6 @@ export class ArtistService {
   }
 
   update(editArtist: Artist): Observable<Artist> {
-    // if (editArtist.completeDate) {
-    //   editArtist.completeDate = this.datePipe.transform(Date.now(), 'shortDate'); //  7/23/23
-    // } else {
-    //   editTodo.completeDate = '';
-    // }
     return this.http
       .put<Artist>(
         this.url + 'api/artists' + '/' + editArtist.id,
@@ -171,8 +160,24 @@ export class ArtistService {
           console.log(err);
           return throwError(
             () =>
+              new Error('ArtistService.getSongs(): error getting songs: ' + err)
+          );
+        })
+      );
+  }
+  createSong(artistsId: number, newSong: Songs): Observable<Songs> {
+    return this.http
+      .post<Songs>(this.url + 'api/artists' + '/' + artistsId + '/songs',
+        newSong,
+        this.getHttpOptions()
+      )
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError(
+            () =>
               new Error(
-                'ArtistService.getSongs(): error getting songs: ' + err
+                'SongsService.create(): error creating song for artist: ' + err
               )
           );
         })

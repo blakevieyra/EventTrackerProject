@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Songs } from './../models/songs';
 import { Injectable } from '@angular/core';
-import { DatePipe } from '@angular/common';
 import { AuthService } from './auth.service';
 import { Observable, catchError, throwError } from 'rxjs';
 
@@ -10,14 +9,10 @@ import { Observable, catchError, throwError } from 'rxjs';
   providedIn: 'root',
 })
 export class SongsService {
-  // private baseUrl = 'http://localhost:8090/';
   private url = environment.baseUrl + 'api/songs';
+  private urlArtists = environment.baseUrl + 'api/artists';
 
-  constructor(
-    private http: HttpClient,
-    private datePipe: DatePipe,
-    private auth: AuthService
-  ) {}
+  constructor(private http: HttpClient, private auth: AuthService) {}
 
   getHttpOptions() {
     let options = {
@@ -82,27 +77,11 @@ export class SongsService {
       );
   }
 
-  create(song: Songs): Observable<Songs> {
-    return this.http.post<Songs>(this.url, song, this.getHttpOptions()).pipe(
-      catchError((err: any) => {
-        console.log(err);
-        return throwError(
-          () => new Error('SongsService.create(): error creating song: ' + err)
-        );
-      })
-    );
-  }
-
-  update(editSongs: Songs): Observable<Songs> {
-    // if (editArtist.completeDate) {
-    //   editArtist.completeDate = this.datePipe.transform(Date.now(), 'shortDate'); //  7/23/23
-    // } else {
-    //   editTodo.completeDate = '';
-    // }
+  create(artistsId: number, newSong: Songs): Observable<Songs> {
     return this.http
-      .put<Songs>(
-        this.url + '/' + editSongs.id,
-        editSongs,
+      .post<Songs>(
+        `${this.urlArtists}/${artistsId}/songs`,
+        newSong,
         this.getHttpOptions()
       )
       .pipe(
@@ -110,15 +89,44 @@ export class SongsService {
           console.log(err);
           return throwError(
             () =>
-              new Error('SongsService.update(): error updating song: ' + err)
+              new Error(
+                'SongsService.create(): error creating song for artist: ' + err
+              )
           );
         })
       );
   }
 
-  destroy(id: number): Observable<void> {
+  update(
+    artistsId: number,
+    songId: number,
+    editSong: Songs
+  ): Observable<Songs> {
     return this.http
-      .delete<void>(`${this.url}/${id}`, this.getHttpOptions())
+      .put<Songs>(
+        `${this.urlArtists}/${artistsId}/songs/${songId}`,
+        editSong,
+        this.getHttpOptions()
+      )
+      .pipe(
+        catchError((err: any) => {
+          console.log(err);
+          return throwError(
+            () =>
+              new Error(
+                'SongsService.update(): error updating song for artist: ' + err
+              )
+          );
+        })
+      );
+  }
+
+  destroy(artistId: number, songId: number): Observable<void> {
+    return this.http
+      .delete<void>(
+        `${this.urlArtists}/${artistId}/songs/${songId}`,
+        this.getHttpOptions()
+      )
       .pipe(
         catchError((err: any) => {
           console.log(err);

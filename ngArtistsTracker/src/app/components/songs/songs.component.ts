@@ -86,17 +86,15 @@ export class SongsComponent {
       },
     });
   }
-  // getTodoCount() {
-  //   return this.incompletePipe.transform(this.todos, false).length;
-  // }
-  // displaySongs(songs: Songs) {
-  //   this.mySongs = songs;
-  // }
 
   displayTable() {
     this.song = null;
   }
   setEditSong() {
+    this.selected = Object.assign({}, this.selected);
+  }
+
+  setNewSong() {
     this.selected = Object.assign({}, this.selected);
   }
 
@@ -111,58 +109,13 @@ export class SongsComponent {
     });
   }
 
-  addSong(song: Songs) {
-    this.songsService.create(song).subscribe({
-      next: (createdTodo) => {
-        this.newSong = new Songs();
-        this.reload();
-      },
-      error: () => {},
-    });
-  }
-
-  updateSong(song: Songs, goToDetail = true) {
-    console.log(song);
-    this.songsService.update(song).subscribe({
-      next: (updatedSong) => {
-        this.editSong = null;
-        if (goToDetail) {
-          this.song = updatedSong;
-        }
-        this.reload();
-      },
-      error: (kaboom) => {
-        console.error('Error updating song');
-        console.error(kaboom);
-      },
-    });
-  }
-
-  deleteSong(id: number) {
-    this.songsService.destroy(id).subscribe({
-      next: () => {
-        this.reload();
-      },
-      error: () => {},
-    });
-  }
-  addArtistToUser(song: Songs) {
-    this.songsService.create(song).subscribe({
-      next: (createdArtist) => {
-        this.newSong = new Songs();
-        //this.loadArtists();
-      },
-      error: () => {},
-    });
-  }
-
   toggleSelected() {
     this.selected = true;
   }
 
-  addSongToArtist(song: Songs) {
-    this.songsService.create(song).subscribe({
-      next: (createdArtist) => {
+  addSongToArtist(artistId: number, newSong: Songs) {
+    this.songsService.create(artistId, newSong).subscribe({
+      next: (newSong) => {
         this.newSong = new Songs();
         //this.loadArtists();
       },
@@ -170,16 +123,8 @@ export class SongsComponent {
     });
   }
 
-  toggleSongs(event: any, song: any): void {
-    if (event.target.checked) {
-      this.addArtistToUser(song);
-    } else {
-      this.removeSongFromArtist(song);
-    }
-  }
-
-  removeSongFromArtist(song: Songs) {
-    this.songsService.destroy(song.id).subscribe({
+  removeSongFromArtist(artistId: number, song: Songs) {
+    this.songsService.destroy(artistId, song.id).subscribe({
       next: () => {
         // this.loadArtists();
       },
@@ -215,11 +160,10 @@ export class SongsComponent {
     this.toggleShow = !this.toggleShow;
   }
 
-  toggleShow = false; // Assuming this controls the visibility of the detail section
-
+  toggleShow = false;
   searchAndToggle(trackName: string, trackGenre: string): void {
-    this.searchTrack(trackName, trackGenre); // Perform the search or fetch track details
-    this.toggleShow = !this.toggleShow; // Toggle the visibility of the detail section
+    this.searchTrack(trackName, trackGenre);
+    this.toggleShow = !this.toggleShow;
   }
 }
 

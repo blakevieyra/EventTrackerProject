@@ -47,6 +47,6 @@ export class SpotifyService {
         `${this.searchUrl}?q=${encodeURIComponent(query)}&type=artist&limit=1`,
         { headers }
       )
-      .pipe(map((data) => data.artists.items[0])); // Corrected path to access the first artist
+      .pipe(map((data) => data.artists.items[0]));
   }
 }

@@ -1,5 +1,4 @@
 import { SpotifyService } from './../../services/spotify.service';
-import { Songs } from './../../models/songs';
 import { ArtistService } from './../../services/artist.service';
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
@@ -9,29 +8,39 @@ import { Artist } from '../../models/artist';
 import { LoginComponent } from '../login/login.component';
 import { AuthService } from '../../services/auth.service';
 import { RegisterComponent } from '../register/register.component';
+import { SongsComponent } from '../songs/songs.component';
+import { SongsService } from '../../services/songs.service';
+import { Songs } from '../../models/songs';
 
 @Component({
   selector: 'app-artists',
   standalone: true,
-  imports: [CommonModule, FormsModule, LoginComponent, RegisterComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    LoginComponent,
+    RegisterComponent,
+    SongsComponent,
+  ],
   templateUrl: './artists.component.html',
   styleUrl: './artists.component.css',
 })
 export class ArtistsComponent {
   constructor(
+    private songsService: SongsService,
     private artistService: ArtistService,
     private spotifyService: SpotifyService,
     private auth: AuthService,
     private activateRoute: ActivatedRoute,
     private router: Router
   ) {}
+
   loggedIn(): boolean {
     return this.auth.checkLogin();
   }
 
-  //initialized parameter and variables
-  songs: any[] = [];
-  editArtist: Artist | null = null;
+  songs: any;
+  editArtist: any;
   newArtist: Artist = new Artist();
   title: string = 'Incompleted Artist Count: ';
   selected: any;
@@ -40,6 +49,11 @@ export class ArtistsComponent {
   token: string = '';
   selectedSong: string = '';
   songDetail: any;
+  newSong: Songs = new Songs();
+  editSong: any;
+  newSongSelected: boolean = false;
+  editSongSelected: boolean = false;
+  editArtistSelected: boolean = false;
 
   ngOnInit(): void {
     this.reload();
@@ -65,15 +79,30 @@ export class ArtistsComponent {
     });
   }
 
-  // toggleSelectedSong() {
-  //   if (this.selectedSong == true) {
-  //     this.selectedSong = false;
-  //   } else {
-  //     this.selectedSong = true;
-  //   }
-  // }
+  newSongToggle() {
+    if (this.newSongSelected == false) {
+      this.newSongSelected = true;
+    } else {
+      this.newSongSelected = false;
+    }
+  }
 
-  //loaded the method on the page once subscribed call is made
+  editArtistToggle() {
+    if (this.editArtistSelected == false) {
+      this.editArtistSelected = true;
+    } else {
+      this.editArtistSelected = false;
+    }
+  }
+
+  editSongToggle() {
+    if (this.editSongSelected == false) {
+      this.editSongSelected = true;
+    } else {
+      this.editSongSelected = false;
+    }
+  }
+
   reload(): void {
     this.artistService.index().subscribe({
       next: (artist) => {
@@ -84,12 +113,21 @@ export class ArtistsComponent {
         console.error(problem);
       },
     });
+    //  this.artistService.getSongsFromArtist(this.selected.id).subscribe({
+    //    next: (songs) => {
+    //      this.songs = songs;
+    //    },
+    //    error: (problem) => {
+    //      console.error('ArtistsComponent.reload(): error loading artists songs: ');
+    //      console.error(problem);
+    //    },
+    //  });
   }
 
   getArtistSongs(id: number): void {
     this.artistService.getSongsFromArtist(id).subscribe({
       next: (songs) => {
-        this.songs = Array.isArray(songs) ? songs : [songs];
+        this.songs = songs;
       },
       error: (error) => {
         console.error(
@@ -100,9 +138,6 @@ export class ArtistsComponent {
     });
   }
 
-  // getTodoCount() {
-  //   return this.incompletePipe.transform(this.todos, false).length;
-  // }
   displayArtists(artist: Artist) {
     // this.searchTrack(artist.name, artist.band);
     this.selected = artist;
@@ -190,7 +225,40 @@ export class ArtistsComponent {
       });
   }
 
-  // get trackArtists() {
-  //   return this.trackDetail.artists.map((artist) => artist.name).join(', ');
-  // }
+  addSongToArtist(artistId: number, newSong: Songs) {
+    this.artistService.createSong(artistId, newSong).subscribe({
+      next: (newSong) => {
+        this.newSong = new Songs();
+        this.reload();
+      },
+      error: () => {},
+    });
+  }
+
+  removeSongFromArtist(artistId: number, songId: number) {
+    this.songsService.destroy(artistId, songId).subscribe({
+      next: () => {
+        this.reload();
+      },
+      error: () => {},
+    });
+  }
+
+  setNewSong() {
+    this.selected = Object.assign({}, this.selected);
+  }
+
+  updateSongs(song: Songs, artistId:number, songId:number, goToDetail = true) {
+    console.log(song);
+    this.songsService.update(artistId, songId, song).subscribe({
+      next: (song) => {
+        this.editSong = null;
+        this.reload();
+      },
+      error: (kaboom) => {
+        console.error('Error updating artist');
+        console.error(kaboom);
+      },
+    });
+  }
 }

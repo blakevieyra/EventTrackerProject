@@ -8,18 +8,26 @@ import { RegisterComponent } from '../register/register.component';
 import { LoginComponent } from '../login/login.component';
 import { AuthService } from '../../services/auth.service';
 import { CarouselComponent } from '../carousel/carousel.component';
+import { SpotifyService } from '../../services/spotify.service';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
-  imports: [CommonModule, FormsModule, RegisterComponent, LoginComponent, CarouselComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    RegisterComponent,
+    LoginComponent,
+    CarouselComponent,
+  ],
 })
 export class HomeComponent implements OnInit {
   constructor(
     private artistService: ArtistService,
     private auth: AuthService,
+    private spotifyService: SpotifyService,
     private route: Router
   ) {}
 
@@ -28,24 +36,16 @@ export class HomeComponent implements OnInit {
   favorite: boolean = false;
   artists: Artist[] = [];
   keyword: string = '';
-
-  // ngAfterViewInit(): void {
-  //   let myCarouselElement = document.getElementById('carouselExampleFade');
-  //   if (myCarouselElement) {
-  //     let carousel = new this.bootstrap.Carousel(myCarouselElement, {
-  //       interval: 2000,
-  //       wrap: false,
-  //     });
-  //   } else {
-  //     console.error('Carousel element not found');
-  //   }
-  // }
+  trackDetail: any;
+  token: string = '';
+  selectedSong: string = '';
+  songDetail: any;
+  artistInfo: any;
 
   ngOnInit(): void {
-    // document.addEventListener('DOMContentLoaded', () => {
-    //   var myCarousel = document.querySelector('#carouselExampleFade');
-    //   var carousel = new this.bootstrap.Carousel(myCarousel);
-    // });
+    this.spotifyService.getToken().subscribe((token) => {
+      this.token = token;
+    });
   }
 
   loadArtists(): void {
@@ -110,5 +110,24 @@ export class HomeComponent implements OnInit {
     } else {
       this.removeArtistFromUser(artist);
     }
+  }
+  searchArtist(query: string) {
+    return this.spotifyService
+      .searchArtist(this.token, query)
+      .subscribe((artist: any) => {
+        this.songDetail = artist;
+        console.log(this.songDetail);
+      });
+  }
+  setEditSong() {
+    this.selected = Object.assign({}, this.selected);
+  }
+
+  setNewSong() {
+    this.selected = Object.assign({}, this.selected);
+  }
+
+  getInfo(artist: Artist) {
+    this.artistInfo = artist;
   }
 }
