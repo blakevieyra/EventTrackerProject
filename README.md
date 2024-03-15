@@ -36,7 +36,7 @@ Programming Languages:
 - Version Control: Git 2.32.1 (https://git-scm.com/)
 - Database Management: MySQL (version 5.7.39)
 - Build Tool: Gradle
-- Web Framework: Spring MVC, JPA, Restful API
+- Web Framework: Spring Boot, JPA, Restful API
 
 # Lessons Learned:
 
